@@ -1,0 +1,119 @@
+.posts {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.container {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* 文章列表侧边栏 */
+.sidebar {
+  flex: 0 0 300px;
+  background: var(--background-secondary);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.sidebarTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.postList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.postItem {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.postItem:hover {
+  background: var(--background-hover);
+  color: var(--text-primary);
+}
+
+.postItem.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* 文章内容区域 */
+.content {
+  flex: 1;
+  min-width: 0;
+  background: var(--background-secondary);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+/* 加载和错误状态 */
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.error {
+  color: var(--error-color, #e74c3c);
+}
+
+/* 响应式设计 */
+@media (max-width: 968px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex: 1;
+    width: 100%;
+    position: static;
+    max-height: none;
+  }
+
+  .content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .posts {
+    padding: 1rem 0.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .sidebar,
+  .content {
+    padding: 1rem;
+  }
+}
