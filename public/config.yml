@@ -52,21 +52,27 @@ theme:
 content:
   postsPath: "/content/posts"
   pagesPath: "/content/pages"
-  assetsPath: "/assets"
+  filesPath: "/content/files"  # PDF 和文档文件目录
+  assetsPath: "/assets"         # 网站资源（图片、图标等）
 
 # 文件配置
+# 所有文件放在 content/files/ 目录下
+# PDF 文件：content/files/pdfs/
+# 其他文档：content/files/docs/
 files:
   - title: "示例论文"
     description: "这是一个示例 PDF 文件"
     type: "pdf"
-    path: "/assets/pdfs/sample.pdf"
+    path: "/content/files/pdfs/sample.pdf"
     preview: true
+    relatedPost: "欢迎使用 PPage"  # 可选：关联的博客文章标题
   - title: "示例文档"
     description: "这是一个可下载的文档"
     type: "document"
-    path: "/assets/files/sample.docx"
+    path: "/content/files/docs/sample.docx"
     preview: false
     size: "2.3MB"
+    relatedProject: "个人主页系统"  # 可选：关联的项目名称
 
 # 项目列表
 projects:

@@ -142,3 +142,19 @@ export function useSocialConfig() {
   const { config } = useConfig();
   return config?.social || [];
 }
+
+/**
+ * 获取文件配置
+ */
+export function useFilesConfig() {
+  const { config } = useConfig();
+  return config?.files || [];
+}
+
+/**
+ * 获取项目配置
+ */
+export function useProjectsConfig() {
+  const { config } = useConfig();
+  return config?.projects || [];
+}
