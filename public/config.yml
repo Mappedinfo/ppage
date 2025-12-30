@@ -56,23 +56,26 @@ content:
   assetsPath: "/assets"         # 网站资源（图片、图标等）
 
 # 文件配置
-# 所有文件放在 content/files/ 目录下
-# PDF 文件：content/files/pdfs/
-# 其他文档：content/files/docs/
+# 支持两种方式：
+# 1. 自动扫描：系统会自动扫描所有 Markdown 中的 /content/files/ 链接
+# 2. 手动配置：在这里配置的文件会覆盖自动扫描的结果
+#
+# 推荐使用自动扫描：只需在 Markdown 中引用文件，系统会自动展示！
+#
+# 示例：在 Markdown 中写：
+# [下载论文](/content/files/pdfs/my-paper.pdf)
+# 系统会自动提取并在文件页面展示
+#
 files:
-  - title: "示例论文"
-    description: "这是一个示例 PDF 文件"
-    type: "pdf"
-    path: "/content/files/pdfs/sample.pdf"
-    preview: true
-    relatedPost: "欢迎使用 PPage"  # 可选：关联的博客文章标题
-  - title: "示例文档"
-    description: "这是一个可下载的文档"
-    type: "document"
-    path: "/content/files/docs/sample.docx"
-    preview: false
-    size: "2.3MB"
-    relatedProject: "个人主页系统"  # 可选：关联的项目名称
+  # 如果需要手动配置文件的详细信息，可以在这里添加：
+  # - title: "示例论文"
+  #   description: "这是一个示例 PDF 文件"
+  #   type: "pdf"
+  #   path: "/content/files/pdfs/sample.pdf"
+  #   preview: true
+  #   size: "3.5MB"
+  #   relatedPost: "欢迎使用 PPage"
+  #   relatedProject: "个人主页系统"
 
 # 项目列表
 projects:

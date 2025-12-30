@@ -1,15 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useConfig } from '../config/ConfigContext';
 import { PDFViewer } from '../components/common/PDFViewer';
 import { DownloadButton } from '../components/common/DownloadButton';
+import { autoGenerateFileList } from '../utils/fileScanner';
 import styles from './Files.module.css';
 
 /**
  * 文件列表页面组件
+ * 支持两种方式获取文件列表：
+ * 1. 从配置文件中读取（手动配置）
+ * 2. 自动扫描 Markdown 中的文件引用（自动发现）
  */
 export function Files() {
   const { config } = useConfig();
-  const files = config?.files || [];
+  const configFiles = config?.files || [];
+  const [scannedFiles, setScannedFiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  // 加载自动扫描的文件
+  useEffect(() => {
+    async function loadFiles() {
+      setLoading(true);
+      try {
+        const files = await autoGenerateFileList();
+        setScannedFiles(files);
+      } catch (error) {
+        console.error('自动扫描文件失败:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    loadFiles();
+  }, []);
+  
+  // 合并配置文件和自动扫描的文件，去重
+  const allFiles = React.useMemo(() => {
+    const fileMap = new Map();
+    
+    // 先添加配置文件中的文件（优先级更高）
+    configFiles.forEach(file => {
+      fileMap.set(file.path, { ...file, source: 'config' });
+    });
+    
+    // 再添加自动扫描的文件（如果不存在）
+    scannedFiles.forEach(file => {
+      if (!fileMap.has(file.path)) {
+        fileMap.set(file.path, { ...file, source: 'auto' });
+      }
+    });
+    
+    return Array.from(fileMap.values());
+  }, [configFiles, scannedFiles]);
 
   // 获取文件图标
   const getFileIcon = (type) => {
@@ -46,9 +88,21 @@ export function Files() {
 
   return (
     <div className={styles.files}>
-      <h1 className={styles.title}>文件列表</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>文件列表</h1>
+        <div className={styles.stats}>
+          {loading && <span className={styles.loading}>正在扫描...</span>}
+          {!loading && (
+            <span className={styles.count}>
+              共 {allFiles.length} 个文件
+              {configFiles.length > 0 && ` (${configFiles.length} 个手动配置)`}
+              {scannedFiles.length > 0 && ` (${scannedFiles.length} 个自动发现)`}
+            </span>
+          )}
+        </div>
+      </div>
       
-      {files.length === 0 ? (
+      {allFiles.length === 0 && !loading ? (
         <div className={styles.empty}>
           <div className={styles.emptyIcon}>📂</div>
           <p className={styles.emptyText}>系统内暂时没有文件</p>
@@ -58,7 +112,7 @@ export function Files() {
         </div>
       ) : (
         <div className={styles.grid}>
-          {files.map((file, index) => {
+          {allFiles.map((file, index) => {
             const relatedItems = getRelatedItems(file);
             
             return (
