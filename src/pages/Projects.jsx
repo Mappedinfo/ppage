@@ -1,5 +1,6 @@
 import React from 'react';
 import { useConfig } from '../config/ConfigContext';
+import { useI18n } from '../i18n/I18nContext';
 import styles from './Projects.module.css';
 
 /**
@@ -7,14 +8,15 @@ import styles from './Projects.module.css';
  */
 export function Projects() {
   const { config } = useConfig();
+  const { t } = useI18n();
   const projects = config?.projects || [];
 
   return (
     <div className={styles.projects}>
-      <h1 className={styles.title}>项目列表</h1>
+      <h1 className={styles.title}>{t('projects.title')}</h1>
       
       {projects.length === 0 ? (
-        <p className={styles.empty}>暂无项目</p>
+        <p className={styles.empty}>{t('projects.empty')}</p>
       ) : (
         <div className={styles.grid}>
           {projects.map((project, index) => (
@@ -40,7 +42,7 @@ export function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  查看项目 →
+                  {t('projects.viewProject')}
                 </a>
               )}
             </article>

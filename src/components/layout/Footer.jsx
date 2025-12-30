@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSiteConfig, useSocialConfig } from '../../config/ConfigContext';
+import { useI18n } from '../../i18n/I18nContext';
 import styles from './Footer.module.css';
 
 /**
@@ -8,6 +9,7 @@ import styles from './Footer.module.css';
 export function Footer() {
   const siteConfig = useSiteConfig();
   const socialLinks = useSocialConfig();
+  const { t } = useI18n();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -36,14 +38,14 @@ export function Footer() {
           <div className={styles.copyright}>
             <p>
               © {currentYear} {siteConfig?.author || siteConfig?.title}. 
-              {' '}由 <a 
+              {' '}{t('footer.poweredBy')} <a 
                 href="https://github.com/mappedinfo/ppage" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.link}
               >
-                PPage
-              </a> 驱动
+                {t('footer.poweredByLink')}
+              </a>{t('footer.poweredBySuffix') && ` ${t('footer.poweredBySuffix')}`}
             </p>
           </div>
         </div>

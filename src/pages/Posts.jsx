@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MarkdownRenderer } from '../components/markdown/MarkdownRenderer';
 import { loadAllMarkdownFiles } from '../utils/markdownIndex';
+import { useI18n } from '../i18n/I18nContext';
 import styles from './Posts.module.css';
 
 /**
@@ -13,6 +14,7 @@ export function Posts() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     loadPosts();
@@ -79,7 +81,7 @@ export function Posts() {
   if (loading) {
     return (
       <div className={styles.posts}>
-        <div className={styles.loading}>加载中...</div>
+        <div className={styles.loading}>{t('common.loading')}</div>
       </div>
     );
   }
@@ -95,22 +97,22 @@ export function Posts() {
   return (
     <div className={styles.posts}>
       <div className={styles.header}>
-        <h1 className={styles.title}>博客文章</h1>
+        <h1 className={styles.title}>{t('posts.title')}</h1>
         {!loading && posts.length > 0 && (
-          <span className={styles.count}>共 {posts.length} 篇文章</span>
+          <span className={styles.count}>{t('posts.count', { count: posts.length })}</span>
         )}
       </div>
       
       {posts.length === 0 && !loading ? (
         <div className={styles.empty}>
-          <p>暂无博客文章</p>
-          <p className={styles.hint}>在 content/posts/ 目录下添加 Markdown 文件即可自动发现</p>
+          <p>{t('posts.empty')}</p>
+          <p className={styles.hint}>{t('posts.emptyHint')}</p>
         </div>
       ) : (
         <div className={styles.container}>
         {/* 文章列表侧边栏 */}
         <aside className={styles.sidebar}>
-          <h2 className={styles.sidebarTitle}>文章列表</h2>
+          <h2 className={styles.sidebarTitle}>{t('posts.listTitle')}</h2>
           <ul className={styles.postList}>
             {posts.map((post, index) => (
               <li 
@@ -129,7 +131,7 @@ export function Posts() {
           {selectedPost ? (
             <MarkdownRenderer content={selectedPost.content} />
           ) : (
-            <div className={styles.empty}>请选择一篇文章</div>
+            <div className={styles.empty}>{t('posts.selectPost')}</div>
           )}
         </main>
       </div>

@@ -1,0 +1,36 @@
+.languageSwitcher {
+  display: inline-flex;
+  align-items: center;
+}
+
+.select {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  background-color: var(--bg-color, #fff);
+  color: var(--text-color, #333);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select:hover {
+  border-color: var(--primary-color, #0066cc);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--primary-color, #0066cc);
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+/* 深色主题适配 */
+[data-theme="dark"] .select {
+  background-color: var(--bg-secondary, #2d2d2d);
+  border-color: var(--border-color, #444);
+  color: var(--text-color, #e0e0e0);
+}
+
+[data-theme="dark"] .select:hover {
+  border-color: var(--primary-color, #4a9eff);
+}

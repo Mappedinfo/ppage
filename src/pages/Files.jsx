@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useConfig } from '../config/ConfigContext';
+import { useI18n } from '../i18n/I18nContext';
 import { PDFViewer } from '../components/common/PDFViewer';
 import { DownloadButton } from '../components/common/DownloadButton';
 import { autoGenerateFileList } from '../utils/fileScanner';
@@ -13,6 +14,7 @@ import styles from './Files.module.css';
  */
 export function Files() {
   const { config } = useConfig();
+  const { t } = useI18n();
   const configFiles = config?.files || [];
   const [scannedFiles, setScannedFiles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -89,14 +91,14 @@ export function Files() {
   return (
     <div className={styles.files}>
       <div className={styles.header}>
-        <h1 className={styles.title}>文件列表</h1>
+        <h1 className={styles.title}>{t('files.title')}</h1>
         <div className={styles.stats}>
-          {loading && <span className={styles.loading}>正在扫描...</span>}
+          {loading && <span className={styles.loading}>{t('files.scanning')}</span>}
           {!loading && (
             <span className={styles.count}>
-              共 {allFiles.length} 个文件
-              {configFiles.length > 0 && ` (${configFiles.length} 个手动配置)`}
-              {scannedFiles.length > 0 && ` (${scannedFiles.length} 个自动发现)`}
+              {t('files.count', { count: allFiles.length })}
+              {configFiles.length > 0 && ` (${t('files.manualCount', { count: configFiles.length })})`}
+              {scannedFiles.length > 0 && ` (${t('files.autoCount', { count: scannedFiles.length })})`}
             </span>
           )}
         </div>
@@ -105,9 +107,9 @@ export function Files() {
       {allFiles.length === 0 && !loading ? (
         <div className={styles.empty}>
           <div className={styles.emptyIcon}>📂</div>
-          <p className={styles.emptyText}>系统内暂时没有文件</p>
+          <p className={styles.emptyText}>{t('files.empty')}</p>
           <p className={styles.emptyHint}>
-            你可以在 config.yml 的 files 配置中添加文件
+            {t('files.emptyHint')}
           </p>
         </div>
       ) : (
@@ -129,12 +131,12 @@ export function Files() {
                 <div className={styles.meta}>
                   {file.type && (
                     <span className={styles.type}>
-                      类型: {file.type.toUpperCase()}
+                      {t('files.typeLabel')}: {file.type.toUpperCase()}
                     </span>
                   )}
                   {file.size && (
                     <span className={styles.size}>
-                      大小: {file.size}
+                      {t('files.sizeLabel')}: {file.size}
                     </span>
                   )}
                 </div>
@@ -142,7 +144,7 @@ export function Files() {
                 {/* 关联的 posts 或项目 */}
                 {relatedItems.length > 0 && (
                   <div className={styles.related}>
-                    <h3 className={styles.relatedTitle}>相关内容:</h3>
+                    <h3 className={styles.relatedTitle}>{t('files.relatedTitle')}:</h3>
                     <ul className={styles.relatedList}>
                       {relatedItems.map((item, idx) => (
                         <li key={idx} className={styles.relatedItem}>
@@ -177,7 +179,7 @@ export function Files() {
                         rel="noopener noreferrer"
                         className={styles.viewButton}
                       >
-                        在新窗口打开
+                        {t('files.openInNewTab')}
                       </a>
                     </>
                   )}

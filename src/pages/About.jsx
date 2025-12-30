@@ -1,5 +1,6 @@
 import React from 'react';
-import { useProfileConfig } from '../config/ConfigContext';
+import { useProfileConfig, useConfig } from '../config/ConfigContext';
+import { useI18n } from '../i18n/I18nContext';
 import styles from './About.module.css';
 
 /**
@@ -7,22 +8,28 @@ import styles from './About.module.css';
  */
 export function About() {
   const profile = useProfileConfig();
+  const { config } = useConfig();
+  const { t, language } = useI18n();
+
+  // 从配置中获取自定义内容（如果有）
+  const siteDescription = config?.pageContent?.about?.siteDescription?.[language] 
+    || t('about.siteDescription');
 
   return (
     <div className={styles.about}>
-      <h1 className={styles.title}>关于我</h1>
+      <h1 className={styles.title}>{t('about.title')}</h1>
       
       <div className={styles.content}>
         <section className={styles.section}>
-          <h2 className={styles.subtitle}>个人简介</h2>
-          <p className={styles.text}>{profile?.bio || '欢迎来到我的个人主页！'}</p>
+          <h2 className={styles.subtitle}>{t('about.bioTitle')}</h2>
+          <p className={styles.text}>{profile?.bio || t('about.bioDefault')}</p>
         </section>
 
         {profile?.email && (
           <section className={styles.section}>
-            <h2 className={styles.subtitle}>联系方式</h2>
+            <h2 className={styles.subtitle}>{t('about.contactTitle')}</h2>
             <p className={styles.text}>
-              Email: <a href={`mailto:${profile.email}`} className={styles.link}>
+              {t('about.emailLabel')}: <a href={`mailto:${profile.email}`} className={styles.link}>
                 {profile.email}
               </a>
             </p>
@@ -30,11 +37,9 @@ export function About() {
         )}
 
         <section className={styles.section}>
-          <h2 className={styles.subtitle}>关于本站</h2>
+          <h2 className={styles.subtitle}>{t('about.siteTitle')}</h2>
           <p className={styles.text}>
-            本站点使用 PPage 构建，这是一个纯前端的个人主页生成系统，
-            支持通过 YAML 配置文件快速搭建个人主页，支持 Markdown 内容创作，
-            支持多种主题切换，部署在 GitHub Pages 上。
+            {siteDescription}
           </p>
         </section>
       </div>

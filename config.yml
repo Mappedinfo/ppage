@@ -48,6 +48,19 @@ theme:
     - "dark"
     - "academic"
 
+# 语言配置
+language:
+  default: "zh"  # 默认语言：zh(中文), en(英文)
+
+# 页面文案配置（可选，用于覆盖默认翻译）
+pageContent:
+  # 关于页面自定义内容
+  about:
+    # 自定义内容会覆盖默认翻译，支持多语言
+    siteDescription:
+      zh: "本站点使用 PPage 构建，这是一个纯前端的个人主页生成系统，支持通过 YAML 配置文件快速搭建个人主页，支持 Markdown 内容创作，支持多种主题切换，部署在 GitHub Pages 上。"
+      en: "This site is built with PPage, a pure frontend personal homepage generation system. It supports quick setup through YAML configuration files, Markdown content creation, multiple theme switching, and deployment on GitHub Pages."
+
 # 内容路径配置
 content:
   postsPath: "/content/posts"
