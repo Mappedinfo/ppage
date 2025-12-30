@@ -48,6 +48,63 @@
   text-decoration: underline;
 }
 
+/* Markdown 内容样式 */
+.markdownContent {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.markdownContent h1,
+.markdownContent h2,
+.markdownContent h3,
+.markdownContent h4,
+.markdownContent h5,
+.markdownContent h6 {
+  color: var(--text-primary);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.markdownContent h1:first-child,
+.markdownContent h2:first-child {
+  margin-top: 0;
+}
+
+.markdownContent ul,
+.markdownContent ol {
+  padding-left: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.markdownContent li {
+  margin: var(--spacing-sm) 0;
+}
+
+.markdownContent p {
+  margin: var(--spacing-md) 0;
+}
+
+.markdownContent code {
+  background-color: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.markdownContent pre {
+  background-color: var(--bg-tertiary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+}
+
+.markdownContent hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: var(--spacing-lg) 0;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .title {
