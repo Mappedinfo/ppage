@@ -4,9 +4,9 @@
 
 ## 相关文档
 
-在这项研究中，我整理了以下文档：
+在这项研究中，我整理与参考了以下文档：
 
-- [研究论文 PDF](/content/files/pdfs/research-paper.pdf) - 完整的研究论文
+- [Attention is All you neec](/content/files/pdfs/1706.03762v7.pdf) - 完整的研究论文
 - [数据分析报告](/content/files/pdfs/data-analysis.pdf) - 详细的数据分析
 - [补充材料](/content/files/docs/supplementary.docx) - 补充说明文档
 
