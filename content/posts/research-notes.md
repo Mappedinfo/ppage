@@ -6,7 +6,7 @@
 
 在这项研究中，我整理与参考了以下文档：
 
-- [Attention is All You Need](/content/files/pdfs/1706.03762v7.pdf) - 参考的完整的研究论文
+- [Attention Is All You Need](/content/files/pdfs/1706.03762v7.pdf) - 参考的完整的研究论文
 - [数据分析报告](/content/files/pdfs/data-analysis.pdf) - 详细的数据分析
 - [补充材料](/content/files/docs/supplementary.docx) - 补充说明文档
 

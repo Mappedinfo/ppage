@@ -160,7 +160,7 @@ export function Files() {
                 {/* PDF 预览 */}
                 {file.type === 'pdf' && file.preview && file.path && (
                   <div className={styles.preview}>
-                    <PDFViewer pdfUrl={file.path} />
+                    <PDFViewer url={file.path} title={file.title} />
                   </div>
                 )}
 
