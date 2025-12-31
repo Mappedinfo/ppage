@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "init": "node scripts/init.js"
+    "init": "node scripts/init.js",
+    "update": "node scripts/update.js"
   },
   "bin": {
     "ppage": "./scripts/init.js"

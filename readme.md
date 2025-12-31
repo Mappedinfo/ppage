@@ -62,6 +62,24 @@ npm run build
 
 - [USER_GUIDE.md](./USER_GUIDE.md) - 详细使用文档
 - [INIT_GUIDE.md](./INIT_GUIDE.md) - `ppage init` 命令使用指南
+- [UPDATE_GUIDE.md](./UPDATE_GUIDE.md) - 如何安全地更新 fork 的代码
+
+## 🔄 Fork 后如何更新？
+
+当你 fork 了本仓库并自定义了内容后，可以安全地获取上游更新：
+
+```bash
+# 一键更新，自动保护你的配置和内容
+npm run update
+```
+
+**受保护的文件**（更新时不会被覆盖）：
+- `config.yml` - 你的站点配置
+- `content/` - 你的所有内容
+- `public/assets/` - 你的资源文件
+- `scripts/deploy.sh` - 你的部署脚本
+
+详细更新流程请查看 [UPDATE_GUIDE.md](./UPDATE_GUIDE.md)。
 
 ## 技术栈
 

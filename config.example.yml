@@ -1,0 +1,134 @@
+# PPage 个人主页配置文件示例
+# 这是一个完整的示例配置，展示了所有可用的配置选项
+# 运行 npm run init 后会生成指引式的配置文件
+
+# ========================================
+# 站点基本信息
+# ========================================
+site:
+  title: "个人主页"
+  description: "这是一个基于 Markdown 的个人主页系统"
+  author: "Your Name"
+  baseUrl: "/"
+
+# ========================================
+# 个人信息
+# ========================================
+profile:
+  name: "Your Name"
+  avatar: "/assets/images/avatar.jpg"
+  bio: "研究者 | 开发者 | 学习者"
+  email: "your.email@example.com"
+  location: "City, Country"
+
+# ========================================
+# 社交链接
+# ========================================
+social:
+  - name: "GitHub"
+    icon: "github"
+    url: "https://github.com/yourusername"
+  - name: "Email"
+    icon: "email"
+    url: "mailto:your.email@example.com"
+  - name: "Twitter"
+    icon: "twitter"
+    url: "https://twitter.com/yourusername"
+
+# ========================================
+# 导航菜单配置
+# ========================================
+navigation:
+  - name: "首页"
+    path: "/"
+  - name: "关于"
+    path: "/about"
+  - name: "项目"
+    path: "/projects"
+  - name: "博客"
+    path: "/posts"
+  - name: "文件"
+    path: "/files"
+  - name: "动态"
+    path: "/news"
+
+# ========================================
+# 主题配置
+# ========================================
+theme:
+  default: "light"
+  available:
+    - "light"
+    - "dark"
+    - "academic"
+
+# ========================================
+# 语言配置
+# ========================================
+language:
+  default: "zh"  # zh(中文) 或 en(英文)
+
+# ========================================
+# 页面文案配置（可选）
+# ========================================
+pageContent:
+  about:
+    siteDescription:
+      zh: "本站点使用 PPage 构建，这是一个纯前端的个人主页生成系统。"
+      en: "This site is built with PPage, a pure frontend personal homepage generation system."
+
+# ========================================
+# 内容路径配置
+# ========================================
+content:
+  postsPath: "/content/posts"
+  pagesPath: "/content/pages"
+  filesPath: "/content/files"
+  assetsPath: "/assets"
+
+# ========================================
+# 文件配置
+# ========================================
+files:
+  # 系统会自动扫描 Markdown 中的文件链接
+  # 也可以手动配置文件：
+  # - title: "示例论文"
+  #   description: "这是一个示例 PDF 文件"
+  #   type: "pdf"
+  #   path: "/content/files/pdfs/sample.pdf"
+  #   preview: true
+  #   size: "3.5MB"
+  #   relatedPost: "欢迎使用 PPage"
+  #   relatedProject: "个人主页系统"
+
+# ========================================
+# 项目列表
+# ========================================
+projects:
+  - name: "个人主页系统"
+    description: "一个纯前端的个人主页生成系统"
+    url: "https://github.com/yourusername/ppage"
+    tags:
+      - "React"
+      - "Vite"
+      - "Markdown"
+
+# ========================================
+# 部署配置
+# ========================================
+deploy:
+  repository: "https://github.com/yourusername/ppage"
+  branch: "gh-pages"
+
+# ========================================
+# 新闻/动态配置
+# ========================================
+news:
+  - title: "论文被 ICML 2025 接收"
+    description: "我们的论文《基于深度学习的新方法》被 ICML 2025 接收！"
+    type: "paper"
+    status: "accepted"
+    date: "2025-01-15"
+    tags:
+      - "Machine Learning"
+    url: "https://example.com/paper"
