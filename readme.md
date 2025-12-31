@@ -14,6 +14,8 @@
 
 ## 快速开始
 
+### 方式一：使用初始化命令（推荐）
+
 ```bash
 # 克隆项目
 git clone https://github.com/mappedinfo/ppage.git
@@ -21,6 +23,33 @@ cd ppage
 
 # 安装依赖
 npm install
+
+# 初始化项目（归档示例模板，创建用户模板）
+npm run init
+
+# 编辑配置文件，填写你的个人信息
+# 配置文件：config.yml（搜索【请填写】标记）
+
+# 本地开发
+npm run dev
+
+# 构建生产版本
+npm run build
+```
+
+### 方式二：直接使用示例模板
+
+```bash
+# 克隆项目
+git clone https://github.com/mappedinfo/ppage.git
+cd ppage
+
+# 安装依赖
+npm install
+
+# 直接编辑现有的配置文件和内容
+# 配置文件：config.yml
+# 内容目录：content/
 
 # 本地开发
 npm run dev
@@ -31,7 +60,8 @@ npm run build
 
 ## 文档
 
-详细使用文档请查看 [USER_GUIDE.md](./USER_GUIDE.md)
+- [USER_GUIDE.md](./USER_GUIDE.md) - 详细使用文档
+- [INIT_GUIDE.md](./INIT_GUIDE.md) - `ppage init` 命令使用指南
 
 ## 技术栈
 
