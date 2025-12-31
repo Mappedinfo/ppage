@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:root": "VITE_BASE_PATH=/ vite build",
+    "build:subdir": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "init": "node scripts/init.js",

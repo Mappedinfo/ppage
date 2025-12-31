@@ -33,8 +33,12 @@ npm run init
 # 本地开发
 npm run dev
 
-# 构建生产版本
-npm run build
+# 构建和部署
+# 子目录部署 (yourusername.github.io/ppage)
+./scripts/deploy.sh
+
+# 根域名部署 (yourusername.github.io 或自定义域名)
+./scripts/deploy.sh root
 ```
 
 ### 方式二：直接使用示例模板
@@ -54,8 +58,12 @@ npm install
 # 本地开发
 npm run dev
 
-# 构建生产版本
-npm run build
+# 构建和部署
+# 子目录部署 (yourusername.github.io/ppage)
+./scripts/deploy.sh
+
+# 根域名部署 (yourusername.github.io 或自定义域名)
+./scripts/deploy.sh root
 ```
 
 ## 文档
@@ -63,6 +71,45 @@ npm run build
 - [USER_GUIDE.md](./USER_GUIDE.md) - 详细使用文档
 - [INIT_GUIDE.md](./INIT_GUIDE.md) - `ppage init` 命令使用指南
 - [UPDATE_GUIDE.md](./UPDATE_GUIDE.md) - 如何安全地更新 fork 的代码
+
+## 🚢 部署
+
+PPage 支持两种部署方式，自动适配不同的访问路径：
+
+### 子目录部署（默认）
+
+适用场景：`yourusername.github.io/ppage` 或 `domain.com/ppage`
+
+```bash
+# 1. 配置 public/config.yml 中的 deploy 信息
+# 2. 执行部署
+./scripts/deploy.sh
+```
+
+### 根域名部署
+
+适用场景：`yourusername.github.io` 或自定义域名 `yourdomain.com`
+
+```bash
+# 1. 配置 public/config.yml 中的 deploy 信息
+# 2. 执行根域名部署
+./scripts/deploy.sh root
+```
+
+### 手动构建
+
+```bash
+# 子目录部署构建（base = /ppage/）
+npm run build:subdir
+
+# 根域名部署构建（base = /）
+npm run build:root
+
+# 自定义 base path
+VITE_BASE_PATH=/custom/ npm run build
+```
+
+更多部署细节请查看 [USER_GUIDE.md 的部署指南](./USER_GUIDE.md#-部署指南)。
 
 ## 🔄 Fork 后如何更新？
 

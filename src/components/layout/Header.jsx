@@ -7,6 +7,26 @@ import { useI18n } from '../../i18n/I18nContext';
 import styles from './Header.module.css';
 
 /**
+ * 根据路径获取导航项的国际化文本
+ * @param {string} path - 路由路径
+ * @param {Function} t - i18n 翻译函数
+ * @returns {string} 翻译后的文本
+ */
+function getNavigationLabel(path, t) {
+  // 路径到 i18n key 的映射
+  const pathToI18nKey = {
+    '/': 'pages.home',
+    '/about': 'pages.about',
+    '/projects': 'pages.projects',
+    '/posts': 'pages.posts',
+    '/files': 'pages.files',
+    '/news': 'pages.news',
+  };
+
+  return t(pathToI18nKey[path]) || path;
+}
+
+/**
  * 页面头部导航组件
  */
 export function Header() {
@@ -28,7 +48,7 @@ export function Header() {
               to={item.path} 
               className={styles.navLink}
             >
-              {item.name}
+              {getNavigationLabel(item.path, t)}
             </Link>
           ))}
         </nav>

@@ -57,22 +57,29 @@ npm run dev
 
 ### 5. 构建和部署
 
-#### 方式一：使用本地脚本部署
+选择适合你的部署方式：
+
+#### 方式一：子目录部署（推荐）
+
+适用于：`yourusername.github.io/ppage`
 
 ```bash
-# 构建项目
-npm run build
-
-# 执行部署脚本
-bash scripts/deploy.sh
+# 配置 public/config.yml 中的 deploy.repository
+# 然后执行：
+./scripts/deploy.sh
 ```
 
-#### 方式二：使用 GitHub Actions 自动部署
+#### 方式二：根域名部署
 
-1. 将代码推送到 GitHub 仓库
-2. 在仓库设置中启用 GitHub Pages（Settings → Pages）
-3. 选择 "GitHub Actions" 作为源
-4. 推送代码到 main 分支即可自动部署
+适用于：`yourusername.github.io` 或自定义域名 `yourdomain.com`
+
+```bash
+# 配置 public/config.yml 中的 deploy.repository
+# 然后执行：
+./scripts/deploy.sh root
+```
+
+详细部署指南请查看下方的 [🚢 部署指南](#-部署指南) 部分。
 
 ## 📂 目录结构
 
@@ -197,27 +204,69 @@ files:
 
 ### GitHub Pages 部署
 
-1. **配置 baseUrl**
+PPage 支持两种部署方式：
 
-   编辑 `vite.config.js`，设置正确的 base 路径：
+#### 方式一：子目录部署（默认）
 
-   ```js
-   const base = command === 'build' ? '/your-repo-name/' : '/';
-   ```
+适用于：`yourusername.github.io/ppage` 或 `domain.com/ppage`
 
-2. **推送代码**
+```bash
+# 1. 配置部署信息（编辑 public/config.yml）
+deploy:
+  repository: "https://github.com/yourusername/ppage"
+  branch: "gh-pages"
 
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
+# 2. 执行部署
+./scripts/deploy.sh
+# 或显式指定子目录模式
+./scripts/deploy.sh subdir
+```
 
-3. **配置 GitHub Pages**
+#### 方式二：根域名部署
 
+适用于：`yourusername.github.io` 或 `domain.com`
+
+```bash
+# 1. 配置部署信息（编辑 public/config.yml）
+deploy:
+  repository: "https://github.com/yourusername/yourusername.github.io"
+  branch: "main"  # 根域名部署通常使用 main 分支
+
+# 2. 执行根域名部署
+./scripts/deploy.sh root
+```
+
+#### 手动构建不同类型
+
+```bash
+# 子目录部署构建（base path = /ppage/）
+npm run build:subdir
+
+# 根域名部署构建（base path = /）
+npm run build:root
+
+# 自定义 base path
+VITE_BASE_PATH=/custom-path/ npm run build
+```
+
+#### 配置 GitHub Pages
+
+1. **子目录部署**
    - 进入仓库 Settings → Pages
-   - Source 选择 "GitHub Actions"
-   - 推送代码后自动部署
+   - Source 选择 "Deploy from a branch"
+   - Branch 选择 `gh-pages` 和 `/ (root)`
+   - 访问：`https://yourusername.github.io/ppage`
+
+2. **根域名部署（使用 yourusername.github.io 仓库）**
+   - 进入仓库 Settings → Pages
+   - Source 选择 "Deploy from a branch"
+   - Branch 选择 `main` 和 `/ (root)`
+   - 访问：`https://yourusername.github.io`
+
+3. **自定义域名**
+   - 在 GitHub Pages 设置中添加自定义域名
+   - 使用根域名部署模式：`./scripts/deploy.sh root`
+   - 访问：`https://yourdomain.com`
 
 ### 其他静态托管平台
 

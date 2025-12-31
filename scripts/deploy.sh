@@ -2,10 +2,24 @@
 
 # PPage 本地部署脚本
 # 用于将构建产出部署到 GitHub Pages
+# 
+# 使用方法：
+#   子目录部署（domain.com/ppage）: ./scripts/deploy.sh
+#   根域名部署（domain.com）:        ./scripts/deploy.sh root
 
 set -e
 
 echo "🚀 开始构建和部署..."
+
+# 检查部署类型参数
+DEPLOY_TYPE="${1:-subdir}"
+if [ "$DEPLOY_TYPE" = "root" ]; then
+  echo "📍 部署类型: 根域名部署（/）"
+  BUILD_COMMAND="npm run build:root"
+else
+  echo "📍 部署类型: 子目录部署（/ppage/）"
+  BUILD_COMMAND="npm run build:subdir"
+fi
 
 # 0. 从 public/config.yml 读取配置
 echo "🔍 读取配置文件..."
@@ -37,7 +51,7 @@ echo "✅ 部署分支: $BRANCH"
 
 # 1. 构建项目
 echo "📦 构建项目..."
-npm run build
+$BUILD_COMMAND
 
 # 2. 进入构建产出目录
 cd dist
