@@ -2,18 +2,40 @@
 
 ## 概述
 
-当你 fork 了 PPage 仓库并自定义了内容后，你可能希望获取上游仓库的最新功能和 bug 修复。本指南将帮助你安全地更新代码，同时保护你的自定义配置和内容。
+当你 fork 了 PPage 仓库并自定义了内容后，你可以安全地获取上游仓库的最新功能和 bug 修复。本指南将帮助你安全地更新代码，同时保护你的自定义配置和内容。
+
+## 🔒 核心机制：Git Merge Strategy
+
+我们使用 **Git 的合并策略**来保护你的文件：
+
+1. **用户内容提交到 Git** - 你的配置和内容也会被 Git 管理
+2. **`.gitattributes` 配置** - 指定哪些文件在合并时保留你的版本
+3. **自动保护** - 合并时 Git 会自动保护这些文件，不会被上游覆盖
 
 ## 🔒 受保护的文件
 
-以下文件和目录会在更新过程中被自动保护，不会被上游更新覆盖：
+以下文件和目录通过 `.gitattributes` 配置，在更新过程中会自动保护，**始终保留你的版本**：
 
 - `config.yml` - 你的站点配置文件
 - `public/config.yml` - 公共配置文件
-- `content/` - 你的所有内容（博客、页面、文件）
-- `public/assets/` - 你的资源文件（图片、图标等）
-- `_template/` - 归档的模板文件
+- `content/**` - 你的所有内容（博客、页面、文件）
+- `public/assets/**` - 你的资源文件（图片、图标等）
+- `_template/**` - 归档的模板文件
 - `scripts/deploy.sh` - 你的部署脚本
+
+**工作原理**：
+
+```bash
+# 查看 .gitattributes 配置
+cat .gitattributes
+
+# 输出示例：
+config.yml merge=ours
+content/** merge=ours
+# ...
+```
+
+`merge=ours` 表示在合并冲突时，**始终使用我们的版本**（yours），而不是上游的版本。
 
 ## 🚀 快速更新
 
@@ -24,56 +46,89 @@ npm run update
 ```
 
 这个命令会自动：
-1. ✅ 备份你的用户文件
+1. ✅ 检查 Git 状态
 2. ✅ 配置上游仓库（如果未配置）
-3. ✅ 拉取并合并上游更新
-4. ✅ 恢复你的用户文件
-5. ✅ 更新依赖包
+3. ✅ 配置 Git 合并策略
+4. ✅ 拉取并合并上游更新
+5. ✅ 自动保护你的用户文件
+6. ✅ 更新依赖包
 
 ### 方式二：手动更新
 
 如果你想更精细地控制更新过程：
 
 ```bash
-# 1. 配置上游仓库（首次需要）
+# 1. 提交当前更改
+git add .
+git commit -m "Save my changes"
+
+# 2. 配置上游仓库（首次需要）
 git remote add upstream https://github.com/mappedinfo/ppage.git
 
-# 2. 获取上游更新
+# 3. 配置 Git 合并策略（首次需要）
+git config merge.ours.driver true
+
+# 4. 获取上游更新
 git fetch upstream
 
-# 3. 查看更新内容（可选）
+# 5. 查看更新内容（可选）
 git log HEAD..upstream/main --oneline
 
-# 4. 合并更新
+# 6. 合并更新 - 你的用户文件会自动保护！
 git merge upstream/main
 
-# 5. 如果有冲突，解决后提交
-git add .
-git commit -m "Merge upstream updates"
-
-# 6. 更新依赖
+# 7. 更新依赖
 npm install
+
+# 8. 推送到你的仓库
+git push origin main
 ```
 
 ## 📋 完整工作流程
 
 ### 1. 准备工作
 
-在更新前，建议先检查和提交你的更改：
+在更新前，先提交你的更改：
 
 ```bash
 # 查看当前状态
 git status
 
-# 如果有未提交的更改，先提交
+# 提交更改
 git add .
 git commit -m "Save my changes before update"
 ```
+
+**重要**：必须先提交更改，否则 `npm run update` 会提示你先提交。
 
 ### 2. 运行更新
 
 ```bash
 npm run update
+```
+
+**输出示例**：
+
+```
+🚀 开始更新 PPage 代码...
+
+⚙️  配置 Git 合并策略...
+  ✓ 合并策略配置完成
+
+📡 配置上游仓库...
+  ✓ 已添加上游仓库
+
+🔄 拉取上游更新...
+
+🔀 合并上游更新到 main 分支...
+   💡 .gitattributes 中配置的文件会自动保留你的版本
+
+  ✓ 合并成功！
+
+📦 更新依赖包...
+  ✓ 依赖更新完成
+
+✨ 更新完成！
 ```
 
 ### 3. 测试更新

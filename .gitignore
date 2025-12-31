@@ -22,25 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# ========================================
-# User Content Protection
-# ========================================
-# 用户内容和配置文件（运行 npm run init 后生成）
-# 这些文件应该被用户自定义，不应该被上游更新覆盖
-
-# 用户配置文件
-config.yml
-public/config.yml
-
-# 用户内容目录
-content/
-
-# 用户资源目录
-public/assets/
-
-# 归档的模板文件
-_template/
-
-# 用户自定义脚本
-scripts/deploy.sh
