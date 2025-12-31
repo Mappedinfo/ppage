@@ -11,7 +11,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "init": "node scripts/init.js",
-    "update": "node scripts/update.js"
+    "update": "node scripts/update.js",
+    "deploy:root": "./scripts/deploy.sh root",
+    "deploy:subdir": "./scripts/deploy.sh"
   },
   "bin": {
     "ppage": "./scripts/init.js"
