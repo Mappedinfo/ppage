@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { MarkdownRenderer } from '../markdown/MarkdownRenderer';
 import { BacklinksPanel } from './BacklinksPanel';
+import { DocumentGraph } from './DocumentGraph';
 import { loadAllMarkdownFiles, loadFolderMarkdownFiles } from '../../utils/markdownIndex';
 import { filterMarkdownByLanguage } from '../../utils/i18nMarkdown';
 import { useI18n } from '../../i18n/I18nContext';
@@ -11,7 +12,8 @@ import {
   findDocumentById,
   getDocumentPath as getDocPath,
   buildBacklinksMap,
-  getDocumentLinks
+  getDocumentLinks,
+  enhanceDocument
 } from '../../utils/documentCenter';
 import styles from './DocumentCenter.module.css';
 
@@ -46,6 +48,7 @@ export function DocumentCenter({
   className = ''
 }) {
   const [documents, setDocuments] = useState([]);
+  const [allDocuments, setAllDocuments] = useState([]); // 所有文档索引，用于链接查找
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -73,14 +76,19 @@ export function DocumentCenter({
         allFiles = await loadAllMarkdownFiles();
       }
       
+      // 增强所有文档（用于全局查找）
+      const allEnhanced = allFiles.map(file => enhanceDocument(file));
+      setAllDocuments(allEnhanced);
+      
       // 2. 根据类型过滤
+      let filteredFiles = allFiles;
       if (type !== 'all') {
-        allFiles = filterDocumentsByType(allFiles, type);
+        filteredFiles = filterDocumentsByType(allFiles, type);
       }
       
       // 3. 根据集合过滤
       if (collection) {
-        allFiles = allFiles.filter(file => {
+        filteredFiles = filteredFiles.filter(file => {
           // 检查 front matter 中的 collection 字段
           if (file.collection === collection) return true;
           // 检查文件夹名称
@@ -90,29 +98,34 @@ export function DocumentCenter({
       }
       
       // 4. 根据语言过滤
-      const filteredFiles = filterMarkdownByLanguage(allFiles, language, 'zh');
+      const languageFiltered = filterMarkdownByLanguage(filteredFiles, language, 'zh');
       
       // 5. 应用自定义过滤器
       let processedFiles = customFilter 
-        ? filteredFiles.filter(customFilter) 
-        : filteredFiles;
+        ? languageFiltered.filter(customFilter) 
+        : languageFiltered;
       
       // 6. 排序
       processedFiles = customSort 
         ? sortDocuments(processedFiles, customSort)
         : sortDocuments(processedFiles);
       
-      console.log(`文档中心加载: ${processedFiles.length} 个文档 (类型: ${type}, 集合: ${collection || '全部'})`);
+      // 7. 增强文档（添加 ID 和 metadata）
+      const enhancedFiles = processedFiles.map(file => enhanceDocument(file));
       
-      setDocuments(processedFiles);
+      console.log(`文档中心加载: ${enhancedFiles.length} 个文档 (类型: ${type}, 集合: ${collection || '全部'})`);
+      console.log('当前集合文档 ID:', enhancedFiles.map(d => d.id));
+      console.log('所有文档 ID:', allEnhanced.map(d => d.id));
       
-      // 构建反向链接映射
-      const linksMap = buildBacklinksMap(processedFiles);
+      setDocuments(enhancedFiles);
+      
+      // 构建反向链接映射（使用所有文档）
+      const linksMap = buildBacklinksMap(allEnhanced);
       setBacklinksMap(linksMap);
       
       // 默认选择第一个文档
-      if (processedFiles.length > 0) {
-        selectDocument(processedFiles[0]);
+      if (enhancedFiles.length > 0) {
+        selectDocument(enhancedFiles[0]);
       }
     } catch (err) {
       console.error('加载文档失败:', err);
@@ -146,11 +159,41 @@ export function DocumentCenter({
     }
   }
 
+  // 处理内部链接点击（从文档内容中）
+  function handleInternalLinkClick(docId) {
+    console.log(`点击内部链接, 目标 ID: ${docId}`);
+    
+    // 首先在当前集合中查找
+    let targetDoc = documents.find(d => d.id === docId);
+    
+    // 如果当前集合中没有，在所有文档中查找
+    if (!targetDoc && allDocuments.length > 0) {
+      targetDoc = allDocuments.find(d => d.id === docId);
+      if (targetDoc) {
+        console.log(`在其他集合中找到目标文档: ${targetDoc.title} (collection: ${targetDoc.metadata?.collection || targetDoc.folder})`);
+        // 将该文档添加到当前文档列表（临时）
+        setDocuments(prev => [...prev, targetDoc]);
+      }
+    }
+    
+    if (targetDoc) {
+      console.log(`找到目标文档: ${targetDoc.title}`);
+      selectDocument(targetDoc);
+      // 滚动到顶部
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      console.warn(`无法找到文档 ID: ${docId}`);
+      console.log(`当前集合文档 ID:`, documents.map(d => `${d.id} (${d.title})`));
+      console.log(`所有文档 ID:`, allDocuments.map(d => `${d.id} (${d.title})`));
+    }
+  }
+
   // 获取当前文档的链接信息
   const currentDocLinks = useMemo(() => {
     if (!selectedDoc) return { outgoing: [], incoming: [] };
-    return getDocumentLinks(selectedDoc, backlinksMap, documents);
-  }, [selectedDoc, backlinksMap, documents]);
+    // 使用所有文档来获取链接信息
+    return getDocumentLinks(selectedDoc, backlinksMap, allDocuments);
+  }, [selectedDoc, backlinksMap, allDocuments]);
 
   // 切换树节点展开/折叠
   function toggleNode(nodeId) {
@@ -315,6 +358,16 @@ export function DocumentCenter({
               {t('documentCenter.navigation')}
             </h2>
             {renderDocumentList()}
+            
+            {/* 引用关系图谱 - 放在侧边栏底部 */}
+            {selectedDoc && (
+              <DocumentGraph
+                currentDoc={selectedDoc}
+                backlinksMap={backlinksMap}
+                allDocuments={allDocuments}
+                onNodeClick={handleInternalLinkClick}
+              />
+            )}
           </aside>
         )}
 
@@ -339,7 +392,10 @@ export function DocumentCenter({
                   )}
                 </div>
               )}
-              <MarkdownRenderer content={selectedDoc.content} />
+              <MarkdownRenderer 
+                content={selectedDoc.content}
+                onInternalLinkClick={handleInternalLinkClick}
+              />
               
               {/* 双向链接面板 */}
               <BacklinksPanel 

@@ -54,10 +54,21 @@ export function BacklinksPanel({ outgoing = [], incoming = [], onLinkClick }) {
               <li 
                 key={`${link.id}-${index}`}
                 className={`${styles.linkItem} ${getLinkTypeClass(link.type)}`}
-                onClick={() => onLinkClick && onLinkClick(link)}
               >
-                <span className={styles.linkTitle}>{link.title}</span>
-                <span className={styles.linkType}>{getLinkTypeLabel(link.type)}</span>
+                <div className={styles.linkInfo} onClick={() => onLinkClick && onLinkClick(link)}>
+                  <span className={styles.linkTitle}>{link.title}</span>
+                  <span className={styles.linkType}>{getLinkTypeLabel(link.type)}</span>
+                </div>
+                <button 
+                  className={styles.jumpButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onLinkClick && onLinkClick(link);
+                  }}
+                  title="跳转到该文档"
+                >
+                  →
+                </button>
               </li>
             ))}
           </ul>
@@ -76,10 +87,21 @@ export function BacklinksPanel({ outgoing = [], incoming = [], onLinkClick }) {
               <li 
                 key={`${link.id}-${index}`}
                 className={`${styles.linkItem} ${getLinkTypeClass(link.type)}`}
-                onClick={() => onLinkClick && onLinkClick(link)}
               >
-                <span className={styles.linkTitle}>{link.title}</span>
-                <span className={styles.linkType}>{getLinkTypeLabel(link.type)}</span>
+                <div className={styles.linkInfo} onClick={() => onLinkClick && onLinkClick(link)}>
+                  <span className={styles.linkTitle}>{link.title}</span>
+                  <span className={styles.linkType}>{getLinkTypeLabel(link.type)}</span>
+                </div>
+                <button 
+                  className={styles.jumpButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onLinkClick && onLinkClick(link);
+                  }}
+                  title="跳转到该文档"
+                >
+                  →
+                </button>
               </li>
             ))}
           </ul>

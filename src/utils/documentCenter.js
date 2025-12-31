@@ -569,3 +569,143 @@ export function getDocumentLinks(document, backlinksMap, allDocuments) {
   
   return { outgoing, incoming };
 }
+
+/**
+ * 构建文档引用关系图谱数据
+ * @param {Object} centerDoc - 中心文档
+ * @param {Map} backlinksMap - 反向链接映射
+ * @param {Array} allDocuments - 所有文档数组
+ * @param {number} maxDepth - 最大深度（默认3跳）
+ * @returns {Object} { nodes: [], edges: [] }
+ */
+export function buildDocumentGraph(centerDoc, backlinksMap, allDocuments, maxDepth = 3) {
+  if (!centerDoc) return { nodes: [], edges: [] };
+  
+  const nodes = [];
+  const edges = [];
+  const visited = new Set();
+  const nodeMap = new Map(); // id -> node
+  
+  // BFS 遍历构建图谱
+  const queue = [{ doc: centerDoc, depth: 0 }];
+  visited.add(centerDoc.id);
+  
+  // 添加中心节点
+  const centerNode = {
+    id: centerDoc.id,
+    title: centerDoc.title,
+    depth: 0,
+    isCenter: true,
+    collection: centerDoc.metadata?.collection || centerDoc.folder
+  };
+  nodes.push(centerNode);
+  nodeMap.set(centerDoc.id, centerNode);
+  
+  while (queue.length > 0) {
+    const { doc, depth } = queue.shift();
+    
+    if (depth >= maxDepth) continue;
+    
+    // 获取当前文档的链接
+    const links = getDocumentLinks(doc, backlinksMap, allDocuments);
+    
+    // 处理对外链接
+    links.outgoing.forEach(link => {
+      // 添加边
+      edges.push({
+        source: doc.id,
+        target: link.id,
+        type: link.type,
+        direction: 'outgoing'
+      });
+      
+      // 如果节点未访问过，添加节点并继续遍历
+      if (!visited.has(link.id)) {
+        const targetDoc = allDocuments.find(d => d.id === link.id);
+        if (targetDoc) {
+          visited.add(link.id);
+          const node = {
+            id: link.id,
+            title: link.title,
+            depth: depth + 1,
+            isCenter: false,
+            collection: targetDoc.metadata?.collection || targetDoc.folder
+          };
+          nodes.push(node);
+          nodeMap.set(link.id, node);
+          queue.push({ doc: targetDoc, depth: depth + 1 });
+        }
+      }
+    });
+    
+    // 处理反向链接
+    links.incoming.forEach(link => {
+      // 添加边
+      edges.push({
+        source: link.id,
+        target: doc.id,
+        type: link.type,
+        direction: 'incoming'
+      });
+      
+      // 如果节点未访问过，添加节点并继续遍历
+      if (!visited.has(link.id)) {
+        const sourceDoc = allDocuments.find(d => d.id === link.id);
+        if (sourceDoc) {
+          visited.add(link.id);
+          const node = {
+            id: link.id,
+            title: link.title,
+            depth: depth + 1,
+            isCenter: false,
+            collection: sourceDoc.metadata?.collection || sourceDoc.folder
+          };
+          nodes.push(node);
+          nodeMap.set(link.id, node);
+          queue.push({ doc: sourceDoc, depth: depth + 1 });
+        }
+      }
+    });
+  }
+  
+  return { nodes, edges };
+}
+
+/**
+ * 计算图谱节点的布局位置（使用力导向布局算法）
+ * @param {Array} nodes - 节点数组
+ * @param {Array} edges - 边数组
+ * @param {number} width - 画布宽度
+ * @param {number} height - 画布高度
+ * @returns {Array} 带有位置信息的节点数组
+ */
+export function calculateGraphLayout(nodes, edges, width, height) {
+  if (nodes.length === 0) return [];
+  
+  // 初始化节点位置（环形布局）
+  const layoutNodes = nodes.map((node, index) => {
+    if (node.isCenter) {
+      return {
+        ...node,
+        x: width / 2,
+        y: height / 2,
+        vx: 0,
+        vy: 0
+      };
+    }
+    
+    // 按深度分层圆形布局
+    const radius = 80 + node.depth * 60;
+    const angle = (index / nodes.length) * 2 * Math.PI;
+    
+    return {
+      ...node,
+      x: width / 2 + radius * Math.cos(angle),
+      y: height / 2 + radius * Math.sin(angle),
+      vx: 0,
+      vy: 0
+    };
+  });
+  
+  return layoutNodes;
+}

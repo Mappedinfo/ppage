@@ -55,6 +55,7 @@
   border: 1px solid var(--border-color);
   cursor: pointer;
   transition: all var(--transition-base);
+  gap: var(--spacing-sm);
 }
 
 .linkItem:hover {
@@ -63,11 +64,23 @@
   transform: translateX(4px);
 }
 
+.linkInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  min-width: 0; /* 允许文本截断 */
+}
+
 .linkTitle {
   font-size: 0.95rem;
   color: var(--text-primary);
   font-weight: 500;
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .linkType {
@@ -77,6 +90,35 @@
   border-radius: var(--border-radius-sm);
   background-color: var(--bg-secondary);
   white-space: nowrap;
+  margin-left: var(--spacing-sm);
+}
+
+.jumpButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--link-color);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: 1.2rem;
+  font-weight: bold;
+  flex-shrink: 0; /* 防止按钮被压缩 */
+}
+
+.jumpButton:hover {
+  background-color: var(--link-color);
+  color: white;
+  border-color: var(--link-color);
+  transform: scale(1.1);
+}
+
+.jumpButton:active {
+  transform: scale(0.95);
 }
 
 /* 不同类型的链接样式 */
@@ -127,13 +169,32 @@
   }
 
   .linkItem {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .linkInfo {
+    flex: 1 1 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-xs);
   }
 
   .linkType {
-    align-self: flex-end;
+    align-self: flex-start;
+    margin-left: 0;
+  }
+
+  .jumpButton {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .linkItem {
+    position: relative;
+    padding-right: calc(var(--spacing-md) + 40px); /* 为按钮预留空间 */
   }
 
   .stats {
