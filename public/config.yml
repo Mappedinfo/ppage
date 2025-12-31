@@ -49,6 +49,7 @@ theme:
     - "light"
     - "dark"
     - "academic"
+    - "glass"
 
 # 内容路径配置
 content:
