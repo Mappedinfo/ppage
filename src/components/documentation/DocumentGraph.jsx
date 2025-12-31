@@ -95,6 +95,9 @@ export function DocumentGraph({ currentDoc, backlinksMap, allDocuments, onNodeCl
       const isHovered = hoveredNode === node.id;
       const radius = node.isCenter ? 25 : 18;
       
+      // 判断当前主题是否为深色（只有dark主题是深色背景）
+      const isDarkTheme = currentTheme === 'dark';
+      
       // 绘制节点圆圈
       ctx.beginPath();
       ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI);
@@ -104,12 +107,12 @@ export function DocumentGraph({ currentDoc, backlinksMap, allDocuments, onNodeCl
       } else if (isHovered) {
         ctx.fillStyle = '#10b981';
       } else {
-        // 使用浅色背景
-        ctx.fillStyle = bgColor === '#000000' || bgColor === 'rgb(0, 0, 0)' ? '#444' : '#e5e7eb';
+        // 根据主题使用不同的节点背景色
+        ctx.fillStyle = isDarkTheme ? '#444' : '#f3f4f6';
       }
       
       ctx.fill();
-      ctx.strokeStyle = bgColor === '#000000' || bgColor === 'rgb(0, 0, 0)' ? '#666' : '#fff';
+      ctx.strokeStyle = isDarkTheme ? '#666' : '#d1d5db';
       ctx.lineWidth = 2;
       ctx.stroke();
       
