@@ -291,10 +291,12 @@ projects:
 
 # ========================================
 # 部署配置
+# 重要：请修改为你自己的仓库地址！
+# 用于 scripts/deploy.sh 脚本部署
 # ========================================
 deploy:
-  repository: "【请填写】https://github.com/yourusername/ppage"
-  branch: "gh-pages"
+  repository: "【请填写】https://github.com/yourusername/yourrepo"  # 你的 GitHub 仓库地址
+  branch: "gh-pages"  # 部署分支，默认 gh-pages
 
 # ========================================
 # 新闻/动态配置
