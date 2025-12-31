@@ -16,8 +16,7 @@
 
 以下文件和目录通过 `.gitattributes` 配置，在更新过程中会自动保护，**始终保留你的版本**：
 
-- `config.yml` - 你的站点配置文件
-- `public/config.yml` - 公共配置文件
+- `public/config.yml` - 你的站点配置文件
 - `content/**` - 你的所有内容（博客、页面、文件）
 - `public/assets/**` - 你的资源文件（图片、图标等）
 - `_template/**` - 归档的模板文件
@@ -30,7 +29,7 @@
 cat .gitattributes
 
 # 输出示例：
-config.yml merge=ours
+public/config.yml merge=ours
 content/** merge=ours
 # ...
 ```
@@ -180,7 +179,7 @@ git push origin main
 ### ✅ 推荐做法
 
 - **用户内容** 放在 `content/` 目录下
-- **用户配置** 使用 `config.yml` 和 `public/config.yml`
+- **用户配置** 使用 `public/config.yml`
 - **用户资源** 放在 `public/assets/` 目录下
 - **自定义脚本** 放在 `scripts/deploy.sh` 或其他自定义脚本文件中
 
@@ -229,7 +228,7 @@ git remote set-url upstream https://github.com/mappedinfo/ppage.git
 
 A: 如果使用 `npm run update`，你的配置会被自动保护和恢复。如果手动更新导致配置丢失，可以从以下位置恢复：
 
-1. Git 历史记录：`git checkout HEAD~1 -- config.yml`
+1. Git 历史记录：`git checkout HEAD~1 -- public/config.yml`
 2. 备份目录（如果存在）：`.backup-[时间戳]/`
 3. `_template/` 目录（如果之前运行过 init）
 

@@ -67,6 +67,6 @@ print(fibonacci(10))
 
 ## 下一步
 
-尝试编辑 `config.yml` 文件来定制你的个人主页，或者在 `content/posts/` 目录下创建新的 Markdown 文章。
+尝试编辑 `public/config.yml` 文件来定制你的个人主页，或者在 `content/posts/` 目录下创建新的 Markdown 文章。
 
 祝你使用愉快！🎉

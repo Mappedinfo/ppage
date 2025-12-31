@@ -28,7 +28,7 @@ npm install
 
 ### 3. 配置站点
 
-编辑 `config.yml` 文件，配置你的个人信息：
+编辑 `public/config.yml` 文件，配置你的个人信息：
 
 ```yaml
 # 站点基本信息
@@ -44,7 +44,7 @@ profile:
   bio: "一句话介绍自己"
   email: "your.email@example.com"
 
-# 更多配置见 config.yml 文件...
+# 更多配置见 public/config.yml 文件...
 ```
 
 ### 4. 本地预览
@@ -80,7 +80,7 @@ bash scripts/deploy.sh
 ppage/
 ├── public/              # 静态资源
 │   ├── assets/          # 用户资源（图片、文件、PDF）
-│   └── config.yml       # 配置文件
+│   └── config.yml       # 配置文件（唯一配置文件）
 ├── src/                 # 源代码
 │   ├── components/      # React 组件
 │   ├── config/          # 配置处理
@@ -182,7 +182,7 @@ social:
 ### 添加静态文件
 
 1. 将文件放置在 `public/assets/files/` 目录
-2. 在 `config.yml` 中配置文件信息：
+2. 在 `public/config.yml` 中配置文件信息：
 
 ```yaml
 files:

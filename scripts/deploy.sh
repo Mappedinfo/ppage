@@ -7,23 +7,23 @@ set -e
 
 echo "🚀 开始构建和部署..."
 
-# 0. 从 config.yml 读取配置
+# 0. 从 public/config.yml 读取配置
 echo "🔍 读取配置文件..."
 
-if [ ! -f "config.yml" ]; then
-  echo "❌ 错误: 找不到 config.yml 文件"
+if [ ! -f "public/config.yml" ]; then
+  echo "❌ 错误: 找不到 public/config.yml 文件"
   echo "请在项目根目录执行此脚本"
   exit 1
 fi
 
 # 使用 grep 和 sed 提取仓库地址
-REPOSITORY=$(grep -A 2 '^deploy:' config.yml | grep 'repository:' | sed 's/.*repository:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
-BRANCH=$(grep -A 2 '^deploy:' config.yml | grep 'branch:' | sed 's/.*branch:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
+REPOSITORY=$(grep -A 2 '^deploy:' public/config.yml | grep 'repository:' | sed 's/.*repository:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
+BRANCH=$(grep -A 2 '^deploy:' public/config.yml | grep 'branch:' | sed 's/.*branch:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
 
 # 如果没有读取到，使用默认值
 if [ -z "$REPOSITORY" ] || [ "$REPOSITORY" = "https://github.com/yourusername/ppage" ]; then
   echo "⚠️  警告: 未配置有效的仓库地址"
-  echo "请在 config.yml 中修改 deploy.repository 配置"
+  echo "请在 public/config.yml 中修改 deploy.repository 配置"
   echo "例如: repository: \"https://github.com/yourusername/yourrepo\""
   exit 1
 fi

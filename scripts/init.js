@@ -311,13 +311,11 @@ news:
       - "【请填写】标签"
 `;
 
-  const configPath = path.join(rootDir, 'config.yml');
   const publicConfigPath = path.join(rootDir, 'public', 'config.yml');
   
-  fs.writeFileSync(configPath, configTemplate);
+  // 只生成 public/config.yml
   fs.writeFileSync(publicConfigPath, configTemplate);
   
-  log('  ✓ 创建 config.yml', 'green');
   log('  ✓ 创建 public/config.yml', 'green');
   log('  ✅ 配置文件模板创建完成！', 'green');
 }

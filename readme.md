@@ -28,7 +28,7 @@ npm install
 npm run init
 
 # 编辑配置文件，填写你的个人信息
-# 配置文件：config.yml（搜索【请填写】标记）
+# 配置文件：public/config.yml（搜索【请填写】标记）
 
 # 本地开发
 npm run dev
@@ -48,7 +48,7 @@ cd ppage
 npm install
 
 # 直接编辑现有的配置文件和内容
-# 配置文件：config.yml
+# 配置文件：public/config.yml
 # 内容目录：content/
 
 # 本地开发
@@ -74,7 +74,7 @@ npm run update
 ```
 
 **受保护的文件**（更新时不会被覆盖）：
-- `config.yml` - 你的站点配置
+- `public/config.yml` - 你的站点配置
 - `content/` - 你的所有内容
 - `public/assets/` - 你的资源文件
 - `scripts/deploy.sh` - 你的部署脚本
