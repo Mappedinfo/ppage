@@ -1,11 +1,14 @@
 ---
 title: 配置文档属性
 id: config-document-properties
-collection: tutorial
+type: page
+collection: guide
 order: 2
 parent: quick-start
 date: 2025-12-31
-tags: [configuration, front-matter, tutorial]
+author: System
+tags: [configuration, front-matter, tutorial, guide]
+category: 使用指南
 ---
 
 # 配置文档属性

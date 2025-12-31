@@ -1,3 +1,15 @@
+---
+title: DocumentCenter 快速参考
+id: quick-reference
+type: page
+collection: documentation
+order: 5
+date: 2025-12-31
+author: System
+tags: [reference, quick-start, api]
+category: 参考文档
+---
+
 # DocumentCenter 快速参考
 
 ## 基础用法

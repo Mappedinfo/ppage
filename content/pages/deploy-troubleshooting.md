@@ -1,3 +1,15 @@
+---
+title: 部署问题排查指南
+id: deploy-troubleshooting
+type: page
+collection: guide
+order: 20
+date: 2025-12-31
+author: System
+tags: [troubleshooting, deployment, guide]
+category: 故障排查
+---
+
 # 部署问题排查指南
 
 ## 问题：访问自定义域名时出现 404 错误

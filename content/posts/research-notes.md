@@ -1,3 +1,15 @@
+---
+title: 我的研究笔记
+id: research-notes
+type: post
+collection: blog
+order: 2
+date: 2025-12-31
+author: System
+tags: [research, example, demonstration]
+category: 博客
+---
+
 # 我的研究笔记
 
 这是一篇关于我研究工作的笔记文章。

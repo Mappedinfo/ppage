@@ -1,3 +1,15 @@
+---
+title: 文档中心组件架构设计
+id: document-center-architecture
+type: page
+collection: documentation
+order: 20
+date: 2025-12-31
+author: System
+tags: [architecture, design, technical]
+category: 技术文档
+---
+
 # 文档中心组件架构设计
 
 ## 1. 架构概述

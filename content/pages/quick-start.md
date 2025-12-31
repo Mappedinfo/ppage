@@ -1,10 +1,13 @@
 ---
 title: 快速开始
 id: quick-start
-collection: tutorial
+type: page
+collection: guide
 order: 1
 date: 2025-12-31
-tags: [guide, beginner, tutorial]
+author: System
+tags: [guide, beginner, tutorial, quick-start]
+category: 使用指南
 ---
 
 # 快速开始

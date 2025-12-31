@@ -1,3 +1,15 @@
+---
+title: 关于 PPage
+id: about-ppage
+type: page
+collection: about
+order: 1
+date: 2025-12-31
+author: System
+tags: [about, introduction, ppage]
+category: 关于
+---
+
 # 关于 PPage
 
 PPage 是一个现代化的个人主页生成系统。

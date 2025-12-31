@@ -1,3 +1,15 @@
+---
+title: 文档中心组件架构图
+id: architecture-diagram
+type: page
+collection: documentation
+order: 30
+date: 2025-12-31
+author: System
+tags: [architecture, diagram, technical]
+category: 技术文档
+---
+
 # 文档中心组件架构图
 
 ## 1. 组件层级结构

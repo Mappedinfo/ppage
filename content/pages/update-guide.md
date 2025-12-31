@@ -1,3 +1,15 @@
+---
+title: PPage 更新指南
+id: update-guide
+type: page
+collection: guide
+order: 15
+date: 2025-12-31
+author: System
+tags: [guide, update, maintenance]
+category: 使用指南
+---
+
 # PPage 更新指南
 
 ## 概述

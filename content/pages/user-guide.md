@@ -1,3 +1,15 @@
+---
+title: PPage 用户指南
+id: user-guide
+type: page
+collection: guide
+order: 5
+date: 2025-12-31
+author: System
+tags: [guide, user-guide, manual]
+category: 使用指南
+---
+
 # PPage - 个人主页系统
 
 一个纯前端部署的个人主页生成系统，支持通过 YAML 配置文件一站式配置，Markdown 内容创作，多主题切换，零成本部署在 GitHub Pages。

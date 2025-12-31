@@ -1,3 +1,16 @@
+---
+title: 欢迎使用 PPage
+id: welcome
+type: post
+collection: blog
+order: 1
+date: 2025-12-31
+author: System
+tags: [welcome, introduction, features]
+category: 博客
+pinned: true
+---
+
 # 欢迎使用 PPage
 
 这是一篇示例文章，展示 PPage 的 Markdown 渲染能力。

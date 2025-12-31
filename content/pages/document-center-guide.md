@@ -1,10 +1,13 @@
 ---
 title: 文档中心组件使用指南
+id: document-center-guide
+type: page
+collection: documentation
+order: 10
 date: 2025-12-31
 author: System
 tags: [documentation, guide, component]
-collection: guide
-order: 1
+category: 使用指南
 ---
 
 # 文档中心组件使用指南
