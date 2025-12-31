@@ -2,12 +2,13 @@
 title: 部署问题排查指南
 id: deploy-troubleshooting
 type: page
-collection: guide
-order: 20
+collection: tutorials
+parent: deployment-index
+order: 3
 date: 2025-12-31
 author: System
-tags: [troubleshooting, deployment, guide]
-category: 故障排查
+tags: [tutorial, troubleshooting, deployment]
+category: 教程
 ---
 
 # 部署问题排查指南

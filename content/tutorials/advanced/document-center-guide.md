@@ -1,13 +1,14 @@
 ---
-title: 文档中心组件使用指南
+title: 文档中心组件指南
 id: document-center-guide
 type: page
-collection: documentation
-order: 10
+collection: tutorials
+parent: advanced-index
+order: 3
 date: 2025-12-31
 author: System
-tags: [documentation, guide, component]
-category: 使用指南
+tags: [tutorial, documentation, component]
+category: 教程
 ---
 
 # 文档中心组件使用指南

@@ -144,7 +144,14 @@ export function DocumentCenter({
   // 渲染文档列表
   function renderDocumentList() {
     if (enableTree && documentTree) {
-      return renderTreeNode(documentTree);
+      // 只渲染根节点的子节点，不渲染根节点本身
+      return (
+        <div className={styles.treeRoot}>
+          {documentTree.children && documentTree.children.map(child => 
+            renderTreeNode(child, 0)
+          )}
+        </div>
+      );
     }
     
     return (

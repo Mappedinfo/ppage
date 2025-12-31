@@ -1,11 +1,18 @@
 ---
-title: 高级功能
-order: 2
-priority: 5
+title: 高级功能使用
+id: advanced-features
+type: page
 collection: tutorials
+parent: advanced-index
+order: 1
+date: 2025-12-31
+author: System
+tags: [tutorial, advanced, features]
+category: 教程
+priority: 5
 ---
 
-# 高级功能
+# 高级功能使用
 
 探索系统的高级功能。
 

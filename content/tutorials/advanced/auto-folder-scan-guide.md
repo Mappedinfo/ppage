@@ -1,13 +1,14 @@
 ---
-title: 自动文件夹扫描使用指南
+title: 自动文件夹扫描指南
 id: auto-folder-scan-guide
 type: page
-collection: guide
-order: 25
+collection: tutorials
+parent: advanced-index
+order: 2
 date: 2025-12-31
 author: System
-tags: [guide, automation, folder-scan]
-category: 使用指南
+tags: [tutorial, automation, folder-scan]
+category: 教程
 pinned: true
 ---
 

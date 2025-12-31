@@ -1,13 +1,14 @@
 ---
-title: PPage 用户指南
+title: 完整用户指南
 id: user-guide
 type: page
-collection: guide
-order: 5
+collection: tutorials
+parent: deployment-index
+order: 1
 date: 2025-12-31
 author: System
-tags: [guide, user-guide, manual]
-category: 使用指南
+tags: [tutorial, user-guide, manual]
+category: 教程
 ---
 
 # PPage - 个人主页系统

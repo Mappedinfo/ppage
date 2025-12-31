@@ -151,6 +151,10 @@
 }
 
 /* 树形结构 */
+.treeRoot {
+  /* 树形结构根容器 */
+}
+
 .treeNode {
   margin-bottom: 0.25rem;
 }
