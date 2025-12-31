@@ -4,6 +4,9 @@
  * 并为每个文件夹生成相应的文档中心配置
  */
 
+// 获取 base 路径（用于 fetch 请求）
+const base = import.meta.env.BASE_URL || '/';
+
 /**
  * 获取所有 Markdown 文件的 glob 模块
  * 排除 files 文件夹
@@ -67,8 +70,9 @@ export function getFolderFiles(folderName) {
   for (const path in allMarkdownModules) {
     const folder = extractFolderName(path);
     if (folder === folderName) {
-      // 转换为绝对路径
-      const absolutePath = path.replace('../..', '');
+      // 转换为绝对路径（考虑 base 路径）
+      const relativePath = path.replace('../..', '');
+      const absolutePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
       files.push(absolutePath);
     }
   }
@@ -92,7 +96,9 @@ export function hasIndexFile(folderName) {
  * @returns {Promise<Object|null>} index.md 的配置信息
  */
 export async function loadFolderIndex(folderName) {
-  const indexPath = `/content/${folderName}/index.md`;
+  // 构建 index.md 路径（考虑 base 路径）
+  const relativePath = `/content/${folderName}/index.md`;
+  const indexPath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
   
   try {
     const response = await fetch(indexPath);

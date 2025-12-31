@@ -8,6 +8,9 @@ import { getAllMarkdownModules } from './folderScanner';
 // 使用文件夹扫描器获取所有 Markdown 模块
 const allModules = getAllMarkdownModules();
 
+// 获取 base 路径（用于 fetch 请求）
+const base = import.meta.env.BASE_URL || '/';
+
 // 为了向后兼容，保留原有的 posts 和 pages 模块导出
 const postsModules = {};
 const pagesModules = {};
@@ -59,8 +62,9 @@ export async function loadAllMarkdownFiles() {
   // 加载所有模块（包括 posts, pages, tutorials 等）
   for (const path in allModules) {
     try {
-      // 将相对路径转换为绝对路径
-      const absolutePath = path.replace('../..', '');
+      // 将相对路径转换为绝对路径（考虑 base 路径）
+      const relativePath = path.replace('../..', '');
+      const absolutePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
       const filename = path.split('/').pop();
       
       // 提取文件夹名称
@@ -147,7 +151,9 @@ export async function loadFolderMarkdownFiles(folderName) {
     if (folder !== folderName) continue;
     
     try {
-      const absolutePath = path.replace('../..', '');
+      // 将相对路径转换为绝对路径（考虑 base 路径）
+      const relativePath = path.replace('../..', '');
+      const absolutePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
       const filename = path.split('/').pop();
       
       const response = await fetch(absolutePath);

@@ -21,8 +21,12 @@ export function About() {
     async function loadSiteDescription() {
       setLoading(true);
       try {
+        // 获取 base 路径并构建正确的文件路径
+        const base = import.meta.env.BASE_URL || '/';
+        const relativePath = '/content/pages/about-site';
+        const basePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
         // 尝试从 Markdown 文件加载
-        const markdown = await loadI18nMarkdown('/content/pages/about-site', language);
+        const markdown = await loadI18nMarkdown(basePath, language);
         setSiteMarkdown(markdown);
       } catch (error) {
         console.error('加载关于本站内容失败:', error);
