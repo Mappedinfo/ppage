@@ -10,6 +10,7 @@ author: System
 tags: [tutorial, automation, folder-scan]
 category: 教程
 pinned: true
+relatedDocs: [document-center-guide, advanced-features]
 ---
 
 # 自动文件夹扫描功能使用指南
@@ -17,6 +18,8 @@ pinned: true
 ## 功能概述
 
 系统现在支持自动扫描 `/content` 目录下的所有文件夹（排除 `files` 文件夹），并为每个文件夹自动生成文档中心页面和导航菜单。
+
+> 📌 **前置知识**：建议先阅读 [文档中心组件指南](#doc-document-center-guide) 了解基本用法，然后阅读 [高级功能使用](#doc-advanced-features) 了解双向链接等特性。
 
 ## 核心特性
 

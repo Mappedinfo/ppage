@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { MarkdownRenderer } from '../markdown/MarkdownRenderer';
+import { BacklinksPanel } from './BacklinksPanel';
 import { loadAllMarkdownFiles, loadFolderMarkdownFiles } from '../../utils/markdownIndex';
 import { filterMarkdownByLanguage } from '../../utils/i18nMarkdown';
 import { useI18n } from '../../i18n/I18nContext';
@@ -8,7 +9,9 @@ import {
   sortDocuments, 
   filterDocumentsByType,
   findDocumentById,
-  getDocumentPath as getDocPath
+  getDocumentPath as getDocPath,
+  buildBacklinksMap,
+  getDocumentLinks
 } from '../../utils/documentCenter';
 import styles from './DocumentCenter.module.css';
 
@@ -47,6 +50,7 @@ export function DocumentCenter({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedNodes, setExpandedNodes] = useState(new Set());
+  const [backlinksMap, setBacklinksMap] = useState(new Map());
   const { t, language } = useI18n();
 
   // 加载文档
@@ -102,6 +106,10 @@ export function DocumentCenter({
       
       setDocuments(processedFiles);
       
+      // 构建反向链接映射
+      const linksMap = buildBacklinksMap(processedFiles);
+      setBacklinksMap(linksMap);
+      
       // 默认选择第一个文档
       if (processedFiles.length > 0) {
         selectDocument(processedFiles[0]);
@@ -127,6 +135,22 @@ export function DocumentCenter({
       onDocumentChange(doc);
     }
   }
+
+  // 处理链接点击
+  function handleLinkClick(link) {
+    const targetDoc = documents.find(d => d.id === link.id);
+    if (targetDoc) {
+      selectDocument(targetDoc);
+      // 滚动到顶部
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // 获取当前文档的链接信息
+  const currentDocLinks = useMemo(() => {
+    if (!selectedDoc) return { outgoing: [], incoming: [] };
+    return getDocumentLinks(selectedDoc, backlinksMap, documents);
+  }, [selectedDoc, backlinksMap, documents]);
 
   // 切换树节点展开/折叠
   function toggleNode(nodeId) {
@@ -316,6 +340,13 @@ export function DocumentCenter({
                 </div>
               )}
               <MarkdownRenderer content={selectedDoc.content} />
+              
+              {/* 双向链接面板 */}
+              <BacklinksPanel 
+                outgoing={currentDocLinks.outgoing}
+                incoming={currentDocLinks.incoming}
+                onLinkClick={handleLinkClick}
+              />
             </article>
           ) : (
             <div className={styles.empty}>

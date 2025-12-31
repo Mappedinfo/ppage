@@ -9,6 +9,7 @@ date: 2025-12-31
 author: System
 tags: [tutorial, documentation, component]
 category: 教程
+relatedDocs: [quick-reference, advanced-features, auto-folder-scan-guide]
 ---
 
 # 文档中心组件使用指南
@@ -16,6 +17,11 @@ category: 教程
 ## 概述
 
 文档中心（DocumentCenter）是一个强大而灵活的文档管理和展示组件，它将文档组织抽象成一个统一的系统，可以像管理一本电子书一样管理你的所有文档。
+
+> 📚 **相关阅读**：
+> - [快速参考手册](#doc-quick-reference) - 快速查询常用配置和 API
+> - [高级功能使用](#doc-advanced-features) - 了解双向链接、智能排序等高级特性
+> - [自动文件夹扫描指南](#doc-auto-folder-scan-guide) - 实现自动发现和管理文档
 
 ## 核心特性
 

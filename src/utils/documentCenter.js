@@ -23,7 +23,9 @@ export function extractMetadata(content) {
     id: null,
     pinned: false,
     sticky: false,
-    priority: 0
+    priority: 0,
+    links: [],        // 对外链接（在 front matter 中声明）
+    relatedDocs: []   // 相关文档（在 front matter 中声明）
   };
 
   // 提取 YAML front matter
@@ -81,6 +83,26 @@ export function extractMetadata(content) {
           metadata.tags = tagsMatch[1]
             .split(',')
             .map(tag => tag.trim().replace(/^["']|["']$/g, ''))
+            .filter(Boolean);
+        }
+        break;
+      case 'links':
+        // 处理链接数组
+        const linksMatch = value.match(/\[(.*)\]/);
+        if (linksMatch) {
+          metadata.links = linksMatch[1]
+            .split(',')
+            .map(link => link.trim().replace(/^["']|["']$/g, ''))
+            .filter(Boolean);
+        }
+        break;
+      case 'relatedDocs':
+        // 处理相关文档数组
+        const relatedMatch = value.match(/\[(.*)\]/);
+        if (relatedMatch) {
+          metadata.relatedDocs = relatedMatch[1]
+            .split(',')
+            .map(doc => doc.trim().replace(/^["']|["']$/g, ''))
             .filter(Boolean);
         }
         break;
@@ -383,4 +405,167 @@ export function searchDocuments(documents, query) {
     
     return false;
   });
+}
+
+/**
+ * 从文档内容中提取所有内部链接
+ * @param {string} content - Markdown 内容
+ * @returns {Array} 链接的文档 ID 数组
+ */
+export function extractInternalLinks(content) {
+  const links = [];
+  
+  // 匹配 Markdown 链接: [文本](路径)
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
+  
+  while ((match = linkRegex.exec(content)) !== null) {
+    const path = match[2];
+    
+    // 只处理内部文档链接（以 /content/ 开头或 # 开头的文档 ID）
+    if (path.startsWith('/content/') || path.startsWith('#doc-')) {
+      const docId = extractDocIdFromPath(path);
+      if (docId && !links.includes(docId)) {
+        links.push(docId);
+      }
+    }
+  }
+  
+  return links;
+}
+
+/**
+ * 从路径中提取文档 ID
+ * @param {string} path - 文件路径或 ID
+ * @returns {string} 文档 ID
+ */
+function extractDocIdFromPath(path) {
+  // 如果是 #doc- 格式，直接提取 ID
+  if (path.startsWith('#doc-')) {
+    return path.substring(5);
+  }
+  
+  // 如果是文件路径，转换为 ID
+  if (path.startsWith('/content/')) {
+    return path
+      .replace(/^\/content\//, '')
+      .replace(/\.md$/, '')
+      .replace(/\.(zh|en)$/, '')
+      .replace(/\//g, '-');
+  }
+  
+  return path;
+}
+
+/**
+ * 构建所有文档的反向链接映射
+ * @param {Array} documents - 文档数组（已增强）
+ * @returns {Map} 文档 ID 到反向链接数组的映射
+ */
+export function buildBacklinksMap(documents) {
+  const backlinksMap = new Map();
+  
+  // 初始化映射
+  documents.forEach(doc => {
+    backlinksMap.set(doc.id, []);
+  });
+  
+  // 遍历所有文档，构建反向链接
+  documents.forEach(sourceDoc => {
+    // 1. 从 front matter 中的 relatedDocs 获取链接
+    const relatedDocs = sourceDoc.metadata?.relatedDocs || [];
+    relatedDocs.forEach(targetId => {
+      if (backlinksMap.has(targetId)) {
+        const backlinks = backlinksMap.get(targetId);
+        if (!backlinks.find(bl => bl.id === sourceDoc.id)) {
+          backlinks.push({
+            id: sourceDoc.id,
+            title: sourceDoc.title,
+            type: 'explicit', // 显式关联
+            path: sourceDoc.path
+          });
+        }
+      }
+    });
+    
+    // 2. 从文档内容中提取的内部链接
+    const internalLinks = extractInternalLinks(sourceDoc.content);
+    internalLinks.forEach(targetId => {
+      if (backlinksMap.has(targetId)) {
+        const backlinks = backlinksMap.get(targetId);
+        if (!backlinks.find(bl => bl.id === sourceDoc.id)) {
+          backlinks.push({
+            id: sourceDoc.id,
+            title: sourceDoc.title,
+            type: 'content', // 内容链接
+            path: sourceDoc.path
+          });
+        }
+      }
+    });
+    
+    // 3. 从 front matter 中的 parent 关系建立链接
+    if (sourceDoc.parent) {
+      if (backlinksMap.has(sourceDoc.parent)) {
+        const backlinks = backlinksMap.get(sourceDoc.parent);
+        if (!backlinks.find(bl => bl.id === sourceDoc.id)) {
+          backlinks.push({
+            id: sourceDoc.id,
+            title: sourceDoc.title,
+            type: 'parent', // 父子关系
+            path: sourceDoc.path
+          });
+        }
+      }
+    }
+  });
+  
+  return backlinksMap;
+}
+
+/**
+ * 获取文档的所有链接（对外链接 + 反向链接）
+ * @param {Object} document - 文档对象
+ * @param {Map} backlinksMap - 反向链接映射
+ * @param {Array} allDocuments - 所有文档数组
+ * @returns {Object} { outgoing: [], incoming: [] }
+ */
+export function getDocumentLinks(document, backlinksMap, allDocuments) {
+  const outgoing = [];
+  const incoming = [];
+  
+  // 1. 获取对外链接（从 relatedDocs）
+  const relatedDocs = document.metadata?.relatedDocs || [];
+  relatedDocs.forEach(docId => {
+    const targetDoc = allDocuments.find(d => d.id === docId);
+    if (targetDoc) {
+      outgoing.push({
+        id: targetDoc.id,
+        title: targetDoc.title,
+        type: 'explicit',
+        path: targetDoc.path
+      });
+    }
+  });
+  
+  // 2. 从内容中提取的链接
+  const internalLinks = extractInternalLinks(document.content);
+  internalLinks.forEach(docId => {
+    const targetDoc = allDocuments.find(d => d.id === docId);
+    if (targetDoc && !outgoing.find(link => link.id === docId)) {
+      outgoing.push({
+        id: targetDoc.id,
+        title: targetDoc.title,
+        type: 'content',
+        path: targetDoc.path
+      });
+    }
+  });
+  
+  // 3. 获取反向链接
+  if (backlinksMap.has(document.id)) {
+    incoming.push(...backlinksMap.get(document.id));
+  }
+  
+  return { outgoing, incoming };
 }

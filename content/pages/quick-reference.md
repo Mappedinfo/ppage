@@ -8,9 +8,14 @@ date: 2025-12-31
 author: System
 tags: [reference, quick-start, api]
 category: 参考文档
+relatedDocs: [document-center-guide, advanced-features, getting-started]
 ---
 
 # DocumentCenter 快速参考
+
+本文档提供 DocumentCenter 组件的快速参考指南。如需详细教程，请参阅 [文档中心组件指南](#doc-document-center-guide)。
+
+> 💡 **提示**：如果你是第一次使用，建议先阅读 [基础概念介绍](#doc-getting-started) 和 [高级功能使用](#doc-advanced-features)。
 
 ## 基础用法
 
