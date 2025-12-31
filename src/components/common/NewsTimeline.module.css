@@ -1,0 +1,296 @@
+/* 新闻时间轴组件样式（用于首页） */
+.newsTimeline {
+  margin-top: 3rem;
+}
+
+/* 头部 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.viewAll {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.viewAll:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* 时间轴容器 */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+}
+
+/* 时间轴项目 */
+.timelineItem {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+/* 时间轴标记点 */
+.timelineMarker {
+  position: absolute;
+  left: -2rem;
+  top: 0.3rem;
+}
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 3px solid var(--bg-primary);
+  background: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.timelineItem:hover .dot {
+  transform: scale(1.1);
+}
+
+/* 不同类型的标记点颜色 */
+.typePaper .dot,
+.typePaper {
+  --accent-color: #3b82f6;
+}
+
+.typeAward .dot,
+.typeAward {
+  --accent-color: #f59e0b;
+}
+
+.typeTalk .dot,
+.typeTalk {
+  --accent-color: #8b5cf6;
+}
+
+.typeVisit .dot,
+.typeVisit {
+  --accent-color: #10b981;
+}
+
+.typeConference .dot,
+.typeConference {
+  --accent-color: #ef4444;
+}
+
+.typeGraduation .dot,
+.typeGraduation {
+  --accent-color: #ec4899;
+}
+
+.typeService .dot,
+.typeService {
+  --accent-color: #06b6d4;
+}
+
+.typeOther .dot,
+.typeOther {
+  --accent-color: #6b7280;
+}
+
+/* 时间轴内容 */
+.timelineContent {
+  margin-left: 0.5rem;
+}
+
+/* 日期标签 */
+.dateLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.futureBadge {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  background: var(--accent-color);
+  color: white;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+/* 新闻卡片 */
+.newsCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.4rem;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.newsCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* 新闻头部 */
+.newsHeader {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* 类型和状态标签 */
+.typeTag,
+.statusTag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.typeTag {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* 论文状态样式 */
+.statusAccepted {
+  background: #10b981;
+  color: white;
+}
+
+.statusOnline {
+  background: #3b82f6;
+  color: white;
+}
+
+.statusPublished {
+  background: #8b5cf6;
+  color: white;
+}
+
+.statusSubmitted {
+  background: #f59e0b;
+  color: white;
+}
+
+.statusReject {
+  background: #ef4444;
+  color: white;
+}
+
+/* 新闻标题 */
+.newsTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.4rem 0;
+  line-height: 1.4;
+}
+
+/* 新闻描述 */
+.newsDescription {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* 元信息 */
+.meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* 未来事件和过去事件的区分 */
+.futureEvent .newsCard {
+  border-left: 3px solid var(--accent-color);
+}
+
+.pastEvent {
+  opacity: 0.9;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+
+  .timeline::before {
+    left: 0.5rem;
+  }
+
+  .timelineMarker {
+    left: -1.5rem;
+  }
+
+  .dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-width: 2px;
+  }
+
+  .newsCard {
+    padding: 0.8rem;
+  }
+
+  .newsTitle {
+    font-size: 0.95rem;
+  }
+
+  .newsDescription {
+    font-size: 0.85rem;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

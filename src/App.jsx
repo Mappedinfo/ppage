@@ -9,6 +9,7 @@ import { About } from './pages/About';
 import { Projects } from './pages/Projects';
 import { Posts } from './pages/Posts';
 import { Files } from './pages/Files';
+import { News } from './pages/News';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="projects" element={<Projects />} />
                 <Route path="posts" element={<Posts />} />
                 <Route path="files" element={<Files />} />
+                <Route path="news" element={<News />} />
               </Route>
             </Routes>
           </BrowserRouter>

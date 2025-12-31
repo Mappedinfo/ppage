@@ -39,6 +39,8 @@ navigation:
     path: "/posts"
   - name: "文件"
     path: "/files"
+  - name: "动态"
+    path: "/news"
 
 # 主题配置
 theme:
@@ -110,3 +112,58 @@ projects:
 deploy:
   repository: "https://github.com/yourusername/ppage"
   branch: "gh-pages"
+
+# 新闻/动态配置
+# 支持展示学术活动、论文状态、访问交流等动态信息
+news:
+  # 示例 1: 论文被接收
+  - title: "论文被 ICML 2025 接收"
+    description: "我们的论文《基于深度学习的新方法》被 ICML 2025 接收！"
+    type: "paper"  # paper, award, talk, visit, conference, graduation, service, other
+    status: "accepted"  # accepted, online, published, submitted, reject
+    date: "2025-01-15"
+    tags:
+      - "Machine Learning"
+      - "Deep Learning"
+    url: "https://example.com/paper"
+  
+  # 示例 2: 学术会议
+  - title: "参加 NeurIPS 2025"
+    description: "将于 NeurIPS 2025 会议上做口头报告"
+    type: "conference"
+    date: "2025-12-10"
+    location: "Vancouver, Canada"
+    venue: "NeurIPS 2025"
+    tags:
+      - "Conference"
+      - "AI"
+  
+  # 示例 3: 学术访问
+  - title: "访问 MIT CSAIL"
+    description: "应邀访问 MIT CSAIL，与研究团队进行合作交流"
+    type: "visit"
+    date: "2025-03-20"
+    location: "Cambridge, MA"
+    tags:
+      - "Collaboration"
+      - "Research"
+  
+  # 示例 4: 获奖
+  - title: "获得优秀论文奖"
+    description: "在 CVPR 2024 会议上获得最佳论文奖"
+    type: "award"
+    date: "2024-06-20"
+    venue: "CVPR 2024"
+    tags:
+      - "Award"
+      - "Computer Vision"
+  
+  # 示例 5: 毕业
+  - title: "博士毕业"
+    description: "从 XX 大学获得计算机科学博士学位"
+    type: "graduation"
+    date: "2024-05-01"
+    location: "University Name"
+    tags:
+      - "PhD"
+      - "Milestone"

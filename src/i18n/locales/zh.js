@@ -19,6 +19,7 @@ export const zh = {
     posts: '博客',
     projects: '项目',
     files: '文件',
+    news: '动态',
   },
 
   // 首页
@@ -83,5 +84,35 @@ export const zh = {
   language: {
     zh: '中文',
     en: 'English',
+  },
+
+  // 新闻/动态页面
+  news: {
+    title: '最新动态',
+    empty: '暂无动态消息',
+    emptyHint: '在 config.yml 的 news 配置中添加动态消息',
+    upcoming: '即将到来',
+    viewDetails: '查看详情',
+    recentNews: '最近动态',
+    viewAll: '查看全部',
+    // 新闻类型
+    types: {
+      paper: '论文',
+      award: '获奖',
+      talk: '报告',
+      visit: '访问',
+      conference: '会议',
+      graduation: '毕业',
+      service: '服务',
+      other: '其他',
+    },
+    // 论文状态
+    status: {
+      accepted: '已接收',
+      online: '在线发表',
+      published: '已出版',
+      submitted: '已投稿',
+      reject: '被拒',
+    },
   },
 };

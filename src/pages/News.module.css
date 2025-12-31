@@ -1,0 +1,302 @@
+/* 新闻/时间轴页面样式 */
+.news {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+/* 空状态 */
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+}
+
+.emptyHint {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+/* 时间轴容器 */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+}
+
+/* 时间轴项目 */
+.timelineItem {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* 时间轴标记点 */
+.timelineMarker {
+  position: absolute;
+  left: -2rem;
+  top: 0.3rem;
+}
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 3px solid var(--bg-primary);
+  background: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.timelineItem:hover .dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px var(--border-color);
+}
+
+/* 不同类型的标记点颜色 */
+.typePaper .dot,
+.typePaper {
+  --accent-color: #3b82f6;
+}
+
+.typeAward .dot,
+.typeAward {
+  --accent-color: #f59e0b;
+}
+
+.typeTalk .dot,
+.typeTalk {
+  --accent-color: #8b5cf6;
+}
+
+.typeVisit .dot,
+.typeVisit {
+  --accent-color: #10b981;
+}
+
+.typeConference .dot,
+.typeConference {
+  --accent-color: #ef4444;
+}
+
+.typeGraduation .dot,
+.typeGraduation {
+  --accent-color: #ec4899;
+}
+
+.typeService .dot,
+.typeService {
+  --accent-color: #06b6d4;
+}
+
+.typeOther .dot,
+.typeOther {
+  --accent-color: #6b7280;
+}
+
+/* 时间轴内容 */
+.timelineContent {
+  margin-left: 0.5rem;
+}
+
+/* 日期标签 */
+.dateLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.futureBadge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--accent-color);
+  color: white;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+/* 新闻卡片 */
+.newsCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.newsCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 新闻头部 */
+.newsHeader {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* 类型和状态标签 */
+.typeTag,
+.statusTag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.typeTag {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* 论文状态样式 */
+.statusAccepted {
+  background: #10b981;
+  color: white;
+}
+
+.statusOnline {
+  background: #3b82f6;
+  color: white;
+}
+
+.statusPublished {
+  background: #8b5cf6;
+  color: white;
+}
+
+.statusSubmitted {
+  background: #f59e0b;
+  color: white;
+}
+
+.statusReject {
+  background: #ef4444;
+  color: white;
+}
+
+/* 新闻标题 */
+.newsTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* 新闻描述 */
+.newsDescription {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+/* 地点和会场 */
+.location,
+.venue {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* 标签 */
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* 链接 */
+.link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* 未来事件和过去事件的区分 */
+.futureEvent .newsCard {
+  border-left: 4px solid var(--accent-color);
+}
+
+.pastEvent {
+  opacity: 0.85;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .news {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+
+  .timeline::before {
+    left: 0.5rem;
+  }
+
+  .timelineMarker {
+    left: -1.5rem;
+  }
+
+  .dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-width: 2px;
+  }
+
+  .newsCard {
+    padding: 1rem;
+  }
+
+  .newsTitle {
+    font-size: 1.1rem;
+  }
+}

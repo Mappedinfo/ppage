@@ -19,6 +19,7 @@ export const en = {
     posts: 'Blog',
     projects: 'Projects',
     files: 'Files',
+    news: 'News',
   },
 
   // Home page
@@ -83,5 +84,35 @@ export const en = {
   language: {
     zh: '中文',
     en: 'English',
+  },
+
+  // News page
+  news: {
+    title: 'News & Updates',
+    empty: 'No news yet',
+    emptyHint: 'Add news items in the news section of config.yml',
+    upcoming: 'Upcoming',
+    viewDetails: 'View Details',
+    recentNews: 'Recent News',
+    viewAll: 'View All',
+    // News types
+    types: {
+      paper: 'Paper',
+      award: 'Award',
+      talk: 'Talk',
+      visit: 'Visit',
+      conference: 'Conference',
+      graduation: 'Graduation',
+      service: 'Service',
+      other: 'Other',
+    },
+    // Paper status
+    status: {
+      accepted: 'Accepted',
+      online: 'Online',
+      published: 'Published',
+      submitted: 'Submitted',
+      reject: 'Rejected',
+    },
   },
 };

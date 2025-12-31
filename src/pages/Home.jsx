@@ -1,6 +1,7 @@
 import React from 'react';
 import { useProfileConfig, useConfig } from '../config/ConfigContext';
 import { useI18n } from '../i18n/I18nContext';
+import { NewsTimeline } from '../components/common/NewsTimeline';
 import styles from './Home.module.css';
 
 /**
@@ -61,6 +62,9 @@ export function Home() {
           </div>
         </section>
       )}
+
+      {/* 新闻/动态时间轴 */}
+      <NewsTimeline limit={5} />
     </div>
   );
 }
