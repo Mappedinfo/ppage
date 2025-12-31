@@ -8,7 +8,7 @@
  * 获取所有 Markdown 文件的 glob 模块
  * 排除 files 文件夹
  */
-const allMarkdownModules = import.meta.glob('../../content/*/**/*.md', { eager: false });
+const allMarkdownModules = import.meta.glob('../../content/**/*.md', { eager: false });
 
 /**
  * 从路径中提取文件夹名称

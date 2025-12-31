@@ -56,14 +56,23 @@ export function extractTitle(content, filename) {
 export async function loadAllMarkdownFiles() {
   const markdownFiles = [];
   
-  // 加载 posts - 使用 fetch 代替 import
-  for (const path in postsModules) {
+  // 加载所有模块（包括 posts, pages, tutorials 等）
+  for (const path in allModules) {
     try {
       // 将相对路径转换为绝对路径
-      // path 例如: '../../content/posts/welcome.md'
-      // 需要转换为: '/content/posts/welcome.md'
       const absolutePath = path.replace('../..', '');
       const filename = path.split('/').pop();
+      
+      // 提取文件夹名称
+      const folder = extractFolderFromPath(path);
+      
+      // 确定文件类型
+      let type = 'page'; // 默认类型
+      if (folder === 'posts') {
+        type = 'post';
+      } else if (folder === 'pages') {
+        type = 'page';
+      }
       
       const response = await fetch(absolutePath);
       if (!response.ok) {
@@ -78,34 +87,8 @@ export async function loadAllMarkdownFiles() {
         path: absolutePath,
         content,
         title,
-        type: 'post'
-      });
-    } catch (error) {
-      console.error(`加载文件失败: ${path}`, error);
-    }
-  }
-  
-  // 加载 pages - 使用 fetch 代替 import
-  for (const path in pagesModules) {
-    try {
-      // 将相对路径转换为绝对路径
-      const absolutePath = path.replace('../..', '');
-      const filename = path.split('/').pop();
-      
-      const response = await fetch(absolutePath);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const content = await response.text();
-      
-      // 使用新的标题提取函数
-      const title = extractTitle(content, filename);
-      
-      markdownFiles.push({
-        path: absolutePath,
-        content,
-        title,
-        type: 'page'
+        type,
+        folder // 添加 folder 字段
       });
     } catch (error) {
       console.error(`加载文件失败: ${path}`, error);

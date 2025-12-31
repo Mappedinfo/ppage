@@ -62,8 +62,8 @@ function AppContent() {
               <Route path="files" element={<Files />} />
               <Route path="news" element={<News />} />
               
-              {/* 动态生成的路由 */}
-              {!loading && folderConfigs.map(config => (
+              {/* 动态生成的路由 - 始终渲染，即使 loading */}
+              {folderConfigs.map(config => (
                 <Route 
                   key={config.name}
                   path={config.name} 
