@@ -13,6 +13,7 @@ import { Files } from './pages/Files'
 import { News } from './pages/News'
 import { DynamicDocumentPage } from './pages/DynamicDocumentPage'
 import { generateFolderConfigs } from './utils/folderScanner'
+import { getRouterBasename } from './utils/pathUtils'
 
 function AppContent() {
   const siteConfig = useSiteConfig()
@@ -53,8 +54,8 @@ function AppContent() {
     }
   }, [siteConfig])
 
-  // 获取 Vite 配置的基础路径，支持子目录部署
-  const basename = import.meta.env.BASE_URL || '/'
+  // 使用自动计算的 basename，适配任意部署路径
+  const basename = getRouterBasename()
 
   return (
     <I18nProvider>

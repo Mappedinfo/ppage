@@ -4,6 +4,7 @@
  */
 
 import { getAllMarkdownModules } from './folderScanner'
+import { getAssetPath } from './pathUtils'
 
 // 使用文件夹扫描器获取所有 Markdown 模块
 const allModules = getAllMarkdownModules()
@@ -63,9 +64,9 @@ export async function loadAllMarkdownFiles() {
   for (const path in allModules) {
     try {
       // 将相对路径转换为绝对路径
-      // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
+      // 使用 getAssetPath 自动适配部署路径
       const relativePath = path.replace('../..', '')
-      const absolutePath = relativePath
+      const absolutePath = getAssetPath(relativePath)
       const filename = path.split('/').pop()
 
       // 提取文件夹名称
@@ -153,9 +154,9 @@ export async function loadFolderMarkdownFiles(folderName) {
 
     try {
       // 将相对路径转换为绝对路径
-      // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
+      // 使用 getAssetPath 自动适配部署路径
       const relativePath = path.replace('../..', '')
-      const absolutePath = relativePath
+      const absolutePath = getAssetPath(relativePath)
       const filename = path.split('/').pop()
 
       const response = await fetch(absolutePath)

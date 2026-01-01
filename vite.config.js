@@ -4,17 +4,13 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
-  // 支持通过环境变量配置 base 路径
-  // 开发环境（dev）默认使用 /
-  // 生产环境（build/preview）：
-  //   - 如果设置了 VITE_BASE_PATH 环境变量，使用该值
-  //   - 否则使用默认值 /ppage/
-  // 使用方法：
-  //   根域名部署: VITE_BASE_PATH=/ npm run build
-  //   子目录部署: npm run build (或 VITE_BASE_PATH=/ppage/ npm run build)
-  const base = command === 'serve' 
-    ? '/'
-    : (process.env.VITE_BASE_PATH || '/ppage/');
+  // 使用相对路径，自动适配任何部署路径
+  // './' 表示相对于当前 HTML 文件的路径
+  // 优点：
+  // 1. 可以部署到任意路径（根路径、子目录、多层子目录）
+  // 2. 无需配置环境变量
+  // 3. 本地预览和线上部署行为完全一致
+  const base = './'
   
   return {
     plugins: [
@@ -34,7 +30,7 @@ export default defineConfig(({ command, mode }) => {
       outDir: 'dist',
       assetsDir: 'assets',
       sourcemap: false,
-      minify: 'esbuild', // 使用 esbuild 代替 terser
+      minify: 'esbuild',
     },
   };
 });

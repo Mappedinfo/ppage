@@ -1,4 +1,5 @@
 import yaml from 'js-yaml'
+import { getAssetPath } from '../utils/pathUtils'
 
 /**
  * 解析 YAML 配置文件
@@ -21,8 +22,9 @@ export function parseConfig(yamlContent) {
  */
 export async function loadConfig() {
   try {
-    // config.yml 是静态资源，始终从根路径访问，不需要 base 前缀
-    const configPath = '/config.yml'
+    // 使用 getAssetPath 获取正确的配置文件路径
+    // 自动适配任意部署路径
+    const configPath = getAssetPath('/config.yml')
     const response = await fetch(configPath)
     if (!response.ok) {
       throw new Error(`配置文件加载失败: ${response.statusText}`)

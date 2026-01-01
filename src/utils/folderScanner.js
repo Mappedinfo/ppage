@@ -4,8 +4,7 @@
  * 并为每个文件夹生成相应的文档中心配置
  */
 
-// 获取 base 路径（用于 fetch 请求）
-const base = import.meta.env.BASE_URL || '/'
+import { getAssetPath } from './pathUtils'
 
 /**
  * 获取所有 Markdown 文件的 glob 模块
@@ -101,8 +100,8 @@ export function hasIndexFile(folderName) {
  */
 export async function loadFolderIndex(folderName) {
   // 构建 index.md 路径
-  // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
-  const indexPath = `/content/${folderName}/index.md`
+  // 使用 getAssetPath 自动适配部署路径
+  const indexPath = getAssetPath(`/content/${folderName}/index.md`)
 
   try {
     const response = await fetch(indexPath)

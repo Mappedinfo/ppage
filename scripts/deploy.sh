@@ -1,25 +1,14 @@
 #!/bin/bash
 
 # PPage 本地部署脚本
-# 用于将构建产出部署到 GitHub Pages
+# 用于将构建产出部署到 GitHub Pages（根路径部署）
 # 
 # 使用方法：
-#   子目录部署（domain.com/ppage）: ./scripts/deploy.sh
-#   根域名部署（domain.com）:        ./scripts/deploy.sh root
+#   ./scripts/deploy.sh 或 npm run deploy
 
 set -e
 
 echo "🚀 开始构建和部署..."
-
-# 检查部署类型参数
-DEPLOY_TYPE="${1:-subdir}"
-if [ "$DEPLOY_TYPE" = "root" ]; then
-  echo "📍 部署类型: 根域名部署（/）"
-  BUILD_COMMAND="npm run build:root"
-else
-  echo "📍 部署类型: 子目录部署（/ppage/）"
-  BUILD_COMMAND="npm run build:subdir"
-fi
 
 # 0. 从 public/config.yml 读取配置
 echo "🔍 读取配置文件..."
@@ -64,7 +53,7 @@ fi
 
 # 2. 构建项目
 echo "📦 构建项目..."
-$BUILD_COMMAND
+npm run build
 
 # 2.5. 生成 CNAME 文件（如果配置了自定义域名）
 if [ -n "$CUSTOM_DOMAIN" ]; then
