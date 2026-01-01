@@ -1,4 +1,4 @@
-import yaml from 'js-yaml';
+import yaml from 'js-yaml'
 
 /**
  * 解析 YAML 配置文件
@@ -7,11 +7,11 @@ import yaml from 'js-yaml';
  */
 export function parseConfig(yamlContent) {
   try {
-    const config = yaml.load(yamlContent);
-    return config;
+    const config = yaml.load(yamlContent)
+    return config
   } catch (error) {
-    console.error('配置文件解析失败:', error);
-    throw new Error(`配置文件解析错误: ${error.message}`);
+    console.error('配置文件解析失败:', error)
+    throw new Error(`配置文件解析错误: ${error.message}`)
   }
 }
 
@@ -21,19 +21,18 @@ export function parseConfig(yamlContent) {
  */
 export async function loadConfig() {
   try {
-    // 获取基础路径，支持子目录部署
-    const base = import.meta.env.BASE_URL || '/';
-    const configPath = `${base}config.yml`.replace(/\/+/g, '/');
-    const response = await fetch(configPath);
+    // config.yml 是静态资源，始终从根路径访问，不需要 base 前缀
+    const configPath = '/config.yml'
+    const response = await fetch(configPath)
     if (!response.ok) {
-      throw new Error(`配置文件加载失败: ${response.statusText}`);
+      throw new Error(`配置文件加载失败: ${response.statusText}`)
     }
-    const yamlContent = await response.text();
-    return parseConfig(yamlContent);
+    const yamlContent = await response.text()
+    return parseConfig(yamlContent)
   } catch (error) {
-    console.error('配置文件加载失败:', error);
+    console.error('配置文件加载失败:', error)
     // 返回默认配置
-    return getDefaultConfig();
+    return getDefaultConfig()
   }
 }
 
@@ -47,29 +46,29 @@ function getDefaultConfig() {
       title: '个人主页',
       description: '基于 Markdown 的个人主页系统',
       author: 'Your Name',
-      baseUrl: '/'
+      baseUrl: '/',
     },
     profile: {
       name: 'Your Name',
       avatar: '/assets/images/avatar.jpg',
       bio: '研究者 | 开发者 | 学习者',
-      email: 'your.email@example.com'
+      email: 'your.email@example.com',
     },
     social: [],
     navigation: [
       { name: '首页', path: '/' },
-      { name: '关于', path: '/about' }
+      { name: '关于', path: '/about' },
     ],
     theme: {
       default: 'light',
-      available: ['light', 'dark']
+      available: ['light', 'dark'],
     },
     content: {
       postsPath: '/content/posts',
       pagesPath: '/content/pages',
-      assetsPath: '/assets'
+      assetsPath: '/assets',
     },
     files: [],
-    projects: []
-  };
+    projects: [],
+  }
 }

@@ -3,24 +3,24 @@
  * 使用 Vite 的 import.meta.glob 自动发现所有 Markdown 文件
  */
 
-import { getAllMarkdownModules } from './folderScanner';
+import { getAllMarkdownModules } from './folderScanner'
 
 // 使用文件夹扫描器获取所有 Markdown 模块
-const allModules = getAllMarkdownModules();
+const allModules = getAllMarkdownModules()
 
 // 获取 base 路径（用于 fetch 请求）
-const base = import.meta.env.BASE_URL || '/';
+const base = import.meta.env.BASE_URL || '/'
 
 // 为了向后兼容，保留原有的 posts 和 pages 模块导出
-const postsModules = {};
-const pagesModules = {};
+const postsModules = {}
+const pagesModules = {}
 
 // 分类文件到 posts 和 pages
 for (const path in allModules) {
   if (path.includes('/posts/')) {
-    postsModules[path] = allModules[path];
+    postsModules[path] = allModules[path]
   } else if (path.includes('/pages/')) {
-    pagesModules[path] = allModules[path];
+    pagesModules[path] = allModules[path]
   }
 }
 
@@ -33,23 +33,23 @@ for (const path in allModules) {
  */
 export function extractTitle(content, filename) {
   // 1. 尝试从 YAML front matter 中提取 title
-  const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+  const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/)
   if (frontMatterMatch) {
-    const frontMatter = frontMatterMatch[1];
-    const titleMatch = frontMatter.match(/^title:\s*["']?([^"'\n]+)["']?/m);
+    const frontMatter = frontMatterMatch[1]
+    const titleMatch = frontMatter.match(/^title:\s*["']?([^"'\n]+)["']?/m)
     if (titleMatch) {
-      return titleMatch[1].trim();
+      return titleMatch[1].trim()
     }
   }
-  
+
   // 2. 尝试从正文中提取一级标题（# 标题）
-  const h1Match = content.match(/^#\s+(.+)$/m);
+  const h1Match = content.match(/^#\s+(.+)$/m)
   if (h1Match) {
-    return h1Match[1].trim();
+    return h1Match[1].trim()
   }
-  
+
   // 3. 使用文件名作为后备
-  return filename.replace('.md', '');
+  return filename.replace('.md', '')
 }
 
 /**
@@ -57,49 +57,50 @@ export function extractTitle(content, filename) {
  * @returns {Promise<Array>} Markdown 文件数组
  */
 export async function loadAllMarkdownFiles() {
-  const markdownFiles = [];
-  
+  const markdownFiles = []
+
   // 加载所有模块（包括 posts, pages, tutorials 等）
   for (const path in allModules) {
     try {
-      // 将相对路径转换为绝对路径（考虑 base 路径）
-      const relativePath = path.replace('../..', '');
-      const absolutePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
-      const filename = path.split('/').pop();
-      
+      // 将相对路径转换为绝对路径
+      // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
+      const relativePath = path.replace('../..', '')
+      const absolutePath = relativePath
+      const filename = path.split('/').pop()
+
       // 提取文件夹名称
-      const folder = extractFolderFromPath(path);
-      
+      const folder = extractFolderFromPath(path)
+
       // 确定文件类型
-      let type = 'page'; // 默认类型
+      let type = 'page' // 默认类型
       if (folder === 'posts') {
-        type = 'post';
+        type = 'post'
       } else if (folder === 'pages') {
-        type = 'page';
+        type = 'page'
       }
-      
-      const response = await fetch(absolutePath);
+
+      const response = await fetch(absolutePath)
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-      const content = await response.text();
-      
+      const content = await response.text()
+
       // 使用新的标题提取函数
-      const title = extractTitle(content, filename);
-      
+      const title = extractTitle(content, filename)
+
       markdownFiles.push({
         path: absolutePath,
         content,
         title,
         type,
-        folder // 添加 folder 字段
-      });
+        folder, // 添加 folder 字段
+      })
     } catch (error) {
-      console.error(`加载文件失败: ${path}`, error);
+      console.error(`加载文件失败: ${path}`, error)
     }
   }
-  
-  return markdownFiles;
+
+  return markdownFiles
 }
 
 /**
@@ -107,25 +108,25 @@ export async function loadAllMarkdownFiles() {
  * @returns {Array} 文件信息数组
  */
 export function getMarkdownFileList() {
-  const fileList = [];
-  
+  const fileList = []
+
   // 获取 posts 列表
   Object.keys(postsModules).forEach(path => {
     fileList.push({
       path,
-      type: 'post'
-    });
-  });
-  
+      type: 'post',
+    })
+  })
+
   // 获取 pages 列表
   Object.keys(pagesModules).forEach(path => {
     fileList.push({
       path,
-      type: 'page'
-    });
-  });
-  
-  return fileList;
+      type: 'page',
+    })
+  })
+
+  return fileList
 }
 
 /**
@@ -134,8 +135,8 @@ export function getMarkdownFileList() {
  * @returns {string|null} 文件夹名称
  */
 function extractFolderFromPath(path) {
-  const match = path.match(/\.\.\/\.\.\/content\/([^\/]+)\//); 
-  return match ? match[1] : null;
+  const match = path.match(/\.\.\/\.\.\/content\/([^\/]+)\//)
+  return match ? match[1] : null
 }
 
 /**
@@ -144,37 +145,38 @@ function extractFolderFromPath(path) {
  * @returns {Promise<Array>} Markdown 文件数组
  */
 export async function loadFolderMarkdownFiles(folderName) {
-  const markdownFiles = [];
-  
+  const markdownFiles = []
+
   for (const path in allModules) {
-    const folder = extractFolderFromPath(path);
-    if (folder !== folderName) continue;
-    
+    const folder = extractFolderFromPath(path)
+    if (folder !== folderName) continue
+
     try {
-      // 将相对路径转换为绝对路径（考虑 base 路径）
-      const relativePath = path.replace('../..', '');
-      const absolutePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
-      const filename = path.split('/').pop();
-      
-      const response = await fetch(absolutePath);
+      // 将相对路径转换为绝对路径
+      // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
+      const relativePath = path.replace('../..', '')
+      const absolutePath = relativePath
+      const filename = path.split('/').pop()
+
+      const response = await fetch(absolutePath)
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-      const content = await response.text();
-      
-      const title = extractTitle(content, filename);
-      
+      const content = await response.text()
+
+      const title = extractTitle(content, filename)
+
       markdownFiles.push({
         path: absolutePath,
         content,
         title,
         type: 'page', // 默认类型
-        folder: folderName
-      });
+        folder: folderName,
+      })
     } catch (error) {
-      console.error(`加载文件失败: ${path}`, error);
+      console.error(`加载文件失败: ${path}`, error)
     }
   }
-  
-  return markdownFiles;
+
+  return markdownFiles
 }

@@ -1,46 +1,42 @@
-import React from 'react';
-import styles from './DownloadButton.module.css';
+import React from 'react'
+import styles from './DownloadButton.module.css'
 
 /**
  * 文件下载按钮组件
  */
-export function DownloadButton({ 
-  file, 
-  variant = 'primary',
-  size = 'medium' 
-}) {
+export function DownloadButton({ file, variant = 'primary', size = 'medium' }) {
   if (!file || !file.path) {
-    return null;
+    return null
   }
 
-  const { title, path, description, size: fileSize, type } = file;
-  
-  // 获取完整的文件路径，支持子目录部署
-  const getFullPath = (filePath) => {
-    const base = import.meta.env.BASE_URL || '/';
-    // 如果路径已经包含 base，直接返回
-    if (filePath.startsWith(base)) {
-      return filePath;
+  const { title, path, description, size: fileSize, type } = file
+
+  // 获取完整的文件路径
+  // 注意：静态资源从根路径访问，不需要 base 前缀
+  const getFullPath = filePath => {
+    // 如果是外部 URL，直接返回
+    if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
+      return filePath
     }
-    // 否则添加 base 路径
-    return `${base}${filePath.replace(/^\//, '')}`.replace(/\/+/g, '/');
-  };
+    // 本地文件，确保以 / 开头
+    return filePath.startsWith('/') ? filePath : `/${filePath}`
+  }
 
   // 获取文件图标
   const getFileIcon = () => {
     switch (type) {
       case 'pdf':
-        return '📄';
+        return '📄'
       case 'document':
-        return '📝';
+        return '📝'
       case 'archive':
-        return '📦';
+        return '📦'
       case 'image':
-        return '🖼️';
+        return '🖼️'
       default:
-        return '📁';
+        return '📁'
     }
-  };
+  }
 
   return (
     <a
@@ -53,16 +49,12 @@ export function DownloadButton({
       <span className={styles.icon}>{getFileIcon()}</span>
       <div className={styles.content}>
         <div className={styles.title}>{title}</div>
-        {description && (
-          <div className={styles.description}>{description}</div>
-        )}
-        {fileSize && (
-          <div className={styles.size}>{fileSize}</div>
-        )}
+        {description && <div className={styles.description}>{description}</div>}
+        {fileSize && <div className={styles.size}>{fileSize}</div>}
       </div>
       <span className={styles.downloadIcon}>⬇</span>
     </a>
-  );
+  )
 }
 
 /**
@@ -74,7 +66,7 @@ export function FileList({ files }) {
       <div className={styles.emptyState}>
         <p>暂无文件</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -83,5 +75,5 @@ export function FileList({ files }) {
         <DownloadButton key={index} file={file} />
       ))}
     </div>
-  );
+  )
 }

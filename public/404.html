@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>加载中...</title>
+  <script>
+    // GitHub Pages SPA 路由解决方案
+    // 简化版：直接将当前路径存储后重定向到首页
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      
+      // 如果是静态资源（如 .md, .pdf 等），不进行重定向
+      if (path.match(/\.(md|pdf|jpg|jpeg|png|gif|svg|css|js|ico|json|xml|txt)$/i)) {
+        return;
+      }
+      
+      // 将完整路径保存到 sessionStorage
+      sessionStorage.setItem('redirectPath', path + search + hash);
+      
+      // 重定向到首页
+      window.location.replace('/');
+    })();
+  </script>
+</head>
+<body>
+  <div style="font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 50px;">
+    <h2>加载中...</h2>
+    <p>正在跳转到正确的页面</p>
+  </div>
+</body>
+</html>

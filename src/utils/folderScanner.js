@@ -5,13 +5,16 @@
  */
 
 // 获取 base 路径（用于 fetch 请求）
-const base = import.meta.env.BASE_URL || '/';
+const base = import.meta.env.BASE_URL || '/'
 
 /**
  * 获取所有 Markdown 文件的 glob 模块
  * 排除 files 文件夹
  */
-const allMarkdownModules = import.meta.glob('../../content/**/*.md', { query: '?url', eager: false });
+const allMarkdownModules = import.meta.glob('../../content/**/*.md', {
+  query: '?url',
+  eager: false,
+})
 
 /**
  * 从路径中提取文件夹名称
@@ -20,8 +23,8 @@ const allMarkdownModules = import.meta.glob('../../content/**/*.md', { query: '?
  */
 function extractFolderName(path) {
   // path 例如: '../../content/posts/welcome.md'
-  const match = path.match(/\.\.\/\.\.\/content\/([^\/]+)\//);
-  return match ? match[1] : null;
+  const match = path.match(/\.\.\/\.\.\/content\/([^\/]+)\//)
+  return match ? match[1] : null
 }
 
 /**
@@ -29,21 +32,21 @@ function extractFolderName(path) {
  * @returns {Array<Object>} 文件夹配置数组
  */
 export function scanContentFolders() {
-  const folders = new Map();
-  
+  const folders = new Map()
+
   // 遍历所有 Markdown 文件，提取文件夹信息
   for (const path in allMarkdownModules) {
-    const folderName = extractFolderName(path);
-    
+    const folderName = extractFolderName(path)
+
     // 排除 files 文件夹和无效路径
     if (!folderName || folderName === 'files') {
-      continue;
+      continue
     }
-    
+
     // 如果文件夹已存在，增加文件计数
     if (folders.has(folderName)) {
-      const folder = folders.get(folderName);
-      folder.fileCount++;
+      const folder = folders.get(folderName)
+      folder.fileCount++
     } else {
       // 创建新文件夹配置
       folders.set(folderName, {
@@ -52,11 +55,11 @@ export function scanContentFolders() {
         fileCount: 1,
         path: `/content/${folderName}`,
         routePath: `/${folderName}`,
-      });
+      })
     }
   }
-  
-  return Array.from(folders.values());
+
+  return Array.from(folders.values())
 }
 
 /**
@@ -65,19 +68,20 @@ export function scanContentFolders() {
  * @returns {Array<string>} 文件路径数组
  */
 export function getFolderFiles(folderName) {
-  const files = [];
-  
+  const files = []
+
   for (const path in allMarkdownModules) {
-    const folder = extractFolderName(path);
+    const folder = extractFolderName(path)
     if (folder === folderName) {
-      // 转换为绝对路径（考虑 base 路径）
-      const relativePath = path.replace('../..', '');
-      const absolutePath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
-      files.push(absolutePath);
+      // 转换为绝对路径
+      // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
+      const relativePath = path.replace('../..', '')
+      const absolutePath = relativePath
+      files.push(absolutePath)
     }
   }
-  
-  return files;
+
+  return files
 }
 
 /**
@@ -86,8 +90,8 @@ export function getFolderFiles(folderName) {
  * @returns {boolean}
  */
 export function hasIndexFile(folderName) {
-  const indexPattern = `../../content/${folderName}/index.md`;
-  return indexPattern in allMarkdownModules;
+  const indexPattern = `../../content/${folderName}/index.md`
+  return indexPattern in allMarkdownModules
 }
 
 /**
@@ -96,25 +100,25 @@ export function hasIndexFile(folderName) {
  * @returns {Promise<Object|null>} index.md 的配置信息
  */
 export async function loadFolderIndex(folderName) {
-  // 构建 index.md 路径（考虑 base 路径）
-  const relativePath = `/content/${folderName}/index.md`;
-  const indexPath = base === '/' ? relativePath : base + relativePath.replace(/^\//, '');
-  
+  // 构建 index.md 路径
+  // 注意：content 目录是静态资源，始终从根路径访问，不需要 base 前缀
+  const indexPath = `/content/${folderName}/index.md`
+
   try {
-    const response = await fetch(indexPath);
+    const response = await fetch(indexPath)
     if (!response.ok) {
-      return null;
+      return null
     }
-    
-    const content = await response.text();
-    
+
+    const content = await response.text()
+
     // 解析 front matter
-    const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+    const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/)
     if (!frontMatterMatch) {
-      return { content };
+      return { content }
     }
-    
-    const frontMatter = frontMatterMatch[1];
+
+    const frontMatter = frontMatterMatch[1]
     const config = {
       content,
       title: null,
@@ -125,49 +129,52 @@ export async function loadFolderIndex(folderName) {
       layout: 'sidebar',
       icon: null,
       order: null,
-    };
-    
+    }
+
     // 解析 front matter 字段
-    const lines = frontMatter.split('\n');
+    const lines = frontMatter.split('\n')
     lines.forEach(line => {
-      const [key, ...valueParts] = line.split(':');
-      if (!key) return;
-      
-      const trimmedKey = key.trim();
-      const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
-      
+      const [key, ...valueParts] = line.split(':')
+      if (!key) return
+
+      const trimmedKey = key.trim()
+      const value = valueParts
+        .join(':')
+        .trim()
+        .replace(/^["']|["']$/g, '')
+
       switch (trimmedKey) {
         case 'title':
-          config.title = value;
-          break;
+          config.title = value
+          break
         case 'description':
-          config.description = value;
-          break;
+          config.description = value
+          break
         case 'type':
-          config.type = value;
-          break;
+          config.type = value
+          break
         case 'enableTree':
-          config.enableTree = value === 'true';
-          break;
+          config.enableTree = value === 'true'
+          break
         case 'showBreadcrumb':
-          config.showBreadcrumb = value === 'true';
-          break;
+          config.showBreadcrumb = value === 'true'
+          break
         case 'layout':
-          config.layout = value;
-          break;
+          config.layout = value
+          break
         case 'icon':
-          config.icon = value;
-          break;
+          config.icon = value
+          break
         case 'order':
-          config.order = parseInt(value, 10);
-          break;
+          config.order = parseInt(value, 10)
+          break
       }
-    });
-    
-    return config;
+    })
+
+    return config
   } catch (error) {
-    console.error(`加载 index.md 失败: ${folderName}`, error);
-    return null;
+    console.error(`加载 index.md 失败: ${folderName}`, error)
+    return null
   }
 }
 
@@ -177,12 +184,12 @@ export async function loadFolderIndex(folderName) {
  * @returns {Promise<Array<Object>>} 文件夹配置数组
  */
 export async function generateFolderConfigs() {
-  const folders = scanContentFolders();
-  const configs = [];
-  
+  const folders = scanContentFolders()
+  const configs = []
+
   for (const folder of folders) {
-    const indexConfig = await loadFolderIndex(folder.name);
-    
+    const indexConfig = await loadFolderIndex(folder.name)
+
     // 合并配置
     const config = {
       name: folder.name,
@@ -197,15 +204,15 @@ export async function generateFolderConfigs() {
       order: indexConfig?.order || 999,
       fileCount: folder.fileCount,
       hasIndex: !!indexConfig,
-    };
-    
-    configs.push(config);
+    }
+
+    configs.push(config)
   }
-  
+
   // 按 order 排序
-  configs.sort((a, b) => a.order - b.order);
-  
-  return configs;
+  configs.sort((a, b) => a.order - b.order)
+
+  return configs
 }
 
 /**
@@ -217,7 +224,7 @@ function formatFolderName(folderName) {
   return folderName
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .join(' ')
 }
 
 /**
@@ -225,5 +232,5 @@ function formatFolderName(folderName) {
  * @returns {Object} glob 模块对象
  */
 export function getAllMarkdownModules() {
-  return allMarkdownModules;
+  return allMarkdownModules
 }

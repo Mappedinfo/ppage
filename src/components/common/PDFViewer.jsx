@@ -1,42 +1,42 @@
-import React, { useState } from 'react';
-import styles from './PDFViewer.module.css';
+import React, { useState } from 'react'
+import styles from './PDFViewer.module.css'
 
 /**
  * PDF 查看器组件
  */
 export function PDFViewer({ url, title = 'PDF 文档' }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-  // 获取完整的文件路径，支持子目录部署
-  const getFullPath = (filePath) => {
-    const base = import.meta.env.BASE_URL || '/';
-    // 如果路径已经包含 base，直接返回
-    if (filePath.startsWith(base) || filePath.startsWith('http')) {
-      return filePath;
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  // 获取完整的文件路径
+  // 注意：静态资源从根路径访问，不需要 base 前缀
+  const getFullPath = filePath => {
+    // 如果是外部 URL，直接返回
+    if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
+      return filePath
     }
-    // 否则添加 base 路径
-    return `${base}${filePath.replace(/^\//, '')}`.replace(/\/+/g, '/');
-  };
-  
-  const fullUrl = getFullPath(url);
+    // 本地文件，确保以 / 开头
+    return filePath.startsWith('/') ? filePath : `/${filePath}`
+  }
+
+  const fullUrl = getFullPath(url)
 
   const handleLoad = () => {
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   const handleError = () => {
-    setIsLoading(false);
-    setError('PDF 加载失败');
-  };
+    setIsLoading(false)
+    setError('PDF 加载失败')
+  }
 
   return (
     <div className={styles.pdfViewer}>
       <div className={styles.header}>
         <h3 className={styles.title}>{title}</h3>
-        <a 
-          href={fullUrl} 
-          download 
+        <a
+          href={fullUrl}
+          download
           className={styles.downloadButton}
           target="_blank"
           rel="noopener noreferrer"
@@ -71,5 +71,5 @@ export function PDFViewer({ url, title = 'PDF 文档' }) {
         />
       </div>
     </div>
-  );
+  )
 }
