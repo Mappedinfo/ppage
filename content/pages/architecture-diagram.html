@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 基础 SEO -->
+  <title>文档中心组件架构图 - 个人主页</title>
+  <meta name="description" content="文档中心组件架构图
+
+1. 组件层级结构
+
+
+DocumentCenter (主组件)
+├── Header (头部)
+│   ├── Title (标题)
+│   └── Count Badge (文档数量徽章)
+├── Breadcrumb (面包屑导航) [可选]
+└── Container (主容器)
+    ...">
+  <meta name="keywords" content="architecture, diagram, technical">
+  <meta name="author" content="Your Name">
+  
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="">
+  <meta property="og:title" content="文档中心组件架构图 - 个人主页">
+  <meta property="og:description" content="文档中心组件架构图
+
+1. 组件层级结构
+
+
+DocumentCenter (主组件)
+├── Header (头部)
+│   ├── Title (标题)
+│   └── Count Badge (文档数量徽章)
+├── Breadcrumb (面包屑导航) [可选]
+└── Container (主容器)
+    ...">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:site_name" content="个人主页">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="">
+  <meta name="twitter:title" content="文档中心组件架构图 - 个人主页">
+  <meta name="twitter:description" content="文档中心组件架构图
+
+1. 组件层级结构
+
+
+DocumentCenter (主组件)
+├── Header (头部)
+│   ├── Title (标题)
+│   └── Count Badge (文档数量徽章)
+├── Breadcrumb (面包屑导航) [可选]
+└── Container (主容器)
+    ...">
+  <meta name="twitter:image" content="/og-image.png">
+  
+  <!-- 结构化数据 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "文档中心组件架构图",
+    "description": "文档中心组件架构图
+
+1. 组件层级结构
+
+
+DocumentCenter (主组件)
+├── Header (头部)
+│   ├── Title (标题)
+│   └── Count Badge (文档数量徽章)
+├── Breadcrumb (面包屑导航) [可选]
+└── Container (主容器)
+    ...",
+    "author": {
+      "@type": "Person",
+      "name": "Your Name"
+    },
+    "datePublished": "Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)",
+    "dateModified": "Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)",
+    "publisher": {
+      "@type": "Organization",
+      "name": "个人主页",
+      "url": ""
+    }
+  }
+  </script>
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="./assets/index.css" as="style">
+  <link rel="preload" href="./assets/index.js" as="script">
+  
+  <!-- 样式表 -->
+  <link rel="stylesheet" href="./assets/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  
+  <!-- React Hydration 标记 -->
+  <meta name="prerender" content="true">
+  <meta name="hydrate" content="true">
+</head>
+<body>
+  <!-- SSG 预渲染内容 -->
+  <div id="root">
+    <div class="markdown-static-content">
+      <article class="markdown-article">
+        <header class="article-header">
+          <h1>文档中心组件架构图</h1>
+          <time datetime="Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)">Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)</time>
+          <div class="tags"><span class="tag">architecture</span><span class="tag">diagram</span><span class="tag">technical</span></div>
+        </header>
+        <div class="article-content">
+          <h1 id="%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83%E7%BB%84%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE" tabindex="-1"><a class="header-anchor" href="#%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83%E7%BB%84%E4%BB%B6%E6%9E%B6%E6%9E%84%E5%9B%BE"><span>文档中心组件架构图</span></a></h1>
+<h2 id="1.-%E7%BB%84%E4%BB%B6%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84" tabindex="-1"><a class="header-anchor" href="#1.-%E7%BB%84%E4%BB%B6%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84"><span>1. 组件层级结构</span></a></h2>
+<pre><code>DocumentCenter (主组件)
+├── Header (头部)
+│   ├── Title (标题)
+│   └── Count Badge (文档数量徽章)
+├── Breadcrumb (面包屑导航) [可选]
+└── Container (主容器)
+    ├── Sidebar/Navigation (导航区)
+    │   ├── Document List (平面列表模式)
+    │   │   └── Document Item
+    │   │       ├── Title
+    │   │       └── Order Badge
+    │   └── Document Tree (树形模式)
+    │       └── Tree Node
+    │           ├── Expand Button
+    │           ├── Title
+    │           ├── Order Badge
+    │           └── Children (递归)
+    └── Content Area (内容区)
+        └── Article
+            ├── Metadata (元数据)
+            │   ├── Date
+            │   ├── Author
+            │   └── Tags
+            └── MarkdownRenderer (Markdown渲染)
+</code></pre>
+<h2 id="2.-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B" tabindex="-1"><a class="header-anchor" href="#2.-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span>2. 数据处理流程</span></a></h2>
+<pre><code>┌──────────────────────────────────────────────────┐
+│                  用户请求                         │
+│    &lt;DocumentCenter type=&quot;page&quot; collection=&quot;...&quot; /&gt;│
+└────────────────┬─────────────────────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────────────────────┐
+│              文件发现层                           │
+│   import.meta.glob('../../content/**/*.md')      │
+│   - posts: content/posts/**/*.md                 │
+│   - pages: content/pages/**/*.md                 │
+└────────────────┬─────────────────────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────────────────────┐
+│              文件加载层                           │
+│   loadAllMarkdownFiles()                         │
+│   - Fetch 文件内容                               │
+│   - 提取标题 (extractTitle)                      │
+│   - 标记类型 (post/page)                         │
+└────────────────┬─────────────────────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────────────────────┐
+│              文档增强层                           │
+│   enhanceDocument()                              │
+│   - 提取元数据 (extractMetadata)                 │
+│   - 生成 ID (generateDocumentId)                 │
+│   - 添加层级信息                                  │
+└────────────────┬─────────────────────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────────────────────┐
+│              过滤层                               │
+│   filterDocumentsByType() ──┐                    │
+│   filterByCollection() ──────┤                   │
+│   filterMarkdownByLanguage() ┤─→ 过滤后的文档     │
+│   customFilter() ────────────┘                    │
+└────────────────┬─────────────────────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────────────────────┐
+│              排序层                               │
+│   sortDocuments()                                │
+│   - 预定义排序 (order/date/title)                │
+│   - 自定义排序函数                                │
+└────────────────┬─────────────────────────────────┘
+                 │
+                 ▼
+        ┌────────┴────────┐
+        │                 │
+        ▼                 ▼
+┌───────────────┐  ┌──────────────────┐
+│   平面列表     │  │   树形结构        │
+│ Document[]    │  │ buildDocumentTree()│
+└───────┬───────┘  └────────┬──────────┘
+        │                   │
+        │                   ▼
+        │          ┌──────────────────┐
+        │          │  建立父子关系     │
+        │          │  排序子节点       │
+        │          │  递归构建树       │
+        │          └────────┬──────────┘
+        │                   │
+        └─────────┬─────────┘
+                  │
+                  ▼
+┌──────────────────────────────────────────────────┐
+│              渲染层                               │
+│   React Component Render                         │
+│   - 列表/树形导航                                 │
+│   - 文档内容展示                                  │
+│   - 交互处理                                      │
+└──────────────────────────────────────────────────┘
+</code></pre>
+<h2 id="3.-%E6%A8%A1%E5%9D%97%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB" tabindex="-1"><a class="header-anchor" href="#3.-%E6%A8%A1%E5%9D%97%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span>3. 模块依赖关系</span></a></h2>
+<pre><code>┌─────────────────────────────────────────────┐
+│           DocumentCenter.jsx                │
+│           (主组件)                           │
+└──────┬────────┬──────────┬──────────────────┘
+       │        │          │
+       ▼        ▼          ▼
+┌──────────┐ ┌─────────┐ ┌────────────────┐
+│markdownIndex│ i18nMarkdown│ documentCenter│
+│   .js    │ │   .js   │ │     .js        │
+└──────────┘ └─────────┘ └────────────────┘
+       │        │          │
+       └────────┴──────────┘
+              │
+              ▼
+┌─────────────────────────────────────────────┐
+│         底层依赖                             │
+│  - React Hooks (useState, useEffect, useMemo)│
+│  - i18n Context                             │
+│  - MarkdownRenderer                         │
+└─────────────────────────────────────────────┘
+</code></pre>
+<h2 id="4.-%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84" tabindex="-1"><a class="header-anchor" href="#4.-%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84"><span>4. 文件组织结构</span></a></h2>
+<pre><code>ppage/
+├── src/
+│   ├── components/
+│   │   └── documentation/          # 文档中心组件目录
+│   │       ├── DocumentCenter.jsx           # 主组件
+│   │       └── DocumentCenter.module.css    # 样式文件
+│   ├── utils/
+│   │   ├── markdownIndex.js        # 文件发现和加载
+│   │   ├── i18nMarkdown.js         # 多语言支持
+│   │   └── documentCenter.js       # 文档处理工具 ⭐新增
+│   ├── pages/
+│   │   ├── Posts.jsx               # 使用 DocumentCenter
+│   │   └── Pages.jsx               # 使用 DocumentCenter
+│   ├── examples/
+│   │   └── DocumentCenterExamples.jsx  # 使用示例 ⭐新增
+│   └── i18n/
+│       └── locales/
+│           ├── zh.js               # 添加 documentCenter 翻译
+│           └── en.js               # 添加 documentCenter 翻译
+└── content/
+    ├── posts/
+    │   └── document-center-guide.md        # 使用指南 ⭐新增
+    └── pages/
+        ├── quick-start.md                  # 快速开始 ⭐新增
+        └── config-document-properties.md   # 配置说明 ⭐新增
+</code></pre>
+<h2 id="5.-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B" tabindex="-1"><a class="header-anchor" href="#5.-%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B"><span>5. 状态管理流程</span></a></h2>
+<pre><code>┌─────────────────────────────────────┐
+│        组件初始化                    │
+│  useState/useEffect                 │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│    加载文档 (loadDocuments)          │
+│  - 设置 loading = true              │
+│  - 调用 loadAllMarkdownFiles()      │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│    处理文档                          │
+│  - 过滤                              │
+│  - 排序                              │
+│  - 构建树（可选）                     │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│    更新状态                          │
+│  - setDocuments(processed)          │
+│  - setSelectedDoc(first)            │
+│  - setLoading(false)                │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│    用户交互                          │
+│  - selectDocument(doc)              │
+│  - toggleNode(nodeId)               │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│    触发回调                          │
+│  - onDocumentChange(doc)            │
+└─────────────────────────────────────┘
+</code></pre>
+<h2 id="6.-%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%9E%84%E5%BB%BA%E7%AE%97%E6%B3%95" tabindex="-1"><a class="header-anchor" href="#6.-%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%9E%84%E5%BB%BA%E7%AE%97%E6%B3%95"><span>6. 树形结构构建算法</span></a></h2>
+<pre><code>输入: documents = [doc1, doc2, doc3, ...]
+
+步骤 1: 增强文档
+for each doc in documents:
+    doc = enhanceDocument(doc)  // 添加 ID、元数据
+
+步骤 2: 创建映射
+docMap = { doc.id -&gt; doc }
+nodeMap = { doc.id -&gt; treeNode }
+
+步骤 3: 建立父子关系
+for each doc in documents:
+    node = nodeMap[doc.id]
+    if doc.parent:
+        parentNode = nodeMap[doc.parent]
+        parentNode.children.push(node)
+    else:
+        rootChildren.push(node)
+
+步骤 4: 递归排序
+function sortChildren(node):
+    node.children.sort(by order, then by title)
+    for child in node.children:
+        sortChildren(child)
+
+步骤 5: 返回根节点
+return {
+    id: 'root',
+    children: rootChildren
+}
+
+输出: 树形结构
+root
+├── node1 (order: 1)
+│   ├── node1.1 (order: 1)
+│   └── node1.2 (order: 2)
+└── node2 (order: 2)
+    └── node2.1 (order: 1)
+</code></pre>
+<h2 id="7.-props-%E6%95%B0%E6%8D%AE%E6%B5%81" tabindex="-1"><a class="header-anchor" href="#7.-props-%E6%95%B0%E6%8D%AE%E6%B5%81"><span>7. Props 数据流</span></a></h2>
+<pre><code>用户传入 Props
+    │
+    ├── type ──────────→ filterDocumentsByType()
+    ├── collection ────→ filter by collection
+    ├── customFilter ──→ custom filter function
+    ├── customSort ────→ sortDocuments()
+    ├── enableTree ────→ buildDocumentTree()
+    ├── layout ────────→ CSS class (sidebar/dropdown/tabs)
+    ├── showBreadcrumb → renderBreadcrumb()
+    ├── showCount ─────→ render count badge
+    ├── title ─────────→ render title
+    ├── onDocumentChange → callback on selection
+    └── className ─────→ custom CSS class
+</code></pre>
+<h2 id="8.-%E5%85%83%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96%E6%B5%81%E7%A8%8B" tabindex="-1"><a class="header-anchor" href="#8.-%E5%85%83%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96%E6%B5%81%E7%A8%8B"><span>8. 元数据提取流程</span></a></h2>
+<pre><code>Markdown 文件内容
+    │
+    ▼
+┌─────────────────────────────┐
+│  检测 YAML Front Matter      │
+│  /^---\s*\n(.*?)\n---/      │
+└──────────┬──────────────────┘
+           │
+           ▼
+┌─────────────────────────────┐
+│  解析 YAML 内容              │
+│  - title: ...               │
+│  - id: ...                  │
+│  - order: ...               │
+│  - parent: ...              │
+│  - collection: ...          │
+│  - date: ...                │
+│  - author: ...              │
+│  - tags: [...]              │
+│  - category: ...            │
+└──────────┬──────────────────┘
+           │
+           ▼
+┌─────────────────────────────┐
+│  返回元数据对象              │
+│  {                          │
+│    title: string,           │
+│    id: string,              │
+│    order: number,           │
+│    parent: string,          │
+│    collection: string,      │
+│    ...                      │
+│  }                          │
+└─────────────────────────────┘
+</code></pre>
+<h2 id="9.-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E5%AE%9E%E7%8E%B0" tabindex="-1"><a class="header-anchor" href="#9.-%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E5%AE%9E%E7%8E%B0"><span>9. 关键特性实现</span></a></h2>
+<h3 id="%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81" tabindex="-1"><a class="header-anchor" href="#%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81"><span>多语言支持</span></a></h3>
+<pre><code>文档文件
+├── about.md          → 无语言后缀（默认）
+├── about.zh.md       → 中文版本
+└── about.en.md       → 英文版本
+
+选择逻辑:
+1. 尝试 about.{currentLang}.md
+2. 尝试 about.md (无后缀)
+3. 尝试 about.{fallbackLang}.md
+4. 使用第一个可用文件
+</code></pre>
+<h3 id="%E6%A0%91%E5%BD%A2%E5%B1%95%E5%BC%80%2F%E6%8A%98%E5%8F%A0" tabindex="-1"><a class="header-anchor" href="#%E6%A0%91%E5%BD%A2%E5%B1%95%E5%BC%80%2F%E6%8A%98%E5%8F%A0"><span>树形展开/折叠</span></a></h3>
+<pre><code>State: expandedNodes = Set(['node-1', 'node-3'])
+
+toggleNode(nodeId):
+    if expandedNodes.has(nodeId):
+        expandedNodes.delete(nodeId)
+    else:
+        expandedNodes.add(nodeId)
+    
+    setState(new Set(expandedNodes))
+
+renderTreeNode(node):
+    isExpanded = expandedNodes.has(node.id)
+    if isExpanded:
+        render children
+</code></pre>
+<h3 id="%E9%9D%A2%E5%8C%85%E5%B1%91%E5%AF%BC%E8%88%AA" tabindex="-1"><a class="header-anchor" href="#%E9%9D%A2%E5%8C%85%E5%B1%91%E5%AF%BC%E8%88%AA"><span>面包屑导航</span></a></h3>
+<pre><code>getDocumentPath(doc, tree):
+    path = []
+    
+    function search(node, currentPath):
+        if node.id == doc.id:
+            path = currentPath + [node]
+            return true
+        
+        for child in node.children:
+            if search(child, currentPath + [node]):
+                return true
+    
+    search(tree, [])
+    return path.filter(n =&gt; n.id != 'root')
+
+结果: [root, parent, current] → 渲染为 &quot;root / parent / current&quot;
+</code></pre>
+<p>这个架构设计确保了组件的高度模块化、可扩展性和可维护性！</p>
+
+        </div>
+      </article>
+    </div>
+  </div>
+  
+  <!-- React 应用入口 (用于 Hydration) -->
+  <script type="module" src="./assets/index.js"></script>
+  
+  <!-- 预渲染元数据 (供 React 使用) -->
+  <script id="prerender-data" type="application/json">
+  {"title":"文档中心组件架构图","metadata":{"title":"文档中心组件架构图","id":"architecture-diagram","type":"page","collection":"documentation","order":30,"date":"2025-12-31T00:00:00.000Z","author":"System","tags":["architecture","diagram","technical"],"category":"技术文档"},"path":"/content/pages/architecture-diagram.html"}
+  </script>
+</body>
+</html>

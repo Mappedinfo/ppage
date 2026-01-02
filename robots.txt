@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://example.com/sitemap.xml
+
+# 禁止爬取的路径
+Disallow: /assets/
+Disallow: /*.json$

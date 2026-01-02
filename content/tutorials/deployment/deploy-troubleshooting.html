@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 基础 SEO -->
+  <title>部署问题排查指南 - 个人主页</title>
+  <meta name="description" content="部署问题排查指南
+
+问题：访问自定义域名时出现 404 错误
+
+症状
+- 网站能打开，但CSS和JS文件404
+- 错误信息：Failed to load resource: the server responded with a status of 404
+- 访问的是自定义域名（如 shiqi-wang.com）
+...">
+  <meta name="keywords" content="tutorial, troubleshooting, deployment">
+  <meta name="author" content="Your Name">
+  
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="">
+  <meta property="og:title" content="部署问题排查指南 - 个人主页">
+  <meta property="og:description" content="部署问题排查指南
+
+问题：访问自定义域名时出现 404 错误
+
+症状
+- 网站能打开，但CSS和JS文件404
+- 错误信息：Failed to load resource: the server responded with a status of 404
+- 访问的是自定义域名（如 shiqi-wang.com）
+...">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:site_name" content="个人主页">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="">
+  <meta name="twitter:title" content="部署问题排查指南 - 个人主页">
+  <meta name="twitter:description" content="部署问题排查指南
+
+问题：访问自定义域名时出现 404 错误
+
+症状
+- 网站能打开，但CSS和JS文件404
+- 错误信息：Failed to load resource: the server responded with a status of 404
+- 访问的是自定义域名（如 shiqi-wang.com）
+...">
+  <meta name="twitter:image" content="/og-image.png">
+  
+  <!-- 结构化数据 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "部署问题排查指南",
+    "description": "部署问题排查指南
+
+问题：访问自定义域名时出现 404 错误
+
+症状
+- 网站能打开，但CSS和JS文件404
+- 错误信息：Failed to load resource: the server responded with a status of 404
+- 访问的是自定义域名（如 shiqi-wang.com）
+...",
+    "author": {
+      "@type": "Person",
+      "name": "Your Name"
+    },
+    "datePublished": "Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)",
+    "dateModified": "Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)",
+    "publisher": {
+      "@type": "Organization",
+      "name": "个人主页",
+      "url": ""
+    }
+  }
+  </script>
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="./assets/index.css" as="style">
+  <link rel="preload" href="./assets/index.js" as="script">
+  
+  <!-- 样式表 -->
+  <link rel="stylesheet" href="./assets/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  
+  <!-- React Hydration 标记 -->
+  <meta name="prerender" content="true">
+  <meta name="hydrate" content="true">
+</head>
+<body>
+  <!-- SSG 预渲染内容 -->
+  <div id="root">
+    <div class="markdown-static-content">
+      <article class="markdown-article">
+        <header class="article-header">
+          <h1>部署问题排查指南</h1>
+          <time datetime="Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)">Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)</time>
+          <div class="tags"><span class="tag">tutorial</span><span class="tag">troubleshooting</span><span class="tag">deployment</span></div>
+        </header>
+        <div class="article-content">
+          <h1 id="%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E6%8C%87%E5%8D%97" tabindex="-1"><a class="header-anchor" href="#%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E6%8C%87%E5%8D%97"><span>部署问题排查指南</span></a></h1>
+<h2 id="%E9%97%AE%E9%A2%98%EF%BC%9A%E8%AE%BF%E9%97%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E6%97%B6%E5%87%BA%E7%8E%B0-404-%E9%94%99%E8%AF%AF" tabindex="-1"><a class="header-anchor" href="#%E9%97%AE%E9%A2%98%EF%BC%9A%E8%AE%BF%E9%97%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E6%97%B6%E5%87%BA%E7%8E%B0-404-%E9%94%99%E8%AF%AF"><span>问题：访问自定义域名时出现 404 错误</span></a></h2>
+<h3 id="%E7%97%87%E7%8A%B6" tabindex="-1"><a class="header-anchor" href="#%E7%97%87%E7%8A%B6"><span>症状</span></a></h3>
+<ul>
+<li>网站能打开，但CSS和JS文件404</li>
+<li>错误信息：<code>Failed to load resource: the server responded with a status of 404</code></li>
+<li>访问的是自定义域名（如 <code>shiqi-wang.com</code>）</li>
+</ul>
+<h3 id="%E5%8E%9F%E5%9B%A0" tabindex="-1"><a class="header-anchor" href="#%E5%8E%9F%E5%9B%A0"><span>原因</span></a></h3>
+<p>使用了错误的 base 路径构建，或部署了旧的构建产物。</p>
+<h3 id="%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4" tabindex="-1"><a class="header-anchor" href="#%E8%A7%A3%E5%86%B3%E6%AD%A5%E9%AA%A4"><span>解决步骤</span></a></h3>
+<h4 id="%E6%AD%A5%E9%AA%A41%EF%BC%9A%E7%A1%AE%E8%AE%A4%E4%BD%A0%E7%9A%84%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E7%A1%AE%E8%AE%A4%E4%BD%A0%E7%9A%84%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF"><span>步骤1：确认你的部署场景</span></a></h4>
+<p>你正在使用自定义域名 <code>shiqi-wang.com</code>，应该使用 <strong>根域名部署模式</strong>。</p>
+<h4 id="%E6%AD%A5%E9%AA%A42%EF%BC%9A%E6%89%A7%E8%A1%8C%E6%A0%B9%E5%9F%9F%E5%90%8D%E9%83%A8%E7%BD%B2" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E6%89%A7%E8%A1%8C%E6%A0%B9%E5%9F%9F%E5%90%8D%E9%83%A8%E7%BD%B2"><span>步骤2：执行根域名部署</span></a></h4>
+<pre><code class="language-bash"><span class="hljs-comment"># 一键部署（自动清理、构建、部署）</span>
+./scripts/deploy.sh root
+</code></pre>
+<p><strong>脚本会自动执行以下操作：</strong></p>
+<ol>
+<li>🧹 清理旧的 <code>dist</code> 目录</li>
+<li>📦 使用根域名模式构建项目 (base = <code>/</code>)</li>
+<li>📤 部署到 GitHub Pages</li>
+</ol>
+<h4 id="%E6%AD%A5%E9%AA%A43%EF%BC%9A%E7%AD%89%E5%BE%85%E9%83%A8%E7%BD%B2%E7%94%9F%E6%95%88" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E7%AD%89%E5%BE%85%E9%83%A8%E7%BD%B2%E7%94%9F%E6%95%88"><span>步骤3：等待部署生效</span></a></h4>
+<p>GitHub Pages 需要 1-5 分钟来更新内容。</p>
+<h4 id="%E6%AD%A5%E9%AA%A44%EF%BC%9A%E6%B8%85%E9%99%A4%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A44%EF%BC%9A%E6%B8%85%E9%99%A4%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98"><span>步骤4：清除浏览器缓存</span></a></h4>
+<ul>
+<li><strong>Chrome/Edge</strong>: <code>Cmd+Shift+R</code> (Mac) 或 <code>Ctrl+Shift+R</code> (Windows)</li>
+<li><strong>Safari</strong>: <code>Cmd+Option+R</code></li>
+<li>或者使用无痕模式访问</li>
+</ul>
+<h4 id="%E6%AD%A5%E9%AA%A45%EF%BC%9A%E9%AA%8C%E8%AF%81%E7%BA%BF%E4%B8%8A%E6%96%87%E4%BB%B6" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A45%EF%BC%9A%E9%AA%8C%E8%AF%81%E7%BA%BF%E4%B8%8A%E6%96%87%E4%BB%B6"><span>步骤5：验证线上文件</span></a></h4>
+<p>访问这些URL，确认文件存在：</p>
+<pre><code>https://shiqi-wang.com/
+https://shiqi-wang.com/assets/index-D5-s-R9n.css
+https://shiqi-wang.com/vite.svg
+</code></pre>
+<p>如果还是404，检查 GitHub Pages 设置中的自定义域名配置。</p>
+<hr>
+<h2 id="%E5%BF%AB%E9%80%9F%E8%AF%8A%E6%96%AD%E5%91%BD%E4%BB%A4" tabindex="-1"><a class="header-anchor" href="#%E5%BF%AB%E9%80%9F%E8%AF%8A%E6%96%AD%E5%91%BD%E4%BB%A4"><span>快速诊断命令</span></a></h2>
+<pre><code class="language-bash"><span class="hljs-comment"># 一键部署（推荐）</span>
+./scripts/deploy.sh root
+
+<span class="hljs-comment"># 或手动验证构建产物</span>
+<span class="hljs-built_in">cat</span> dist/index.html | <span class="hljs-built_in">head</span> -15
+</code></pre>
+<hr>
+<h2 id="%E4%B8%8D%E5%90%8C%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF%E7%9A%84%E9%80%89%E6%8B%A9" tabindex="-1"><a class="header-anchor" href="#%E4%B8%8D%E5%90%8C%E9%83%A8%E7%BD%B2%E5%9C%BA%E6%99%AF%E7%9A%84%E9%80%89%E6%8B%A9"><span>不同部署场景的选择</span></a></h2>
+<h3 id="%E5%9C%BA%E6%99%AFa%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%EF%BC%88shiqi-wang.com%EF%BC%89" tabindex="-1"><a class="header-anchor" href="#%E5%9C%BA%E6%99%AFa%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%EF%BC%88shiqi-wang.com%EF%BC%89"><span>场景A：自定义域名（<a href="http://shiqi-wang.com" target="_blank" rel="noopener noreferrer">shiqi-wang.com</a>）</span></a></h3>
+<pre><code class="language-bash">./scripts/deploy.sh root
+</code></pre>
+<p><strong>配置示例</strong> (<code>public/config.yml</code>):</p>
+<pre><code class="language-yaml"><span class="hljs-attr">deploy:</span>
+  <span class="hljs-attr">repository:</span> <span class="hljs-string">&quot;https://github.com/wsqstar/ppage&quot;</span>
+  <span class="hljs-attr">branch:</span> <span class="hljs-string">&quot;gh-pages&quot;</span>
+  <span class="hljs-attr">customDomain:</span> <span class="hljs-string">&quot;shiqi-wang.com&quot;</span>  <span class="hljs-comment"># 自动生成 CNAME 文件</span>
+</code></pre>
+<h3 id="%E5%9C%BA%E6%99%AFb%EF%BC%9Agithub%E5%AD%90%E7%9B%AE%E5%BD%95-(yourusername.github.io%2Fppage)" tabindex="-1"><a class="header-anchor" href="#%E5%9C%BA%E6%99%AFb%EF%BC%9Agithub%E5%AD%90%E7%9B%AE%E5%BD%95-(yourusername.github.io%2Fppage)"><span>场景B：GitHub子目录 (<a href="http://yourusername.github.io/ppage" target="_blank" rel="noopener noreferrer">yourusername.github.io/ppage</a>)</span></a></h3>
+<pre><code class="language-bash">./scripts/deploy.sh subdir
+<span class="hljs-comment"># 或直接</span>
+./scripts/deploy.sh
+</code></pre>
+<h3 id="%E5%9C%BA%E6%99%AFc%EF%BC%9Agithub%E7%94%A8%E6%88%B7%E9%A1%B5%E9%9D%A2-(yourusername.github.io)" tabindex="-1"><a class="header-anchor" href="#%E5%9C%BA%E6%99%AFc%EF%BC%9Agithub%E7%94%A8%E6%88%B7%E9%A1%B5%E9%9D%A2-(yourusername.github.io)"><span>场景C：GitHub用户页面 (<a href="http://yourusername.github.io" target="_blank" rel="noopener noreferrer">yourusername.github.io</a>)</span></a></h3>
+<pre><code class="language-bash">./scripts/deploy.sh root
+</code></pre>
+<p><strong>注意</strong>：所有部署命令都会自动执行清理、构建、部署三个步骤。</p>
+<hr>
+<h2 id="%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97" tabindex="-1"><a class="header-anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97"><span>自定义域名配置指南</span></a></h2>
+<h3 id="%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AE-dns-%E8%AE%B0%E5%BD%95" tabindex="-1"><a class="header-anchor" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AE-dns-%E8%AE%B0%E5%BD%95"><span>第一步：配置 DNS 记录</span></a></h3>
+<p>根据你的域名类型，选择对应的 DNS 配置：</p>
+<h4 id="a.-%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%90%8D%EF%BC%88apex-domain%EF%BC%89" tabindex="-1"><a class="header-anchor" href="#a.-%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%90%8D%EF%BC%88apex-domain%EF%BC%89"><span>A. 顶级域名（Apex domain）</span></a></h4>
+<p>如果你使用的是顶级域名（如 <code>example.com</code>），需要配置 A 记录：</p>
+<ol>
+<li>登录你的域名注册商的 DNS 管理面板</li>
+<li>添加以下 4 条 A 记录，指向 GitHub Pages 的 IP 地址：</li>
+</ol>
+<pre><code>类型    主机记录    记录值
+A       @          185.199.108.153
+A       @          185.199.109.153
+A       @          185.199.110.153
+A       @          185.199.111.153
+</code></pre>
+<h4 id="b.-%E5%AD%90%E5%9F%9F%E5%90%8D%EF%BC%88subdomain%EF%BC%89" tabindex="-1"><a class="header-anchor" href="#b.-%E5%AD%90%E5%9F%9F%E5%90%8D%EF%BC%88subdomain%EF%BC%89"><span>B. 子域名（Subdomain）</span></a></h4>
+<p>如果你使用的是子域名（如 <code>www.example.com</code> 或 <code>blog.example.com</code>），需要配置 CNAME 记录：</p>
+<pre><code>类型     主机记录    记录值
+CNAME    www        yourusername.github.io
+</code></pre>
+<p>或</p>
+<pre><code>类型     主机记录    记录值
+CNAME    blog       yourusername.github.io
+</code></pre>
+<p><strong>注意</strong>：将 <code>yourusername</code> 替换为你的 GitHub 用户名。</p>
+<h4 id="c.-%E5%90%8C%E6%97%B6%E6%94%AF%E6%8C%81%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%90%8D%E5%92%8C-www-%E5%AD%90%E5%9F%9F%E5%90%8D" tabindex="-1"><a class="header-anchor" href="#c.-%E5%90%8C%E6%97%B6%E6%94%AF%E6%8C%81%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%90%8D%E5%92%8C-www-%E5%AD%90%E5%9F%9F%E5%90%8D"><span>C. 同时支持顶级域名和 www 子域名</span></a></h4>
+<p>如果希望 <code>example.com</code> 和 <code>www.example.com</code> 都能访问，需要同时配置：</p>
+<pre><code>类型     主机记录    记录值
+A        @          185.199.108.153
+A        @          185.199.109.153
+A        @          185.199.110.153
+A        @          185.199.111.153
+CNAME    www        yourusername.github.io
+</code></pre>
+<h3 id="%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE" tabindex="-1"><a class="header-anchor" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE"><span>第二步：配置项目</span></a></h3>
+<p>编辑 <code>public/config.yml</code> 文件，添加自定义域名配置：</p>
+<pre><code class="language-yaml"><span class="hljs-attr">deploy:</span>
+  <span class="hljs-attr">repository:</span> <span class="hljs-string">&quot;https://github.com/yourusername/ppage&quot;</span>
+  <span class="hljs-attr">branch:</span> <span class="hljs-string">&quot;gh-pages&quot;</span>
+  <span class="hljs-attr">customDomain:</span> <span class="hljs-string">&quot;example.com&quot;</span>  <span class="hljs-comment"># 填写你的自定义域名</span>
+</code></pre>
+<p><strong>重要提示</strong>：</p>
+<ul>
+<li>填写时不要加 <code>http://</code> 或 <code>https://</code> 前缀</li>
+<li>如果使用 www 子域名，填写 <code>www.example.com</code></li>
+<li>如果使用顶级域名，填写 <code>example.com</code></li>
+</ul>
+<h3 id="%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE" tabindex="-1"><a class="header-anchor" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span>第三步：部署项目</span></a></h3>
+<p>使用根域名部署模式：</p>
+<pre><code class="language-bash"><span class="hljs-comment"># 使用 npm 命令</span>
+npm run deploy:root
+
+<span class="hljs-comment"># 或直接使用脚本</span>
+./scripts/deploy.sh root
+</code></pre>
+<p><strong>自动操作</strong>：</p>
+<ul>
+<li>✅ 脚本会自动读取 <code>customDomain</code> 配置</li>
+<li>✅ 自动在 <code>dist</code> 目录生成 <code>CNAME</code> 文件</li>
+<li>✅ 自动部署到 GitHub Pages</li>
+</ul>
+<h3 id="%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%9C%A8-github-%E4%B8%8A%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D" tabindex="-1"><a class="header-anchor" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%9C%A8-github-%E4%B8%8A%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span>第四步：在 GitHub 上配置自定义域名</span></a></h3>
+<ol>
+<li>进入你的 GitHub 仓库</li>
+<li>点击 <strong>Settings</strong> → <strong>Pages</strong></li>
+<li>在 “Custom domain” 输入框中填写你的域名（如 <code>example.com</code>）</li>
+<li>点击 <strong>Save</strong></li>
+<li>勾选 “Enforce HTTPS”（等待 DNS 检查通过后）</li>
+</ol>
+<h3 id="%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE" tabindex="-1"><a class="header-anchor" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE"><span>第五步：验证配置</span></a></h3>
+<h4 id="1.-%E9%AA%8C%E8%AF%81-dns-%E8%A7%A3%E6%9E%90" tabindex="-1"><a class="header-anchor" href="#1.-%E9%AA%8C%E8%AF%81-dns-%E8%A7%A3%E6%9E%90"><span>1. 验证 DNS 解析</span></a></h4>
+<pre><code class="language-bash"><span class="hljs-comment"># 验证 A 记录</span>
+dig example.com +noall +answer
+
+<span class="hljs-comment"># 验证 CNAME 记录</span>
+dig www.example.com +noall +answer
+</code></pre>
+<h4 id="2.-%E9%AA%8C%E8%AF%81-cname-%E6%96%87%E4%BB%B6" tabindex="-1"><a class="header-anchor" href="#2.-%E9%AA%8C%E8%AF%81-cname-%E6%96%87%E4%BB%B6"><span>2. 验证 CNAME 文件</span></a></h4>
+<p>访问 <code>https://yourusername.github.io/CNAME</code>，应该显示你的域名。</p>
+<h4 id="3.-%E8%AE%BF%E9%97%AE%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99" tabindex="-1"><a class="header-anchor" href="#3.-%E8%AE%BF%E9%97%AE%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99"><span>3. 访问你的网站</span></a></h4>
+<p>等待 1-5 分钟后，访问你的自定义域名：</p>
+<ul>
+<li><code>https://example.com</code></li>
+<li><code>https://www.example.com</code></li>
+</ul>
+<h3 id="%E5%B8%B8%E8%A7%81-dns-%E6%8F%90%E4%BE%9B%E5%95%86%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B" tabindex="-1"><a class="header-anchor" href="#%E5%B8%B8%E8%A7%81-dns-%E6%8F%90%E4%BE%9B%E5%95%86%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span>常见 DNS 提供商配置示例</span></a></h3>
+<h4 id="cloudflare" tabindex="-1"><a class="header-anchor" href="#cloudflare"><span>Cloudflare</span></a></h4>
+<ol>
+<li>登录 Cloudflare Dashboard</li>
+<li>选择你的域名 → DNS</li>
+<li>添加记录：
+<ul>
+<li>Type: <code>A</code>, Name: <code>@</code>, IPv4 address: <code>185.199.108.153</code></li>
+<li>Type: <code>A</code>, Name: <code>@</code>, IPv4 address: <code>185.199.109.153</code></li>
+<li>Type: <code>A</code>, Name: <code>@</code>, IPv4 address: <code>185.199.110.153</code></li>
+<li>Type: <code>A</code>, Name: <code>@</code>, IPv4 address: <code>185.199.111.153</code></li>
+<li>Type: <code>CNAME</code>, Name: <code>www</code>, Target: <code>yourusername.github.io</code></li>
+</ul>
+</li>
+<li>Proxy status: 可以保持橙色云朵（Proxied）</li>
+</ol>
+<h4 id="%E9%98%BF%E9%87%8C%E4%BA%91" tabindex="-1"><a class="header-anchor" href="#%E9%98%BF%E9%87%8C%E4%BA%91"><span>阿里云</span></a></h4>
+<ol>
+<li>登录阿里云控制台</li>
+<li>进入域名解析设置</li>
+<li>添加记录：
+<ul>
+<li>记录类型: <code>A</code>, 主机记录: <code>@</code>, 记录值: <code>185.199.108.153</code></li>
+<li>记录类型: <code>A</code>, 主机记录: <code>@</code>, 记录值: <code>185.199.109.153</code></li>
+<li>记录类型: <code>A</code>, 主机记录: <code>@</code>, 记录值: <code>185.199.110.153</code></li>
+<li>记录类型: <code>A</code>, 主机记录: <code>@</code>, 记录值: <code>185.199.111.153</code></li>
+<li>记录类型: <code>CNAME</code>, 主机记录: <code>www</code>, 记录值: <code>yourusername.github.io</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="%E8%85%BE%E8%AE%AF%E4%BA%91%EF%BC%88dnspod%EF%BC%89" tabindex="-1"><a class="header-anchor" href="#%E8%85%BE%E8%AE%AF%E4%BA%91%EF%BC%88dnspod%EF%BC%89"><span>腾讯云（DNSPod）</span></a></h4>
+<ol>
+<li>登录腾讯云 DNSPod 控制台</li>
+<li>选择域名 → 添加记录</li>
+<li>添加记录（同阿里云配置）</li>
+</ol>
+<h3 id="%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5" tabindex="-1"><a class="header-anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5"><span>自定义域名故障排查</span></a></h3>
+<h4 id="%E9%97%AE%E9%A2%98-1%EF%BC%9A%E5%9F%9F%E5%90%8D%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E6%88%96%E6%98%BE%E7%A4%BA-404" tabindex="-1"><a class="header-anchor" href="#%E9%97%AE%E9%A2%98-1%EF%BC%9A%E5%9F%9F%E5%90%8D%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E6%88%96%E6%98%BE%E7%A4%BA-404"><span>问题 1：域名无法访问或显示 404</span></a></h4>
+<p><strong>原因</strong>：DNS 未生效或 CNAME 文件未正确生成</p>
+<p><strong>解决方法</strong>：</p>
+<ol>
+<li>检查 DNS 是否生效（可能需要等待 24-48 小时）</li>
+<li>确认 <code>public/config.yml</code> 中 <code>customDomain</code> 配置正确</li>
+<li>重新部署：<code>npm run deploy:root</code></li>
+<li>检查 GitHub Pages 设置中的自定义域名是否已填写</li>
+</ol>
+<h4 id="%E9%97%AE%E9%A2%98-2%EF%BC%9Ahttps-%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF" tabindex="-1"><a class="header-anchor" href="#%E9%97%AE%E9%A2%98-2%EF%BC%9Ahttps-%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF"><span>问题 2：HTTPS 证书错误</span></a></h4>
+<p><strong>原因</strong>：GitHub 正在为你的域名申请 SSL 证书</p>
+<p><strong>解决方法</strong>：</p>
+<ol>
+<li>等待 10-30 分钟让 GitHub 申请证书</li>
+<li>确保 DNS 解析正确</li>
+<li>在 GitHub Pages 设置中勾选 “Enforce HTTPS”</li>
+</ol>
+<h4 id="%E9%97%AE%E9%A2%98-3%EF%BC%9Awww-%E5%AD%90%E5%9F%9F%E5%90%8D%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE" tabindex="-1"><a class="header-anchor" href="#%E9%97%AE%E9%A2%98-3%EF%BC%9Awww-%E5%AD%90%E5%9F%9F%E5%90%8D%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE"><span>问题 3：www 子域名无法访问</span></a></h4>
+<p><strong>原因</strong>：未配置 CNAME 记录</p>
+<p><strong>解决方法</strong>：
+在 DNS 中添加 CNAME 记录，将 <code>www</code> 指向 <code>yourusername.github.io</code></p>
+<h4 id="%E9%97%AE%E9%A2%98-4%EF%BC%9A%E9%83%A8%E7%BD%B2%E5%90%8E-cname-%E6%96%87%E4%BB%B6%E6%B6%88%E5%A4%B1" tabindex="-1"><a class="header-anchor" href="#%E9%97%AE%E9%A2%98-4%EF%BC%9A%E9%83%A8%E7%BD%B2%E5%90%8E-cname-%E6%96%87%E4%BB%B6%E6%B6%88%E5%A4%B1"><span>问题 4：部署后 CNAME 文件消失</span></a></h4>
+<p><strong>原因</strong>：每次部署都会覆盖 gh-pages 分支</p>
+<p><strong>解决方法</strong>：
+确保 <code>public/config.yml</code> 中配置了 <code>customDomain</code>，部署脚本会自动生成 CNAME 文件。</p>
+<h3 id="%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3" tabindex="-1"><a class="header-anchor" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span>参考文档</span></a></h3>
+<ul>
+<li><a href="https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site" target="_blank" rel="noopener noreferrer">GitHub 官方文档：管理 GitHub Pages 站点的自定义域</a></li>
+<li><a href="https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages" target="_blank" rel="noopener noreferrer">GitHub 官方文档：关于自定义域名和 GitHub Pages</a></li>
+</ul>
+<hr>
+<h2 id="%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" tabindex="-1"><a class="header-anchor" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span>常见问题</span></a></h2>
+<h3 id="q%3A-%E6%88%91%E4%BF%AE%E6%94%B9%E4%BA%86%E4%BB%A3%E7%A0%81%E4%BD%86%E7%BD%91%E7%AB%99%E6%B2%A1%E5%8F%98%E5%8C%96%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E6%88%91%E4%BF%AE%E6%94%B9%E4%BA%86%E4%BB%A3%E7%A0%81%E4%BD%86%E7%BD%91%E7%AB%99%E6%B2%A1%E5%8F%98%E5%8C%96%EF%BC%9F"><span>Q: 我修改了代码但网站没变化？</span></a></h3>
+<p>A: 清除浏览器缓存，或使用无痕模式访问。</p>
+<h3 id="q%3A-%E6%88%91%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%E4%BA%86%E4%BD%86%E8%BF%98%E6%98%AF404%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E6%88%91%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%E4%BA%86%E4%BD%86%E8%BF%98%E6%98%AF404%EF%BC%9F"><span>Q: 我重新部署了但还是404？</span></a></h3>
+<p>A:</p>
+<ol>
+<li>等待 3-5 分钟</li>
+<li>检查 GitHub Actions 或部署日志</li>
+<li>确认 GitHub Pages 设置中的分支和目录正确</li>
+</ol>
+<h3 id="q%3A-%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E6%88%91%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E6%88%91%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span>Q: 如何知道我应该用哪种部署模式？</span></a></h3>
+<p>A:</p>
+<ul>
+<li>如果访问地址有子路径（如 <code>/ppage</code>）→ 使用 <code>subdir</code></li>
+<li>如果是根域名或自定义域名 → 使用 <code>root</code></li>
+</ul>
+<h3 id="q%3A-%E6%88%91%E5%8F%AF%E4%BB%A5%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E4%BA%A7%E7%89%A9%E5%90%97%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E6%88%91%E5%8F%AF%E4%BB%A5%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E4%BA%A7%E7%89%A9%E5%90%97%EF%BC%9F"><span>Q: 我可以在本地测试构建产物吗？</span></a></h3>
+<p>A: 可以！</p>
+<pre><code class="language-bash">npm run build:root
+npm run preview
+</code></pre>
+<p>然后访问 <code>http://localhost:4173</code></p>
+
+        </div>
+      </article>
+    </div>
+  </div>
+  
+  <!-- React 应用入口 (用于 Hydration) -->
+  <script type="module" src="./assets/index.js"></script>
+  
+  <!-- 预渲染元数据 (供 React 使用) -->
+  <script id="prerender-data" type="application/json">
+  {"title":"部署问题排查指南","metadata":{"title":"部署问题排查指南","id":"deploy-troubleshooting","type":"page","collection":"tutorials","parent":"deployment-index","order":3,"date":"2025-12-31T00:00:00.000Z","author":"System","tags":["tutorial","troubleshooting","deployment"],"category":"教程"},"path":"/content/tutorials/deployment/deploy-troubleshooting.html"}
+  </script>
+</body>
+</html>

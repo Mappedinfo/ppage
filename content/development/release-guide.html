@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 基础 SEO -->
+  <title>GitHub Release 发布指南 - 个人主页</title>
+  <meta name="description" content="详细介绍如何在 GitHub 上发布新版本">
+  <meta name="keywords" content="">
+  <meta name="author" content="Your Name">
+  
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="">
+  <meta property="og:title" content="GitHub Release 发布指南 - 个人主页">
+  <meta property="og:description" content="详细介绍如何在 GitHub 上发布新版本">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:site_name" content="个人主页">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="">
+  <meta name="twitter:title" content="GitHub Release 发布指南 - 个人主页">
+  <meta name="twitter:description" content="详细介绍如何在 GitHub 上发布新版本">
+  <meta name="twitter:image" content="/og-image.png">
+  
+  <!-- 结构化数据 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "GitHub Release 发布指南",
+    "description": "详细介绍如何在 GitHub 上发布新版本",
+    "author": {
+      "@type": "Person",
+      "name": "Your Name"
+    },
+    "datePublished": "2026-01-02T12:29:41.219Z",
+    "dateModified": "2026-01-02T12:29:41.219Z",
+    "publisher": {
+      "@type": "Organization",
+      "name": "个人主页",
+      "url": ""
+    }
+  }
+  </script>
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="./assets/index.css" as="style">
+  <link rel="preload" href="./assets/index.js" as="script">
+  
+  <!-- 样式表 -->
+  <link rel="stylesheet" href="./assets/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  
+  <!-- React Hydration 标记 -->
+  <meta name="prerender" content="true">
+  <meta name="hydrate" content="true">
+</head>
+<body>
+  <!-- SSG 预渲染内容 -->
+  <div id="root">
+    <div class="markdown-static-content">
+      <article class="markdown-article">
+        <header class="article-header">
+          <h1>GitHub Release 发布指南</h1>
+          
+          
+        </header>
+        <div class="article-content">
+          <h1 id="github-release-%E5%8F%91%E5%B8%83%E6%8C%87%E5%8D%97" tabindex="-1"><a class="header-anchor" href="#github-release-%E5%8F%91%E5%B8%83%E6%8C%87%E5%8D%97"><span>GitHub Release 发布指南</span></a></h1>
+<p>本指南将详细介绍如何为 PPage 项目发布新版本到 GitHub。</p>
+<h2 id="%F0%9F%93%8B-%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6" tabindex="-1"><a class="header-anchor" href="#%F0%9F%93%8B-%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span>📋 前置条件</span></a></h2>
+<p>在开始发布之前，请确保：</p>
+<ol>
+<li>✅ 你有项目仓库的写入权限</li>
+<li>✅ 本地代码已经同步到最新</li>
+<li>✅ 所有功能已测试通过</li>
+<li>✅ 已安装 Git 和 GitHub CLI</li>
+</ol>
+<h3 id="%E5%AE%89%E8%A3%85-github-cli" tabindex="-1"><a class="header-anchor" href="#%E5%AE%89%E8%A3%85-github-cli"><span>安装 GitHub CLI</span></a></h3>
+<p>如果还没有安装 GitHub CLI，可以使用以下命令：</p>
+<pre><code class="language-bash"><span class="hljs-comment"># macOS</span>
+brew install gh
+
+<span class="hljs-comment"># 其他系统请参考：https://cli.github.com/manual/installation</span>
+</code></pre>
+<h3 id="%E7%99%BB%E5%BD%95-github-cli" tabindex="-1"><a class="header-anchor" href="#%E7%99%BB%E5%BD%95-github-cli"><span>登录 GitHub CLI</span></a></h3>
+<p>首次使用需要登录：</p>
+<pre><code class="language-bash">gh auth login
+</code></pre>
+<p>按照提示选择：</p>
+<ul>
+<li>使用 <a href="http://GitHub.com" target="_blank" rel="noopener noreferrer">GitHub.com</a></li>
+<li>首选 HTTPS 协议</li>
+<li>使用 Git 凭据进行身份验证</li>
+<li>通过浏览器登录</li>
+</ul>
+<h2 id="%F0%9F%9A%80-%E5%8F%91%E5%B8%83%E6%B5%81%E7%A8%8B" tabindex="-1"><a class="header-anchor" href="#%F0%9F%9A%80-%E5%8F%91%E5%B8%83%E6%B5%81%E7%A8%8B"><span>🚀 发布流程</span></a></h2>
+<h3 id="%E6%AD%A5%E9%AA%A4-1%3A-%E6%9B%B4%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%B7" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A4-1%3A-%E6%9B%B4%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%B7"><span>步骤 1: 更新版本号</span></a></h3>
+<p>编辑 <code>package.json</code> 文件，更新 <code>version</code> 字段：</p>
+<pre><code class="language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;temp-ppage&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.0.1&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">// 修改这里</span>
+  ...
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>版本号遵循 <a href="https://semver.org/lang/zh-CN/" target="_blank" rel="noopener noreferrer">语义化版本</a> 规范：</p>
+<ul>
+<li><strong>主版本号 (MAJOR)</strong>: 不兼容的 API 修改</li>
+<li><strong>次版本号 (MINOR)</strong>: 向下兼容的功能性新增</li>
+<li><strong>修订号 (PATCH)</strong>: 向下兼容的问题修正</li>
+</ul>
+<h3 id="%E6%AD%A5%E9%AA%A4-2%3A-%E6%8F%90%E4%BA%A4%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A4-2%3A-%E6%8F%90%E4%BA%A4%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0"><span>步骤 2: 提交版本更新</span></a></h3>
+<pre><code class="language-bash">git add package.json
+git commit -m <span class="hljs-string">&quot;chore: bump version to 0.0.1&quot;</span>
+</code></pre>
+<h3 id="%E6%AD%A5%E9%AA%A4-3%3A-%E5%88%9B%E5%BB%BA-git-tag" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A4-3%3A-%E5%88%9B%E5%BB%BA-git-tag"><span>步骤 3: 创建 Git Tag</span></a></h3>
+<pre><code class="language-bash">git tag -a v0.0.1 -m <span class="hljs-string">&quot;Release version 0.0.1&quot;</span>
+</code></pre>
+<p>标签名称规范：</p>
+<ul>
+<li>格式：<code>vX.Y.Z</code> (例如 <code>v0.0.1</code>, <code>v1.2.3</code>)</li>
+<li>必须以小写字母 <code>v</code> 开头</li>
+<li>版本号与 package.json 保持一致</li>
+</ul>
+<h3 id="%E6%AD%A5%E9%AA%A4-4%3A-%E6%8E%A8%E9%80%81%E5%88%B0-github" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A4-4%3A-%E6%8E%A8%E9%80%81%E5%88%B0-github"><span>步骤 4: 推送到 GitHub</span></a></h3>
+<pre><code class="language-bash"><span class="hljs-comment"># 推送代码和标签</span>
+git push origin main
+git push origin v0.0.1
+</code></pre>
+<h3 id="%E6%AD%A5%E9%AA%A4-5%3A-%E5%88%9B%E5%BB%BA-github-release" tabindex="-1"><a class="header-anchor" href="#%E6%AD%A5%E9%AA%A4-5%3A-%E5%88%9B%E5%BB%BA-github-release"><span>步骤 5: 创建 GitHub Release</span></a></h3>
+<p>使用 GitHub CLI 创建 release：</p>
+<pre><code class="language-bash">gh release create v0.0.1 \
+  --title <span class="hljs-string">&quot;v0.0.1 - 版本标题&quot;</span> \
+  --notes <span class="hljs-string">&quot;版本说明内容&quot;</span>
+</code></pre>
+<p><strong>示例：</strong></p>
+<pre><code class="language-bash">gh release create v0.0.1 \
+  --title <span class="hljs-string">&quot;v0.0.1 - 首个版本发布&quot;</span> \
+  --notes <span class="hljs-string">&quot;## PPage v0.0.1 - 首个版本发布
+
+### ✨ 核心特性
+
+#### 🎯 零配置部署
+- 纯前端部署，无需服务器和数据库
+- 通用路径适配，支持子目录和根域名部署
+
+#### 📝 强大的内容管理
+- YAML 配置文件一站式管理站点内容
+- Markdown 创作，自动渲染为响应式网页
+
+### 📦 快速开始
+
+\`\`\`bash
+git clone https://github.com/mappedinfo/ppage.git
+cd ppage
+npm install
+npm run init
+npm run dev
+\`\`\`
+&quot;</span>
+</code></pre>
+<h2 id="%F0%9F%93%9D-release-notes-%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97" tabindex="-1"><a class="header-anchor" href="#%F0%9F%93%9D-release-notes-%E7%BC%96%E5%86%99%E6%8C%87%E5%8D%97"><span>📝 Release Notes 编写指南</span></a></h2>
+<p>一个好的 Release Notes 应该包含：</p>
+<h3 id="1.-%E7%89%88%E6%9C%AC%E6%A0%87%E9%A2%98" tabindex="-1"><a class="header-anchor" href="#1.-%E7%89%88%E6%9C%AC%E6%A0%87%E9%A2%98"><span>1. 版本标题</span></a></h3>
+<p>清晰说明版本号和主要特性：</p>
+<pre><code>v0.0.1 - 首个版本发布
+v1.1.0 - 新增文档中心功能
+v1.2.1 - 修复主题切换问题
+</code></pre>
+<h3 id="2.-%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9%E5%88%86%E7%B1%BB" tabindex="-1"><a class="header-anchor" href="#2.-%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9%E5%88%86%E7%B1%BB"><span>2. 更新内容分类</span></a></h3>
+<p>使用清晰的分类标记：</p>
+<pre><code class="language-markdown"><span class="hljs-section">## v1.2.0 - 版本标题</span>
+
+<span class="hljs-section">### ✨ 新增功能 (Features)</span>
+
+<span class="hljs-bullet">-</span> 新增文档中心支持
+<span class="hljs-bullet">-</span> 新增暗黑主题
+
+<span class="hljs-section">### 🐛 问题修复 (Bug Fixes)</span>
+
+<span class="hljs-bullet">-</span> 修复移动端导航显示问题
+<span class="hljs-bullet">-</span> 修复 PDF 预览加载失败
+
+<span class="hljs-section">### 💄 样式优化 (Style)</span>
+
+<span class="hljs-bullet">-</span> 优化响应式布局
+<span class="hljs-bullet">-</span> 改进导航栏样式
+
+<span class="hljs-section">### ⚡️ 性能优化 (Performance)</span>
+
+<span class="hljs-bullet">-</span> 优化构建速度
+<span class="hljs-bullet">-</span> 减少包体积
+
+<span class="hljs-section">### 🔧 其他改动 (Chore)</span>
+
+<span class="hljs-bullet">-</span> 更新依赖版本
+<span class="hljs-bullet">-</span> 改进文档说明
+</code></pre>
+<h3 id="3.-%E4%BD%BF%E7%94%A8-emoji-%E5%A2%9E%E5%BC%BA%E5%8F%AF%E8%AF%BB%E6%80%A7" tabindex="-1"><a class="header-anchor" href="#3.-%E4%BD%BF%E7%94%A8-emoji-%E5%A2%9E%E5%BC%BA%E5%8F%AF%E8%AF%BB%E6%80%A7"><span>3. 使用 Emoji 增强可读性</span></a></h3>
+<p>推荐的 Emoji 标记：</p>
+<ul>
+<li>✨ 新功能</li>
+<li>🐛 Bug 修复</li>
+<li>💄 样式/UI 改动</li>
+<li>⚡️ 性能优化</li>
+<li>🔧 配置/工具改动</li>
+<li>📝 文档更新</li>
+<li>🎨 代码结构优化</li>
+<li>🔒 安全相关</li>
+</ul>
+<h3 id="4.-%E5%8C%85%E5%90%AB%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B%E4%BF%A1%E6%81%AF" tabindex="-1"><a class="header-anchor" href="#4.-%E5%8C%85%E5%90%AB%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B%E4%BF%A1%E6%81%AF"><span>4. 包含快速开始信息</span></a></h3>
+<p>为新用户提供快速开始的命令：</p>
+<pre><code class="language-markdown"><span class="hljs-section">### 📦 快速开始</span>
+
+\<span class="hljs-code">`\`</span>\`bash
+
+<span class="hljs-section"># 克隆项目</span>
+
+git clone https://github.com/mappedinfo/ppage.git
+cd ppage
+
+<span class="hljs-section"># 安装依赖</span>
+
+npm install
+
+<span class="hljs-section"># 初始化项目</span>
+
+npm run init
+
+<span class="hljs-section"># 本地开发</span>
+
+npm run dev
+\<span class="hljs-code">`\`</span>\`
+</code></pre>
+<h2 id="%F0%9F%94%84-%E5%AE%8C%E6%95%B4%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B" tabindex="-1"><a class="header-anchor" href="#%F0%9F%94%84-%E5%AE%8C%E6%95%B4%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span>🔄 完整脚本示例</span></a></h2>
+<p>将上述步骤整合成一个脚本：</p>
+<pre><code class="language-bash"><span class="hljs-meta">#!/bin/bash</span>
+
+VERSION=<span class="hljs-string">&quot;0.0.1&quot;</span>
+
+<span class="hljs-comment"># 1. 更新版本号（手动编辑 package.json）</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;请确保已更新 package.json 中的版本号为 <span class="hljs-variable">$VERSION</span>&quot;</span>
+<span class="hljs-built_in">read</span> -p <span class="hljs-string">&quot;按回车继续...&quot;</span>
+
+<span class="hljs-comment"># 2. 提交版本更新</span>
+git add package.json
+git commit -m <span class="hljs-string">&quot;chore: bump version to <span class="hljs-variable">$VERSION</span>&quot;</span>
+
+<span class="hljs-comment"># 3. 创建标签</span>
+git tag -a <span class="hljs-string">&quot;v<span class="hljs-variable">$VERSION</span>&quot;</span> -m <span class="hljs-string">&quot;Release version <span class="hljs-variable">$VERSION</span>&quot;</span>
+
+<span class="hljs-comment"># 4. 推送到 GitHub</span>
+git push origin main
+git push origin <span class="hljs-string">&quot;v<span class="hljs-variable">$VERSION</span>&quot;</span>
+
+<span class="hljs-comment"># 5. 创建 release</span>
+gh release create <span class="hljs-string">&quot;v<span class="hljs-variable">$VERSION</span>&quot;</span> \
+  --title <span class="hljs-string">&quot;v<span class="hljs-variable">$VERSION</span> - 版本标题&quot;</span> \
+  --notes <span class="hljs-string">&quot;版本说明&quot;</span>
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;✅ Release v<span class="hljs-variable">$VERSION</span> 创建成功！&quot;</span>
+</code></pre>
+<h2 id="%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" tabindex="-1"><a class="header-anchor" href="#%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span>⚠️ 注意事项</span></a></h2>
+<ol>
+<li><strong>版本号一致性</strong>: 确保 package.json 的版本号与 git tag 保持一致</li>
+<li><strong>标签不可修改</strong>: Git tag 推送后不建议修改，如需修改需要删除重建</li>
+<li><strong>Release 可编辑</strong>: GitHub Release 创建后可以随时在网页上编辑</li>
+<li><strong>保留历史</strong>: 不要删除旧的 release，保持完整的版本历史</li>
+</ol>
+<h2 id="%F0%9F%94%97-%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90" tabindex="-1"><a class="header-anchor" href="#%F0%9F%94%97-%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span>🔗 相关资源</span></a></h2>
+<ul>
+<li><a href="https://semver.org/lang/zh-CN/" target="_blank" rel="noopener noreferrer">语义化版本规范</a></li>
+<li><a href="https://cli.github.com/manual/" target="_blank" rel="noopener noreferrer">GitHub CLI 文档</a></li>
+<li><a href="https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE" target="_blank" rel="noopener noreferrer">Git Tag 文档</a></li>
+<li><a href="https://docs.github.com/zh/repositories/releasing-projects-on-github" target="_blank" rel="noopener noreferrer">GitHub Release 文档</a></li>
+</ul>
+<h2 id="%F0%9F%93%AE-%E9%97%AE%E9%A2%98%E5%8F%8D%E9%A6%88" tabindex="-1"><a class="header-anchor" href="#%F0%9F%93%AE-%E9%97%AE%E9%A2%98%E5%8F%8D%E9%A6%88"><span>📮 问题反馈</span></a></h2>
+<p>如果在发布过程中遇到问题，欢迎：</p>
+<ul>
+<li>提交 <a href="https://github.com/Mappedinfo/ppage/issues" target="_blank" rel="noopener noreferrer">GitHub Issue</a></li>
+<li>查看 <a href="../basic/">FAQ 常见问题</a></li>
+</ul>
+
+        </div>
+      </article>
+    </div>
+  </div>
+  
+  <!-- React 应用入口 (用于 Hydration) -->
+  <script type="module" src="./assets/index.js"></script>
+  
+  <!-- 预渲染元数据 (供 React 使用) -->
+  <script id="prerender-data" type="application/json">
+  {"title":"GitHub Release 发布指南","metadata":{"title":"GitHub Release 发布指南","description":"详细介绍如何在 GitHub 上发布新版本","id":"release-guide","type":"page","collection":"development","parent":"开发指南","order":1,"showInDocumentCenter":true},"path":"/content/development/release-guide.html"}
+  </script>
+</body>
+</html>

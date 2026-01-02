@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 基础 SEO -->
+  <title>文档中心组件指南 - 个人主页</title>
+  <meta name="description" content="文档中心组件使用指南
+
+概述
+
+文档中心（DocumentCenter）是一个强大而灵活的文档管理和展示组件，它将文档组织抽象成一个统一的系统，可以像管理一本电子书一样管理你的所有文档。
+
+> 📚 相关阅读：
+> - 快速参考手册 - 快速查询常用配置和 API
+> - 高级功能使用 - 了解双向链接、智能排序等高级...">
+  <meta name="keywords" content="tutorial, documentation, component">
+  <meta name="author" content="Your Name">
+  
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="">
+  <meta property="og:title" content="文档中心组件指南 - 个人主页">
+  <meta property="og:description" content="文档中心组件使用指南
+
+概述
+
+文档中心（DocumentCenter）是一个强大而灵活的文档管理和展示组件，它将文档组织抽象成一个统一的系统，可以像管理一本电子书一样管理你的所有文档。
+
+> 📚 相关阅读：
+> - 快速参考手册 - 快速查询常用配置和 API
+> - 高级功能使用 - 了解双向链接、智能排序等高级...">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:site_name" content="个人主页">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="">
+  <meta name="twitter:title" content="文档中心组件指南 - 个人主页">
+  <meta name="twitter:description" content="文档中心组件使用指南
+
+概述
+
+文档中心（DocumentCenter）是一个强大而灵活的文档管理和展示组件，它将文档组织抽象成一个统一的系统，可以像管理一本电子书一样管理你的所有文档。
+
+> 📚 相关阅读：
+> - 快速参考手册 - 快速查询常用配置和 API
+> - 高级功能使用 - 了解双向链接、智能排序等高级...">
+  <meta name="twitter:image" content="/og-image.png">
+  
+  <!-- 结构化数据 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "文档中心组件指南",
+    "description": "文档中心组件使用指南
+
+概述
+
+文档中心（DocumentCenter）是一个强大而灵活的文档管理和展示组件，它将文档组织抽象成一个统一的系统，可以像管理一本电子书一样管理你的所有文档。
+
+> 📚 相关阅读：
+> - 快速参考手册 - 快速查询常用配置和 API
+> - 高级功能使用 - 了解双向链接、智能排序等高级...",
+    "author": {
+      "@type": "Person",
+      "name": "Your Name"
+    },
+    "datePublished": "Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)",
+    "dateModified": "Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)",
+    "publisher": {
+      "@type": "Organization",
+      "name": "个人主页",
+      "url": ""
+    }
+  }
+  </script>
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="./assets/index.css" as="style">
+  <link rel="preload" href="./assets/index.js" as="script">
+  
+  <!-- 样式表 -->
+  <link rel="stylesheet" href="./assets/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  
+  <!-- React Hydration 标记 -->
+  <meta name="prerender" content="true">
+  <meta name="hydrate" content="true">
+</head>
+<body>
+  <!-- SSG 预渲染内容 -->
+  <div id="root">
+    <div class="markdown-static-content">
+      <article class="markdown-article">
+        <header class="article-header">
+          <h1>文档中心组件指南</h1>
+          <time datetime="Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)">Wed Dec 31 2025 08:00:00 GMT+0800 (China Standard Time)</time>
+          <div class="tags"><span class="tag">tutorial</span><span class="tag">documentation</span><span class="tag">component</span></div>
+        </header>
+        <div class="article-content">
+          <h1 id="%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" tabindex="-1"><a class="header-anchor" href="#%E6%96%87%E6%A1%A3%E4%B8%AD%E5%BF%83%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span>文档中心组件使用指南</span></a></h1>
+<h2 id="%E6%A6%82%E8%BF%B0" tabindex="-1"><a class="header-anchor" href="#%E6%A6%82%E8%BF%B0"><span>概述</span></a></h2>
+<p>文档中心（DocumentCenter）是一个强大而灵活的文档管理和展示组件，它将文档组织抽象成一个统一的系统，可以像管理一本电子书一样管理你的所有文档。</p>
+<blockquote>
+<p>📚 <strong>相关阅读</strong>：</p>
+<ul>
+<li><a href="#doc-quick-reference">快速参考手册</a> - 快速查询常用配置和 API</li>
+<li><a href="#doc-advanced-features">高级功能使用</a> - 了解双向链接、智能排序等高级特性</li>
+<li><a href="#doc-auto-folder-scan-guide">自动文件夹扫描指南</a> - 实现自动发现和管理文档</li>
+</ul>
+</blockquote>
+<h2 id="%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7" tabindex="-1"><a class="header-anchor" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span>核心特性</span></a></h2>
+<h3 id="1.-%E7%BB%9F%E4%B8%80%E7%9A%84%E6%96%87%E6%A1%A3%E7%AE%A1%E7%90%86" tabindex="-1"><a class="header-anchor" href="#1.-%E7%BB%9F%E4%B8%80%E7%9A%84%E6%96%87%E6%A1%A3%E7%AE%A1%E7%90%86"><span>1. 统一的文档管理</span></a></h3>
+<ul>
+<li>自动发现和加载 Markdown 文件</li>
+<li>支持多种文档类型（posts、pages 或全部）</li>
+<li>智能标题提取和元数据解析</li>
+</ul>
+<h3 id="2.-%E7%81%B5%E6%B4%BB%E7%9A%84%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84" tabindex="-1"><a class="header-anchor" href="#2.-%E7%81%B5%E6%B4%BB%E7%9A%84%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84"><span>2. 灵活的组织结构</span></a></h3>
+<ul>
+<li><strong>平面列表</strong>：简单的文档列表展示</li>
+<li><strong>树形结构</strong>：支持父子层级关系</li>
+<li><strong>集合管理</strong>：通过 collection 字段对文档分组</li>
+</ul>
+<h3 id="3.-%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%8E%92%E5%BA%8F%E5%92%8C%E8%BF%87%E6%BB%A4" tabindex="-1"><a class="header-anchor" href="#3.-%E5%BC%BA%E5%A4%A7%E7%9A%84%E6%8E%92%E5%BA%8F%E5%92%8C%E8%BF%87%E6%BB%A4"><span>3. 强大的排序和过滤</span></a></h3>
+<ul>
+<li>内置排序方式（order、title、date、path）</li>
+<li>支持自定义排序函数</li>
+<li>支持自定义过滤函数</li>
+</ul>
+<h3 id="4.-%E5%A4%9A%E7%A7%8D%E5%B8%83%E5%B1%80%E6%A8%A1%E5%BC%8F" tabindex="-1"><a class="header-anchor" href="#4.-%E5%A4%9A%E7%A7%8D%E5%B8%83%E5%B1%80%E6%A8%A1%E5%BC%8F"><span>4. 多种布局模式</span></a></h3>
+<ul>
+<li><strong>sidebar</strong>：侧边栏布局（默认）</li>
+<li><strong>dropdown</strong>：下拉菜单布局</li>
+<li><strong>tabs</strong>：标签页布局</li>
+</ul>
+<h3 id="5.-%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81" tabindex="-1"><a class="header-anchor" href="#5.-%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81"><span>5. 多语言支持</span></a></h3>
+<ul>
+<li>自动根据当前语言过滤文档</li>
+<li>支持语言后缀文件（如 <code>about.zh.md</code>、<code>about.en.md</code>）</li>
+</ul>
+<h2 id="front-matter-%E9%85%8D%E7%BD%AE" tabindex="-1"><a class="header-anchor" href="#front-matter-%E9%85%8D%E7%BD%AE"><span>Front Matter 配置</span></a></h2>
+<p>在 Markdown 文件头部使用 YAML front matter 来配置文档属性：</p>
+<pre><code class="language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">文档标题</span>
+<span class="hljs-attr">id:</span> <span class="hljs-string">unique-doc-id</span>
+<span class="hljs-attr">order:</span> <span class="hljs-number">1</span>
+<span class="hljs-attr">parent:</span> <span class="hljs-string">parent-doc-id</span>
+<span class="hljs-attr">collection:</span> <span class="hljs-string">user-guide</span>
+<span class="hljs-attr">date:</span> <span class="hljs-number">2025-12-31</span>
+<span class="hljs-attr">author:</span> <span class="hljs-string">作者名</span>
+<span class="hljs-attr">tags:</span> [<span class="hljs-string">tag1</span>, <span class="hljs-string">tag2</span>, <span class="hljs-string">tag3</span>]
+<span class="hljs-attr">category:</span> <span class="hljs-string">分类</span>
+<span class="hljs-meta">---
+</span></code></pre>
+<h3 id="%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E" tabindex="-1"><a class="header-anchor" href="#%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E"><span>字段说明</span></a></h3>
+<ul>
+<li><strong>title</strong>: 文档标题（覆盖自动提取的标题）</li>
+<li><strong>id</strong>: 唯一标识符（用于建立父子关系，不设置则自动生成）</li>
+<li><strong>order</strong>: 排序序号（数字越小越靠前）</li>
+<li><strong>parent</strong>: 父文档的 ID（用于建立层级关系）</li>
+<li><strong>collection</strong>: 集合名称（用于文档分组）</li>
+<li><strong>date</strong>: 发布日期</li>
+<li><strong>author</strong>: 作者</li>
+<li><strong>tags</strong>: 标签数组</li>
+<li><strong>category</strong>: 分类</li>
+</ul>
+<h2 id="%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B" tabindex="-1"><a class="header-anchor" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span>使用示例</span></a></h2>
+<h3 id="%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95" tabindex="-1"><a class="header-anchor" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span>基础用法</span></a></h3>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">DocumentCenter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../components/documentation/DocumentCenter&#x27;</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentCenter</span> /&gt;</span></span>;
+}
+</code></pre>
+<h3 id="%E5%8F%AA%E5%B1%95%E7%A4%BA%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0" tabindex="-1"><a class="header-anchor" href="#%E5%8F%AA%E5%B1%95%E7%A4%BA%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0"><span>只展示博客文章</span></a></h3>
+<pre><code class="language-jsx">&lt;<span class="hljs-title class_">DocumentCenter</span> 
+  type=<span class="hljs-string">&quot;post&quot;</span> 
+  title=<span class="hljs-string">&quot;博客文章&quot;</span>
+  showCount={<span class="hljs-literal">true</span>}
+/&gt;
+</code></pre>
+<h3 id="%E5%8F%AA%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3%E9%A1%B5%E9%9D%A2" tabindex="-1"><a class="header-anchor" href="#%E5%8F%AA%E5%B1%95%E7%A4%BA%E6%96%87%E6%A1%A3%E9%A1%B5%E9%9D%A2"><span>只展示文档页面</span></a></h3>
+<pre><code class="language-jsx">&lt;<span class="hljs-title class_">DocumentCenter</span> 
+  type=<span class="hljs-string">&quot;page&quot;</span> 
+  title=<span class="hljs-string">&quot;文档页面&quot;</span>
+  showCount={<span class="hljs-literal">true</span>}
+/&gt;
+</code></pre>
+<h3 id="%E5%B1%95%E7%A4%BA%E7%89%B9%E5%AE%9A%E9%9B%86%E5%90%88" tabindex="-1"><a class="header-anchor" href="#%E5%B1%95%E7%A4%BA%E7%89%B9%E5%AE%9A%E9%9B%86%E5%90%88"><span>展示特定集合</span></a></h3>
+<pre><code class="language-jsx">&lt;<span class="hljs-title class_">DocumentCenter</span> 
+  collection=<span class="hljs-string">&quot;user-guide&quot;</span>
+  title=<span class="hljs-string">&quot;用户指南&quot;</span>
+  enableTree={<span class="hljs-literal">true</span>}
+  showBreadcrumb={<span class="hljs-literal">true</span>}
+/&gt;
+</code></pre>
+<h3 id="%E5%90%AF%E7%94%A8%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84" tabindex="-1"><a class="header-anchor" href="#%E5%90%AF%E7%94%A8%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84"><span>启用树形结构</span></a></h3>
+<pre><code class="language-jsx">&lt;<span class="hljs-title class_">DocumentCenter</span> 
+  type=<span class="hljs-string">&quot;page&quot;</span>
+  enableTree={<span class="hljs-literal">true</span>}
+  showBreadcrumb={<span class="hljs-literal">true</span>}
+/&gt;
+</code></pre>
+<h3 id="%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F" tabindex="-1"><a class="header-anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F"><span>自定义排序</span></a></h3>
+<pre><code class="language-jsx"><span class="hljs-comment">// 按日期降序排列</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">sortByDate</span> = (<span class="hljs-params">a, b</span>) =&gt; {
+  <span class="hljs-keyword">const</span> dateA = a.<span class="hljs-property">metadata</span>?.<span class="hljs-property">date</span> || <span class="hljs-string">&#x27;&#x27;</span>;
+  <span class="hljs-keyword">const</span> dateB = b.<span class="hljs-property">metadata</span>?.<span class="hljs-property">date</span> || <span class="hljs-string">&#x27;&#x27;</span>;
+  <span class="hljs-keyword">return</span> dateB.<span class="hljs-title function_">localeCompare</span>(dateA);
+};
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentCenter</span> 
+  <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;post&quot;</span>
+  <span class="hljs-attr">customSort</span>=<span class="hljs-string">{sortByDate}</span>
+/&gt;</span></span>
+</code></pre>
+<h3 id="%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4" tabindex="-1"><a class="header-anchor" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4"><span>自定义过滤</span></a></h3>
+<pre><code class="language-jsx"><span class="hljs-comment">// 只显示包含特定标签的文档</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">filterByTag</span> = (<span class="hljs-params">doc</span>) =&gt; {
+  <span class="hljs-keyword">return</span> doc.<span class="hljs-property">metadata</span>?.<span class="hljs-property">tags</span>?.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;tutorial&#x27;</span>);
+};
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentCenter</span> 
+  <span class="hljs-attr">customFilter</span>=<span class="hljs-string">{filterByTag}</span>
+/&gt;</span></span>
+</code></pre>
+<h3 id="%E7%9B%91%E5%90%AC%E6%96%87%E6%A1%A3%E5%88%87%E6%8D%A2" tabindex="-1"><a class="header-anchor" href="#%E7%9B%91%E5%90%AC%E6%96%87%E6%A1%A3%E5%88%87%E6%8D%A2"><span>监听文档切换</span></a></h3>
+<pre><code class="language-jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">handleDocumentChange</span> = (<span class="hljs-params">doc</span>) =&gt; {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;切换到:&#x27;</span>, doc.<span class="hljs-property">title</span>);
+  <span class="hljs-comment">// 执行其他操作</span>
+};
+
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentCenter</span> 
+  <span class="hljs-attr">onDocumentChange</span>=<span class="hljs-string">{handleDocumentChange}</span>
+/&gt;</span></span>
+</code></pre>
+<h2 id="%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB" tabindex="-1"><a class="header-anchor" href="#%E5%BB%BA%E7%AB%8B%E6%96%87%E6%A1%A3%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB"><span>建立文档层级关系</span></a></h2>
+<h3 id="%E6%96%B9%E6%B3%95-1%3A-%E4%BD%BF%E7%94%A8-parent-%E5%AD%97%E6%AE%B5" tabindex="-1"><a class="header-anchor" href="#%E6%96%B9%E6%B3%95-1%3A-%E4%BD%BF%E7%94%A8-parent-%E5%AD%97%E6%AE%B5"><span>方法 1: 使用 parent 字段</span></a></h3>
+<pre><code class="language-yaml"><span class="hljs-comment"># parent-doc.md</span>
+<span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">父文档</span>
+<span class="hljs-attr">id:</span> <span class="hljs-string">parent-doc</span>
+<span class="hljs-attr">order:</span> <span class="hljs-number">1</span>
+<span class="hljs-meta">---
+</span>
+<span class="hljs-comment"># 父文档内容</span>
+
+<span class="hljs-comment"># child-doc.md</span>
+<span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">子文档</span>
+<span class="hljs-attr">id:</span> <span class="hljs-string">child-doc</span>
+<span class="hljs-attr">parent:</span> <span class="hljs-string">parent-doc</span>
+<span class="hljs-attr">order:</span> <span class="hljs-number">1</span>
+<span class="hljs-meta">---
+</span>
+<span class="hljs-comment"># 子文档内容</span>
+</code></pre>
+<h3 id="%E6%96%B9%E6%B3%95-2%3A-%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%EF%BC%88%E8%87%AA%E5%8A%A8%EF%BC%89" tabindex="-1"><a class="header-anchor" href="#%E6%96%B9%E6%B3%95-2%3A-%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%EF%BC%88%E8%87%AA%E5%8A%A8%EF%BC%89"><span>方法 2: 使用文件路径（自动）</span></a></h3>
+<p>将子文档放在子目录中，系统会自动识别层级关系：</p>
+<pre><code>content/
+  pages/
+    guide/
+      index.md        # 主指南
+      getting-started.md
+      advanced.md
+</code></pre>
+<h2 id="%E6%96%87%E6%A1%A3%E9%9B%86%E5%90%88" tabindex="-1"><a class="header-anchor" href="#%E6%96%87%E6%A1%A3%E9%9B%86%E5%90%88"><span>文档集合</span></a></h2>
+<p>通过 <code>collection</code> 字段将相关文档组织在一起：</p>
+<pre><code class="language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">快速开始</span>
+<span class="hljs-attr">collection:</span> <span class="hljs-string">tutorial</span>
+<span class="hljs-attr">order:</span> <span class="hljs-number">1</span>
+<span class="hljs-meta">---
+</span></code></pre>
+<pre><code class="language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">进阶教程</span>
+<span class="hljs-attr">collection:</span> <span class="hljs-string">tutorial</span>
+<span class="hljs-attr">order:</span> <span class="hljs-number">2</span>
+<span class="hljs-meta">---
+</span></code></pre>
+<p>然后使用：</p>
+<pre><code class="language-jsx">&lt;<span class="hljs-title class_">DocumentCenter</span> 
+  collection=<span class="hljs-string">&quot;tutorial&quot;</span>
+  title=<span class="hljs-string">&quot;教程&quot;</span>
+  enableTree={<span class="hljs-literal">true</span>}
+/&gt;
+</code></pre>
+<h2 id="%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5" tabindex="-1"><a class="header-anchor" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span>最佳实践</span></a></h2>
+<h3 id="1.-%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8-order-%E5%AD%97%E6%AE%B5" tabindex="-1"><a class="header-anchor" href="#1.-%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8-order-%E5%AD%97%E6%AE%B5"><span>1. 合理使用 order 字段</span></a></h3>
+<ul>
+<li>使用 10、20、30 这样的间隔，便于后续插入新文档</li>
+<li>不是所有文档都需要 order，无序的会按标题排序</li>
+</ul>
+<h3 id="2.-%E7%BB%9F%E4%B8%80-id-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83" tabindex="-1"><a class="header-anchor" href="#2.-%E7%BB%9F%E4%B8%80-id-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span>2. 统一 ID 命名规范</span></a></h3>
+<ul>
+<li>使用短横线分隔的小写字母：<code>user-guide-intro</code></li>
+<li>与文件名保持一致性</li>
+<li>避免使用特殊字符</li>
+</ul>
+<h3 id="3.-%E5%90%88%E7%90%86%E7%BB%84%E7%BB%87%E9%9B%86%E5%90%88" tabindex="-1"><a class="header-anchor" href="#3.-%E5%90%88%E7%90%86%E7%BB%84%E7%BB%87%E9%9B%86%E5%90%88"><span>3. 合理组织集合</span></a></h3>
+<ul>
+<li>将相关文档归类到同一个 collection</li>
+<li>使用有意义的集合名称</li>
+<li>每个集合不要包含太多文档（建议 10-30 个）</li>
+</ul>
+<h3 id="4.-%E5%96%84%E7%94%A8%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB" tabindex="-1"><a class="header-anchor" href="#4.-%E5%96%84%E7%94%A8%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB"><span>4. 善用层级关系</span></a></h3>
+<ul>
+<li>不要创建过深的层级（建议最多 3-4 层）</li>
+<li>确保父子关系清晰明确</li>
+<li>叶子节点包含实际内容，中间节点可以是索引页</li>
+</ul>
+<h3 id="5.-%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE" tabindex="-1"><a class="header-anchor" href="#5.-%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span>5. 标签使用建议</span></a></h3>
+<ul>
+<li>每个文档 2-5 个标签</li>
+<li>使用一致的标签命名</li>
+<li>建立标签索引表</li>
+</ul>
+<h2 id="api-%E5%8F%82%E8%80%83" tabindex="-1"><a class="header-anchor" href="#api-%E5%8F%82%E8%80%83"><span>API 参考</span></a></h2>
+<h3 id="props" tabindex="-1"><a class="header-anchor" href="#props"><span>Props</span></a></h3>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>‘all’</td>
+<td>文档类型过滤：‘post’、‘page’ 或 ‘all’</td>
+</tr>
+<tr>
+<td>collection</td>
+<td>string</td>
+<td>null</td>
+<td>集合名称过滤</td>
+</tr>
+<tr>
+<td>enableTree</td>
+<td>boolean</td>
+<td>false</td>
+<td>是否启用树形结构</td>
+</tr>
+<tr>
+<td>customSort</td>
+<td>Function|string</td>
+<td>‘order’</td>
+<td>排序方式</td>
+</tr>
+<tr>
+<td>customFilter</td>
+<td>Function</td>
+<td>null</td>
+<td>自定义过滤函数</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>null</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>showCount</td>
+<td>boolean</td>
+<td>true</td>
+<td>是否显示文档数量</td>
+</tr>
+<tr>
+<td>showBreadcrumb</td>
+<td>boolean</td>
+<td>false</td>
+<td>是否显示面包屑</td>
+</tr>
+<tr>
+<td>layout</td>
+<td>string</td>
+<td>‘sidebar’</td>
+<td>布局模式</td>
+</tr>
+<tr>
+<td>onDocumentChange</td>
+<td>Function</td>
+<td>null</td>
+<td>文档切换回调</td>
+</tr>
+<tr>
+<td>className</td>
+<td>string</td>
+<td>‘’</td>
+<td>自定义 CSS 类</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0" tabindex="-1"><a class="header-anchor" href="#%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0"><span>工具函数</span></a></h3>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {
+  extractMetadata,
+  enhanceDocument,
+  filterDocumentsByType,
+  sortDocuments,
+  buildDocumentTree,
+  findDocumentById,
+  getDocumentPath,
+  getAdjacentDocuments,
+  groupDocumentsByCollection,
+  searchDocuments
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../utils/documentCenter&#x27;</span>;
+</code></pre>
+<h2 id="%E8%BF%81%E7%A7%BB%E6%8C%87%E5%8D%97" tabindex="-1"><a class="header-anchor" href="#%E8%BF%81%E7%A7%BB%E6%8C%87%E5%8D%97"><span>迁移指南</span></a></h2>
+<h3 id="%E4%BB%8E-posts-%E7%BB%84%E4%BB%B6%E8%BF%81%E7%A7%BB" tabindex="-1"><a class="header-anchor" href="#%E4%BB%8E-posts-%E7%BB%84%E4%BB%B6%E8%BF%81%E7%A7%BB"><span>从 Posts 组件迁移</span></a></h3>
+<p><strong>之前：</strong></p>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Posts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./pages/Posts&#x27;</span>;
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Posts</span> /&gt;</span></span>
+</code></pre>
+<p><strong>之后：</strong></p>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">DocumentCenter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/documentation/DocumentCenter&#x27;</span>;
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentCenter</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;post&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;博客文章&quot;</span> /&gt;</span></span>
+</code></pre>
+<h3 id="%E4%BB%8E-pages-%E7%BB%84%E4%BB%B6%E8%BF%81%E7%A7%BB" tabindex="-1"><a class="header-anchor" href="#%E4%BB%8E-pages-%E7%BB%84%E4%BB%B6%E8%BF%81%E7%A7%BB"><span>从 Pages 组件迁移</span></a></h3>
+<p><strong>之前：</strong></p>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Pages</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./pages/Pages&#x27;</span>;
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Pages</span> /&gt;</span></span>
+</code></pre>
+<p><strong>之后：</strong></p>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">DocumentCenter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/documentation/DocumentCenter&#x27;</span>;
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">DocumentCenter</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;page&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;文档页面&quot;</span> /&gt;</span></span>
+</code></pre>
+<h2 id="%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" tabindex="-1"><a class="header-anchor" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span>常见问题</span></a></h2>
+<h3 id="q%3A-%E6%96%87%E6%A1%A3%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E6%96%87%E6%A1%A3%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA%EF%BC%9F"><span>Q: 文档没有显示？</span></a></h3>
+<p>A: 检查以下几点：</p>
+<ol>
+<li>文件是否在 <code>content/posts/</code> 或 <code>content/pages/</code> 目录下</li>
+<li>文件扩展名是否为 <code>.md</code></li>
+<li>type 参数是否正确设置</li>
+<li>检查浏览器控制台是否有错误</li>
+</ol>
+<h3 id="q%3A-%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%B2%A1%E6%9C%89%E6%AD%A3%E7%A1%AE%E6%98%BE%E7%A4%BA%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%B2%A1%E6%9C%89%E6%AD%A3%E7%A1%AE%E6%98%BE%E7%A4%BA%EF%BC%9F"><span>Q: 树形结构没有正确显示？</span></a></h3>
+<p>A: 确保：</p>
+<ol>
+<li>设置了 <code>enableTree={true}</code></li>
+<li>文档的 <code>parent</code> 字段指向了正确的父文档 ID</li>
+<li>父文档确实存在</li>
+</ol>
+<h3 id="q%3A-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%96%87%E6%A1%A3%E6%90%9C%E7%B4%A2%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%96%87%E6%A1%A3%E6%90%9C%E7%B4%A2%EF%BC%9F"><span>Q: 如何实现文档搜索？</span></a></h3>
+<p>A: 使用 <code>searchDocuments</code> 工具函数：</p>
+<pre><code class="language-jsx"><span class="hljs-keyword">import</span> { searchDocuments } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../utils/documentCenter&#x27;</span>;
+
+<span class="hljs-keyword">const</span> results = <span class="hljs-title function_">searchDocuments</span>(documents, searchQuery);
+</code></pre>
+<h3 id="q%3A-%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%EF%BC%9F" tabindex="-1"><a class="header-anchor" href="#q%3A-%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F%EF%BC%9F"><span>Q: 如何自定义样式？</span></a></h3>
+<p>A: 通过 <code>className</code> 属性添加自定义类，或覆盖 CSS 变量：</p>
+<pre><code class="language-css"><span class="hljs-selector-class">.custom-doc-center</span> {
+  <span class="hljs-attr">--accent-color</span>: <span class="hljs-number">#007bff</span>;
+  <span class="hljs-attr">--background-secondary</span>: <span class="hljs-number">#f8f9fa</span>;
+}
+</code></pre>
+<h2 id="%E6%80%BB%E7%BB%93" tabindex="-1"><a class="header-anchor" href="#%E6%80%BB%E7%BB%93"><span>总结</span></a></h2>
+<p>文档中心组件提供了一个完整的文档管理解决方案，通过灵活的配置和丰富的功能，可以满足从简单博客到复杂文档系统的各种需求。</p>
+
+        </div>
+      </article>
+    </div>
+  </div>
+  
+  <!-- React 应用入口 (用于 Hydration) -->
+  <script type="module" src="./assets/index.js"></script>
+  
+  <!-- 预渲染元数据 (供 React 使用) -->
+  <script id="prerender-data" type="application/json">
+  {"title":"文档中心组件指南","metadata":{"title":"文档中心组件指南","id":"document-center-guide","type":"page","collection":"tutorials","parent":"advanced-index","order":3,"date":"2025-12-31T00:00:00.000Z","author":"System","tags":["tutorial","documentation","component"],"category":"教程","relatedDocs":["quick-reference","advanced-features","auto-folder-scan-guide"]},"path":"/content/tutorials/advanced/document-center-guide.html"}
+  </script>
+</body>
+</html>
