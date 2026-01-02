@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { execSync } from 'child_process'
+import fs from 'fs'
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -23,7 +25,74 @@ export default defineConfig(({ command, mode }) => {
             dest: ''
           }
         ]
-      })
+      }),
+      // 自定义插件：为 Markdown 文件设置正确的字符编码
+      {
+        name: 'markdown-encoding',
+        configureServer(server) {
+          // 使用 transform 钩子拦截 .md 文件请求
+          server.middlewares.use(async (req, res, next) => {
+            if (req.url && req.url.endsWith('.md')) {
+              try {
+                // 读取文件内容
+                const filePath = req.url.replace(/^\//, '');
+                const fullPath = `${process.cwd()}/${filePath}`;
+                
+                if (fs.existsSync(fullPath)) {
+                  const content = fs.readFileSync(fullPath, 'utf-8');
+                  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+                  res.setHeader('Cache-Control', 'no-cache');
+                  res.end(content);
+                  return;
+                }
+              } catch (err) {
+                // 如果出错，继续使用默认处理
+              }
+            }
+            next();
+          });
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use(async (req, res, next) => {
+            if (req.url && req.url.endsWith('.md')) {
+              try {
+                const filePath = req.url.replace(/^\//, '');
+                const fullPath = `${process.cwd()}/dist/${filePath}`;
+                
+                if (fs.existsSync(fullPath)) {
+                  const content = fs.readFileSync(fullPath, 'utf-8');
+                  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+                  res.setHeader('Cache-Control', 'no-cache');
+                  res.end(content);
+                  return;
+                }
+              } catch (err) {
+                // 如果出错，继续使用默认处理
+              }
+            }
+            next();
+          });
+        },
+      },
+      // SSG 插件：构建完成后执行预渲染
+      {
+        name: 'ssg-prerender',
+        closeBundle() {
+          if (command === 'build') {
+            console.log('\n🚀 开始执行 SSG 预渲染...');
+            try {
+              // 执行预渲染脚本
+              execSync('node scripts/prerender.js', { stdio: 'inherit' });
+              // 生成 sitemap 和 robots.txt
+              execSync('node scripts/generate-sitemap.js', { stdio: 'inherit' });
+              console.log('✨ SSG 预渲染完成！\n');
+            } catch (error) {
+              console.error('❌ SSG 预渲染失败:', error.message);
+              // 不中断构建流程
+            }
+          }
+        }
+      }
     ],
     base,
     build: {
