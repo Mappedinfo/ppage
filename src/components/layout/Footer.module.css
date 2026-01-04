@@ -26,14 +26,24 @@
 }
 
 .socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--text-secondary);
   text-decoration: none;
   font-size: var(--font-size-sm);
   transition: color var(--transition-base);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
 }
 
 .socialLink:hover {
   color: var(--primary-color);
+  background-color: var(--bg-primary);
+}
+
+.socialName {
+  font-size: var(--font-size-sm);
 }
 
 .copyright {

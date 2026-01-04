@@ -24,6 +24,11 @@ profile:
 # ========================================
 # 社交链接
 # ========================================
+# 支持的图标类型：
+# 常见社交平台: github, twitter, linkedin, facebook, instagram, youtube, email, 
+#               website, medium, reddit, stackoverflow, wechat, weibo, zhihu
+# 学术平台: scholar/google-scholar (Google Scholar), orcid (ORCID), 
+#          researchgate/research-gate (ResearchGate)
 social:
   - name: "GitHub"
     icon: "github"
@@ -34,6 +39,16 @@ social:
   - name: "Twitter"
     icon: "twitter"
     url: "https://twitter.com/yourusername"
+  # 学术平台示例：
+  # - name: "Google Scholar"
+  #   icon: "scholar"
+  #   url: "https://scholar.google.com/citations?user=YOUR_ID"
+  # - name: "ORCID"
+  #   icon: "orcid"
+  #   url: "https://orcid.org/YOUR-ORCID-ID"
+  # - name: "ResearchGate"
+  #   icon: "researchgate"
+  #   url: "https://www.researchgate.net/profile/YOUR_PROFILE"
 
 # ========================================
 # 导航菜单配置
