@@ -39,18 +39,22 @@ social:
   #   icon: "orcid"
   #   url: "https://orcid.org/YOUR-ORCID-ID"
 
-# 导航菜单
+# 导航菜单配置
 # showInMobile: 控制在移动端是否默认显示(false则放入汉堡菜单)
+# order: 控制导航顺序，数值越小越靠前，默认按配置顺序（order 值从 999 开始）
 navigation:
   - name: "首页"
     path: "/"
     showInMobile: true  # 始终显示
+    order: 1            # 排序优先级最高
   - name: "关于"
     path: "/about"
     showInMobile: true  # 始终显示
+    order: 2
   - name: "项目"
     path: "/projects"
     showInMobile: false  # 放入汉堡菜单
+    # 未设置 order，按配置顺序排在后面
   - name: "博客"
     path: "/posts"
     showInMobile: false  # 放入汉堡菜单

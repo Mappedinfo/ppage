@@ -53,11 +53,15 @@ social:
 # ========================================
 # 导航菜单配置
 # ========================================
+# showInMobile: 控制在移动端是否默认显示 (false 则放入汉堡菜单)
+# order: 控制导航顺序，数值越小越靠前，默认按配置顺序（order 值从 999 开始）
 navigation:
   - name: "首页"
     path: "/"
+    order: 1            # 排序优先级最高
   - name: "关于"
     path: "/about"
+    order: 2
   - name: "项目"
     path: "/projects"
   - name: "博客"

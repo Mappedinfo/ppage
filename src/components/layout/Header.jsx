@@ -39,7 +39,12 @@ export function Header({ folderConfigs = [] }) {
 
   // 合并静态导航和动态生成的导航
   const allNavigation = [
-    ...navigation,
+    // 静态导航项，添加默认顺序索引
+    ...navigation.map((item, index) => ({
+      ...item,
+      order: item.order ?? 999 + index, // 未设置 order 时使用大数值 + 索引保持原顺序
+    })),
+    // 动态文件夹导航项
     ...folderConfigs
       .filter(config => config.showInNavigation !== false) // 过滤不显示的项
       .map(config => {
@@ -52,9 +57,16 @@ export function Header({ folderConfigs = [] }) {
           path: `/${config.name}`,
           isDynamic: true,
           showInMobile: config.showInMobile ?? false, // 使用 config 中的配置
+          order: config.order ?? 999, // 使用 folderConfig 中的 order
         }
       }),
-  ]
+  ].sort((a, b) => {
+    // 按 order 字段升序排序
+    const orderDiff = (a.order ?? 999) - (b.order ?? 999)
+    if (orderDiff !== 0) return orderDiff
+    // order 相同时保持相对位置稳定
+    return 0
+  })
 
   // 分离移动端显示和汉堡菜单中的导航项
   const mobileVisibleNav = allNavigation.filter(
