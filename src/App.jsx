@@ -4,6 +4,7 @@ import { ConfigProvider, useConfig } from './config/ConfigContext'
 import { ThemeProvider } from './components/theme/ThemeContext'
 import { I18nProvider, useI18n } from './i18n/I18nContext'
 import { Layout } from './components/layout/Layout'
+import { FaviconManager } from './components/common/FaviconManager'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Projects } from './pages/Projects'
@@ -11,6 +12,7 @@ import { Posts } from './pages/Posts'
 import { Pages } from './pages/Pages'
 import { Files } from './pages/Files'
 import { News } from './pages/News'
+import { NotFound } from './pages/NotFound'
 import { DynamicDocumentPage } from './pages/DynamicDocumentPage'
 import { generateFolderConfigs } from './utils/folderScanner'
 import { getRouterBasename } from './utils/pathUtils'
@@ -107,6 +109,9 @@ function AppContent() {
   return (
     <I18nProvider>
       <ThemeProvider>
+        {/* Favicon 管理 */}
+        <FaviconManager />
+
         <BrowserRouter basename={basename}>
           {/* 页面标题管理 */}
           <DocumentTitleManager folderConfigs={folderConfigs} />
@@ -129,6 +134,9 @@ function AppContent() {
                   element={<DynamicDocumentPage config={config} />}
                 />
               ))}
+
+              {/* 404 页面 - 必须放在最后 */}
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>

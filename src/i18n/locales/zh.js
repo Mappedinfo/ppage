@@ -165,4 +165,12 @@ export const zh = {
       deployment: '部署指南',
     },
   },
+
+  // 404 页面
+  notFound: {
+    title: '页面未找到',
+    description: '抱歉，您访问的页面不存在或已被移除。',
+    backHome: '返回首页',
+    goBack: '返回上一页',
+  },
 }

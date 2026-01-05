@@ -6,6 +6,7 @@ site:
   description: "这是一个基于 Markdown 的个人主页系统"
   author: "Your Name"
   baseUrl: "/"
+  favicon: "/vite.svg"  # 网站图标路径，支持 .ico, .png, .svg 等格式
 
 # 个人信息
 profile:

@@ -168,4 +168,13 @@ export const en = {
       deployment: 'Deployment',
     },
   },
+
+  // 404 Page
+  notFound: {
+    title: 'Page Not Found',
+    description:
+      'Sorry, the page you are looking for does not exist or has been removed.',
+    backHome: 'Back to Home',
+    goBack: 'Go Back',
+  },
 }

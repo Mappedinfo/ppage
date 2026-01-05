@@ -2,7 +2,70 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <title>加载中...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面跳转中...</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 500px;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 2rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      opacity: 0.95;
+    }
+
+    p {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .path {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      word-break: break-all;
+      backdrop-filter: blur(10px);
+    }
+  </style>
   <script>
     // GitHub Pages SPA 路由解决方案
     // 简化版：直接将当前路径存储后重定向到首页
@@ -16,18 +79,33 @@
         return;
       }
       
-      // 将完整路径保存到 sessionStorage
-      sessionStorage.setItem('redirectPath', path + search + hash);
+      // 显示正在跳转的路径
+      var fullPath = path + search + hash;
+      document.addEventListener('DOMContentLoaded', function() {
+        var pathElement = document.getElementById('redirect-path');
+        if (pathElement) {
+          pathElement.textContent = fullPath;
+        }
+      });
       
-      // 重定向到首页
-      window.location.replace('/');
+      // 将完整路径保存到 sessionStorage
+      sessionStorage.setItem('redirectPath', fullPath);
+      
+      // 延迟重定向，让用户看到提示信息
+      setTimeout(function() {
+        window.location.replace('/');
+      }, 500);
     })();
   </script>
 </head>
 <body>
-  <div style="font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 50px;">
-    <h2>加载中...</h2>
-    <p>正在跳转到正确的页面</p>
+  <div class="container">
+    <div class="loader"></div>
+    <h1>🚀 页面跳转中...</h1>
+    <p>正在将您重定向到正确的页面</p>
+    <div class="path">
+      <div id="redirect-path"></div>
+    </div>
   </div>
 </body>
 </html>
