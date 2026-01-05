@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { ConfigProvider, useConfig } from './config/ConfigContext'
 import { ThemeProvider } from './components/theme/ThemeContext'
-import { I18nProvider } from './i18n/I18nContext'
+import { I18nProvider, useI18n } from './i18n/I18nContext'
 import { Layout } from './components/layout/Layout'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
@@ -15,18 +15,64 @@ import { DynamicDocumentPage } from './pages/DynamicDocumentPage'
 import { generateFolderConfigs } from './utils/folderScanner'
 import { getRouterBasename } from './utils/pathUtils'
 
+/**
+ * 页面标题管理组件
+ * 监听路由变化，动态更新页面标题为：主标题 - 当前页面
+ */
+function DocumentTitleManager({ folderConfigs }) {
+  const location = useLocation()
+  const { config } = useConfig()
+  const { t } = useI18n()
+  const siteTitle = config?.site?.title || '个人主页'
+
+  useEffect(() => {
+    // 获取当前路径（去除开头的 /）
+    const pathname = location.pathname.replace(/^\/*/, '')
+
+    // 根据路径确定页面标题
+    let pageTitle = ''
+
+    if (!pathname || pathname === '') {
+      // 首页
+      pageTitle = t('pages.home')
+    } else if (pathname === 'about') {
+      pageTitle = t('pages.about')
+    } else if (pathname === 'projects') {
+      pageTitle = t('pages.projects')
+    } else if (pathname === 'posts') {
+      pageTitle = t('pages.posts')
+    } else if (pathname === 'pages') {
+      pageTitle = t('pages.docs')
+    } else if (pathname === 'files') {
+      pageTitle = t('pages.files')
+    } else if (pathname === 'news') {
+      pageTitle = t('pages.news')
+    } else {
+      // 检查是否是动态生成的文档集合页面
+      const folderConfig = folderConfigs.find(cfg => cfg.name === pathname)
+      if (folderConfig) {
+        pageTitle = folderConfig.title || pathname
+      } else {
+        // 未知页面，使用路径作为标题
+        pageTitle = pathname
+      }
+    }
+
+    // 更新文档标题
+    if (pageTitle) {
+      document.title = `${siteTitle} - ${pageTitle}`
+    } else {
+      document.title = siteTitle
+    }
+  }, [location.pathname, siteTitle, folderConfigs, t])
+
+  return null // 这是一个纯逻辑组件，不渲染任何内容
+}
+
 function AppContent() {
   const { config } = useConfig() // 获取完整的配置对象
-  const siteConfig = config?.site // 站点配置
   const [folderConfigs, setFolderConfigs] = useState([])
   const [loading, setLoading] = useState(true)
-
-  // 动态设置页面标题
-  useEffect(() => {
-    if (siteConfig?.title) {
-      document.title = siteConfig.title
-    }
-  }, [siteConfig?.title])
 
   // 加载文件夹配置
   useEffect(() => {
@@ -62,6 +108,9 @@ function AppContent() {
     <I18nProvider>
       <ThemeProvider>
         <BrowserRouter basename={basename}>
+          {/* 页面标题管理 */}
+          <DocumentTitleManager folderConfigs={folderConfigs} />
+
           <Routes>
             <Route path="/" element={<Layout folderConfigs={folderConfigs} />}>
               <Route index element={<Home />} />
