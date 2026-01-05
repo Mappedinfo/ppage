@@ -54,6 +54,13 @@
   line-height: 1.8;
 }
 
+/* 关于本站部分样式 */
+.siteSection {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+}
+
 .markdownContent h1,
 .markdownContent h2,
 .markdownContent h3,

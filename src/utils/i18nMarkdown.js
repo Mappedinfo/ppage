@@ -35,6 +35,17 @@ export async function loadI18nMarkdown(
       const response = await fetch(fullPath)
       if (response.ok) {
         const content = await response.text()
+
+        // 验证返回的内容是否为 HTML（可能是 404 页面）
+        if (
+          content.trim().startsWith('<!doctype') ||
+          content.trim().startsWith('<!DOCTYPE') ||
+          content.trim().startsWith('<html')
+        ) {
+          console.warn(`${path} 返回了 HTML 内容而非 Markdown，可能文件不存在`)
+          continue
+        }
+
         console.log(`成功加载 Markdown: ${path}`)
         return content
       }
