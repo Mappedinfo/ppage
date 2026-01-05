@@ -10,6 +10,7 @@ export const zh = {
     viewMore: '查看更多',
     download: '下载',
     openInNewTab: '在新窗口打开',
+    tableOfContents: '目录',
   },
 
   // 页面标题

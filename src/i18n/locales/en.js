@@ -10,6 +10,7 @@ export const en = {
     viewMore: 'View More',
     download: 'Download',
     openInNewTab: 'Open in New Tab',
+    tableOfContents: 'Table of Contents',
   },
 
   // Page titles

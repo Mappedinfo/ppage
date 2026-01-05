@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useProfileConfig, useConfig } from '../config/ConfigContext'
 import { useI18n } from '../i18n/I18nContext'
 import { MarkdownRenderer } from '../components/markdown/MarkdownRenderer'
+import { TableOfContents } from '../components/markdown/TableOfContents'
 import { loadI18nMarkdown } from '../utils/i18nMarkdown'
 import styles from './About.module.css'
 
@@ -29,8 +30,8 @@ export function About() {
           const aboutPath = '/content/pages/about'
           const aboutMd = await loadI18nMarkdown(aboutPath, language)
           setAboutMarkdown(aboutMd)
-        } catch (error) {
-          console.log('未找到关于我的 Markdown 文件，将使用配置文件内容')
+        } catch {
+          // 未找到关于我的 Markdown 文件，将使用配置文件内容
           setAboutMarkdown(null)
         }
 
@@ -39,8 +40,8 @@ export function About() {
           const sitePath = '/content/pages/about-site'
           const siteMd = await loadI18nMarkdown(sitePath, language)
           setSiteMarkdown(siteMd)
-        } catch (error) {
-          console.log('未找到关于本站的 Markdown 文件')
+        } catch {
+          // 未找到关于本站的 Markdown 文件
           setSiteMarkdown(null)
         }
       } catch (error) {
@@ -68,64 +69,82 @@ export function About() {
 
   const siteDescription = getSiteDescription()
 
+  // 合并所有 Markdown 内容用于生成目录
+  const fullMarkdownContent = [aboutMarkdown, siteMarkdown]
+    .filter(Boolean)
+    .join('\n\n')
+
   return (
     <div className={styles.about}>
       {loading ? (
         <p className={styles.text}>{t('common.loading')}</p>
       ) : (
-        <>
-          {/* 关于我部分 - 优先使用 Markdown，否则使用配置 */}
-          {aboutMarkdown ? (
-            <MarkdownRenderer content={aboutMarkdown} />
-          ) : (
-            <>
-              <h1 className={styles.title}>{t('about.title')}</h1>
-              <div className={styles.content}>
-                <section className={styles.section}>
-                  <h2 className={styles.subtitle}>{t('about.bioTitle')}</h2>
-                  <p className={styles.text}>
-                    {profile?.bio || t('about.bioDefault')}
-                  </p>
-                </section>
-
-                {profile?.email && (
+        <div className={styles.container}>
+          {/* 左侧：主内容 */}
+          <div className={styles.mainContent}>
+            {/* 关于我部分 - 优先使用 Markdown，否则使用配置 */}
+            {aboutMarkdown ? (
+              <MarkdownRenderer content={aboutMarkdown} />
+            ) : (
+              <>
+                <h1 className={styles.title}>{t('about.title')}</h1>
+                <div className={styles.content}>
                   <section className={styles.section}>
-                    <h2 className={styles.subtitle}>
-                      {t('about.contactTitle')}
-                    </h2>
+                    <h2 className={styles.subtitle}>{t('about.bioTitle')}</h2>
                     <p className={styles.text}>
-                      {t('about.emailLabel')}:{' '}
-                      <a
-                        href={`mailto:${profile.email}`}
-                        className={styles.link}
-                      >
-                        {profile.email}
-                      </a>
+                      {profile?.bio || t('about.bioDefault')}
                     </p>
                   </section>
-                )}
+
+                  {profile?.email && (
+                    <section className={styles.section}>
+                      <h2 className={styles.subtitle}>
+                        {t('about.contactTitle')}
+                      </h2>
+                      <p className={styles.text}>
+                        {t('about.emailLabel')}:{' '}
+                        <a
+                          href={`mailto:${profile.email}`}
+                          className={styles.link}
+                        >
+                          {profile.email}
+                        </a>
+                      </p>
+                    </section>
+                  )}
+                </div>
+              </>
+            )}
+
+            {/* 关于本站部分 */}
+            {siteMarkdown && (
+              <div className={styles.siteSection}>
+                <MarkdownRenderer content={siteMarkdown} />
               </div>
-            </>
-          )}
+            )}
 
-          {/* 关于本站部分 */}
-          {siteMarkdown && (
-            <div className={styles.siteSection}>
-              <MarkdownRenderer content={siteMarkdown} />
-            </div>
-          )}
+            {!siteMarkdown && siteDescription.content && (
+              <section className={styles.section}>
+                <h2 className={styles.subtitle}>{t('about.siteTitle')}</h2>
+                {siteDescription.type === 'markdown' ? (
+                  <MarkdownRenderer content={siteDescription.content} />
+                ) : (
+                  <p className={styles.text}>{siteDescription.content}</p>
+                )}
+              </section>
+            )}
+          </div>
 
-          {!siteMarkdown && siteDescription.content && (
-            <section className={styles.section}>
-              <h2 className={styles.subtitle}>{t('about.siteTitle')}</h2>
-              {siteDescription.type === 'markdown' ? (
-                <MarkdownRenderer content={siteDescription.content} />
-              ) : (
-                <p className={styles.text}>{siteDescription.content}</p>
-              )}
-            </section>
+          {/* 右侧：目录 */}
+          {fullMarkdownContent && (
+            <aside className={styles.sidebar}>
+              <TableOfContents
+                content={fullMarkdownContent}
+                title={t('common.tableOfContents') || '目录'}
+              />
+            </aside>
           )}
-        </>
+        </div>
       )}
     </div>
   )
