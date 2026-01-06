@@ -5,6 +5,7 @@ import { ThemeProvider } from './components/theme/ThemeContext'
 import { I18nProvider, useI18n } from './i18n/I18nContext'
 import { Layout } from './components/layout/Layout'
 import { FaviconManager } from './components/common/FaviconManager'
+import { GoogleAnalytics } from './components/analytics/GoogleAnalytics'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Projects } from './pages/Projects'
@@ -112,7 +113,10 @@ function AppContent() {
         {/* Favicon 管理 */}
         <FaviconManager />
 
+        {/* Google Analytics */}
         <BrowserRouter basename={basename}>
+          <GoogleAnalytics />
+
           {/* 页面标题管理 */}
           <DocumentTitleManager folderConfigs={folderConfigs} />
 

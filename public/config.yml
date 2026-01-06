@@ -155,6 +155,19 @@ deploy:
   customDomain: ""  # 自定义域名，例如: "example.com" 或 "www.example.com"
                      # 留空则不生成 CNAME 文件
 
+# Google Analytics 配置
+# 用于网站访问数据统计和分析
+analytics:
+  # Google Analytics 测量ID（GA4）
+  # 格式示例: G-XXXXXXXXXX
+  # 获取方式: 在 Google Analytics 后台创建数据流后获得
+  googleAnalytics: ""  # 留空则不启用 Google Analytics
+  
+  # 是否在开发环境中启用（默认为 false）
+  # true: 开发环境也会发送数据到 GA
+  # false: 只在生产环境（部署后）发送数据
+  enableInDev: false
+
 # 新闻/动态配置
 # 支持展示学术活动、论文状态、访问交流等动态信息
 news:

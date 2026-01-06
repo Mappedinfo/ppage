@@ -44,6 +44,7 @@
 - ✅ **安全更新机制**，fork 后可安全获取上游更新
 - ✅ **Git merge strategy**，自动保护用户内容
 - ✅ **代码质量工具**（ESLint、Stylelint、Prettier）
+- ✅ **Google Analytics 集成**，支持网站数据分析和事件跟踪
 
 ## 快速开始
 

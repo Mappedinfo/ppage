@@ -146,6 +146,25 @@ deploy:
                      # 如果配置了自定义域名，部署时会自动生成 CNAME 文件
 
 # ========================================
+# Google Analytics 配置
+# ========================================
+# 用于网站访问数据统计和分析
+analytics:
+  # Google Analytics 测量ID（GA4）
+  # 格式示例: G-XXXXXXXXXX
+  # 获取方式:
+  #   1. 访问 https://analytics.google.com/
+  #   2. 创建或选择媒体资源
+  #   3. 创建数据流（Data Stream）
+  #   4. 复制测量 ID（以 G- 开头）
+  googleAnalytics: ""  # 留空则不启用 Google Analytics
+  
+  # 是否在开发环境中启用（默认为 false）
+  # true: 开发环境（localhost）也会发送数据到 GA
+  # false: 只在生产环境（部署后）发送数据
+  enableInDev: false
+
+# ========================================
 # 新闻/动态配置
 # ========================================
 news:

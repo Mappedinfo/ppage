@@ -1,4 +1,5 @@
 import React from 'react'
+import { trackEvent } from '../analytics/GoogleAnalytics'
 import styles from './DownloadButton.module.css'
 
 /**
@@ -38,6 +39,16 @@ export function DownloadButton({ file, variant = 'primary', size = 'medium' }) {
     }
   }
 
+  // 处理下载点击事件
+  const handleDownloadClick = () => {
+    // 发送 Google Analytics 事件
+    trackEvent('file_download', {
+      file_name: title || path,
+      file_type: type || 'unknown',
+      file_path: path,
+    })
+  }
+
   return (
     <a
       href={getFullPath(path)}
@@ -45,6 +56,7 @@ export function DownloadButton({ file, variant = 'primary', size = 'medium' }) {
       className={`${styles.downloadButton} ${styles[variant]} ${styles[size]}`}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleDownloadClick}
     >
       <span className={styles.icon}>{getFileIcon()}</span>
       <div className={styles.content}>
