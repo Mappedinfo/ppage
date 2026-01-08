@@ -4,8 +4,11 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/encrypt.js || true",
     "dev": "vite",
+    "prebuild": "node scripts/encrypt.js || true",
     "build": "vite build",
+    "prebuild:ssg": "node scripts/encrypt.js || true",
     "build:ssg": "vite build && node scripts/prerender.js && node scripts/generate-sitemap.js",
     "clean": "rm -rf dist",
     "lint": "npm run lint:js && npm run lint:css",

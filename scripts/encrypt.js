@@ -29,6 +29,25 @@ function log(message, color = 'reset') {
 }
 
 /**
+ * 加载 .env 文件
+ */
+function loadEnvFile() {
+  const envPath = path.join(rootDir, '.env.local')
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf-8')
+    envContent.split('\n').forEach(line => {
+      const trimmed = line.trim()
+      if (trimmed && !trimmed.startsWith('#')) {
+        const [key, ...valueParts] = trimmed.split('=')
+        if (key && valueParts.length > 0) {
+          process.env[key.trim()] = valueParts.join('=').trim()
+        }
+      }
+    })
+  }
+}
+
+/**
  * 读取配置文件中的加密设置
  * @returns {Object} 加密配置
  */
@@ -46,42 +65,61 @@ function loadEncryptionConfig() {
   try {
     const configContent = fs.readFileSync(configPath, 'utf-8')
 
-    // 简单解析 YAML 配置中的 encryption 部分
-    const encryptionMatch = configContent.match(
-      /encryption:\s*\n([\s\S]*?)(?=\n\S|$)/m
-    )
-
-    if (!encryptionMatch) {
-      return {
-        enabled: false,
-        protectedFolders: ['content/protected'],
-      }
-    }
-
-    const encryptionSection = encryptionMatch[1]
-
-    // 解析 enabled
-    const enabledMatch = encryptionSection.match(/enabled:\s*(true|false)/)
-    const enabled = enabledMatch ? enabledMatch[1] === 'true' : false
-
-    // 解析 protectedFolders
-    const foldersMatch = encryptionSection.match(
-      /protectedFolders:\s*\n([\s\S]*?)(?=\n\s{0,2}\S|$)/m
-    )
+    // 更简单的解析方式：直接匹配 enabled 和 protectedFolders
+    let enabled = false
     let protectedFolders = ['content/protected']
 
-    if (foldersMatch) {
-      const folderLines = foldersMatch[1].split('\n')
-      protectedFolders = folderLines
-        .map(line => line.trim())
-        .filter(line => line.startsWith('- '))
-        .map(line =>
-          line
-            .substring(2)
-            .trim()
-            .replace(/^["']|["']$/g, '')
-        )
-        .filter(Boolean)
+    // 解析 enabled：在 encryption: 之后、在有意义的行上寻找
+    const lines = configContent.split('\n')
+    let inEncryptionSection = false
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      const trimmedLine = line.trim()
+
+      // 检测是否进入 encryption 部分
+      if (trimmedLine.startsWith('encryption:')) {
+        inEncryptionSection = true
+        continue
+      }
+
+      // 如果在 encryption 部分
+      if (inEncryptionSection) {
+        // 如果遇到下一个主分组（不以空格开头的非注释行），退出
+        if (
+          trimmedLine.length > 0 &&
+          !trimmedLine.startsWith('#') &&
+          !line.startsWith(' ') &&
+          !line.startsWith('\t')
+        ) {
+          break
+        }
+
+        // 解析 enabled
+        if (trimmedLine.match(/enabled:\s*(true|false)/)) {
+          const match = trimmedLine.match(/enabled:\s*(true|false)/)
+          enabled = match[1] === 'true'
+        }
+
+        // 解析 protectedFolders - 处理带缩进的列表项
+        // 跳过注释掉的行（以 # 开头）
+        if (trimmedLine.match(/^-\s+/) && !trimmedLine.startsWith('#')) {
+          const match = trimmedLine.match(/^-\s+["']?(.+?)["']?$/)
+          if (match && match[1]) {
+            // 移除行尾注释
+            const folder = match[1].split('#')[0].trim().replace(/["']/g, '')
+            if (folder && folder.length > 0) {
+              if (
+                protectedFolders.length === 1 &&
+                protectedFolders[0] === 'content/protected'
+              ) {
+                protectedFolders = []
+              }
+              protectedFolders.push(folder)
+            }
+          }
+        }
+      }
     }
 
     return { enabled, protectedFolders }
@@ -227,6 +265,9 @@ ${encrypted}
  * 主函数
  */
 async function main() {
+  // 加载 .env 文件
+  loadEnvFile()
+
   log('\n🔐 内容加密工具', 'blue')
   log('='.repeat(50), 'blue')
 
@@ -260,22 +301,46 @@ async function main() {
     process.exit(0)
   }
 
-  log(`\n找到 ${allFiles.length} 个文件`, 'blue')
+  // 检查是否所有文件都已加密
+  const unencryptedFiles = allFiles.filter(file => {
+    const content = fs.readFileSync(file, 'utf-8')
+    return !isEncrypted(content)
+  })
 
-  // 读取密码
-  const password = await readPassword('\n🔑 请输入加密密码: ')
-
-  if (!password || password.trim() === '') {
-    log('\n❌ 密码不能为空', 'red')
-    process.exit(1)
+  if (unencryptedFiles.length === 0) {
+    log('\n✨ 所有文件已加密，无需重复加密', 'green')
+    log(`   总计: ${allFiles.length} 个文件`, 'green')
+    process.exit(0)
   }
 
-  // 确认密码
-  const confirmPassword = await readPassword('🔑 请再次输入密码以确认: ')
+  log(
+    `\n找到 ${allFiles.length} 个文件，其中 ${unencryptedFiles.length} 个未加密`,
+    'blue'
+  )
 
-  if (password !== confirmPassword) {
-    log('\n❌ 两次输入的密码不一致', 'red')
-    process.exit(1)
+  // 检查是否是静默模式（从环境变量读取密码）
+  const envPassword = process.env.PPAGE_ENCRYPT_PASSWORD
+  let password
+
+  if (envPassword) {
+    log('\n🔑 使用环境变量中的密码', 'blue')
+    password = envPassword
+  } else {
+    // 读取密码
+    password = await readPassword('\n🔑 请输入加密密码: ')
+
+    if (!password || password.trim() === '') {
+      log('\n❌ 密码不能为空', 'red')
+      process.exit(1)
+    }
+
+    // 确认密码
+    const confirmPassword = await readPassword('🔑 请再次输入密码以确认: ')
+
+    if (password !== confirmPassword) {
+      log('\n❌ 两次输入的密码不一致', 'red')
+      process.exit(1)
+    }
   }
 
   log('\n🔒 开始加密文件...', 'blue')

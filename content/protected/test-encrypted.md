@@ -5,63 +5,12 @@ description: '这是一个测试加密功能的示例文档'
 tags:
   - '测试'
   - '加密'
+encrypted: true
+encryptedAt: '2026-01-08T11:43:11.724Z'
 ---
 
-# 测试加密内容
+<!-- ENCRYPTED_CONTENT -->
 
-这是一个受保护的文档，用于测试加密功能。
+10YEEoHOPNWF+ps7nFcEqHCfu3G4qTEAHVuxGKrbEu39Cll4kErs4RJ3+RMnyd/oVvSVbR1Lc09o+Y7VVz7tG1KF/zHDWXm/ARhzuztNqyoFeIx094ELo/KNUAqKWtg0GfIiOwseZguR8lyFjcLzBcrFH63VffdK7DuT8DKBZxNPITvhrMhk920EStF0SpFJIAQk18Te0FAcC46BxrGm2+XcgWx6woPlvk9rKZJtt/8vat2MKkf15aHYDdk2EZIbnSpAQ21j58rkRAjWxD5hf3kGoRB7Jkl41NXtJJCJ0Bc0a67AJJUbjTNmvTW2wCZJGhVQlH5qwe0XKIPVNxTy9yPcJvukl9VovKipUFBwolUAhw2O6qaPWR5oeKjrIzvq15BODpRAJ+b8uh7Ae5R1Qn3Ucbd09XDyf1N/jcbhg+TkQFX3hPTeTNG5R8fkfO12T/n3vp5d2PZ8f9gpH38O+noM3xyiPBzTm30BBYQGRKHg82Wo7J/JFxD1Yev5MrzSvEfVxt36Ry5Ipz0J888eL2izLnVit88V3HX3ZHAOWwS9SjcWh//GdnUHIrh1CSLWDcgwlH0AmSWkHjiEmqEG60bpGiNAKDTxQj4QphZjM78b66nKp1ovhHJendBEs8yBJ+jOazcwjqko7hXMm4Lu37cE5+7t/ppukQaivaG5QIKzCoVEXm3QCN0CrcbG3lFVA0wWMqF96lZUMqBGy88zDUB0leCbeP68QxZu5JwHZczpRiE6HUpuuzyXuy9qNm+7KKRmz1LDPJ/aDwK/+9ioXj25Nnf9R1FqgxvipvHGsD/mhyBckDPCKyc11YijjGP3Zx81AGKJluSf982AK5cOM9TG5k6mEGPeihmlTYCthIhZ0QcQ0Q8Z5QUX/S/ISl6YJZ6NCc6BsMzwWPOOtlW0n51Ex9lBWIXxd0wNV0/Uz3OD1odrO1ikv2OpwtD2VG0nmx1cVgU5aG+AAzhq4hTDhgsfw2w3tGLy9HgFyHrsiIfyuv/XEsGOwrfnjdU1NTFC5fRG0Mv5Nqo1SkU507/wBrE5Fen8xhBSJ8ugd/i9xrRAy1LXxqrTlXBCAzG8ZUs2Zaej2NAk8naTe/LTtksgusw0kNPtGtQfoWtczz26clWJpES9eTwjeJwyAA0ieNCKzLm+4M5piLMvV7VCyMKMd/VPuircyap1JrjTRvZykgehol3uPv5SovF6Y3pc790L+VGtZYYEC/lUpLJMgj4QZU1QEkDxr5vlgy8bZTuu0qeKyyaejCljZs3j0TVltosG2j4e4UOFhbqm8wyqaFq60v/jm3d7ElKM463qs6PhyhRZfekl8I0M1646zAOKshAwuSYJvqXjttllYWC7Nw9OjckQwxjmRVguV06BskMsK+cbzjMxsLCtnJbcQEVR3om5unhjY2noQZ26Saly5TsgnI3vvJyW0AvyCcT/pldcoV5/zfNvOt2xNt6EKbVUQsAZdu+QnH9iKRY/kHK1S+oPRCoB+GKAEfAQU4y7AjqrOIxZ8OxJMtIdYZYfT88OP4CVKhybICs93EGu4VK0MSXu3H2BtdEqtnG+wF8I0k7UBVnhE3wlGAERR53KPd7BOMHevXcoCmCAji/NSN9Mnft9z+gFbrnwtdArOltaxrfteQKbvtQAmo3PamL1kzP9yfA5bMx1PbEiARIFIEFFp26YMV6is4DC4Kko2UV0fkARPv2nDtTj1beLO+9jFV6OFeSsotB2yRXxQE0vEhYOR3RyxtrWF18/FYi0qalB7fiQYJi4vw3WGNCmYWe8nH8d7CTaemY8JPj1RHNK84p8eMqTdSPP0/923kzR++6YQBzhpnnt08sQJqDE
 
-## 私密信息
-
-只有知道密码的用户才能看到这些内容：
-
-- 重要的私密笔记
-- 个人想法和心得
-- 敏感的技术文档
-
-## 加密特性
-
-✨ 此文档具有以下特性：
-
-1. **内容加密**：使用 AES-256-GCM 加密
-2. **密码保护**：需要输入正确密码才能查看
-3. **安全隔离**：不参与文档关系图谱
-4. **会话缓存**：密码在会话期间保存
-
-## 测试内容
-
-这里是一些测试内容，用于验证加密和解密是否正常工作。
-
-### 中文内容测试
-
-这是一段中文内容，用于测试中文字符的加密和解密。
-
-### 代码块测试
-
-```javascript
-function testEncryption() {
-  console.log('测试加密功能')
-  return '加密成功！'
-}
-```
-
-### 链接测试
-
-这是一个 [外部链接](https://example.com)。
-
-### 列表测试
-
-- 项目 1
-- 项目 2
-- 项目 3
-
-### 表格测试
-
-| 列 1 | 列 2 | 列 3 |
-| ---- | ---- | ---- |
-| A    | B    | C    |
-| D    | E    | F    |
-
-## 总结
-
-如果您能看到这些内容，说明加密功能工作正常！🎉
+<!-- /ENCRYPTED_CONTENT -->
