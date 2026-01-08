@@ -29,6 +29,7 @@
 - ✅ **文档中心**，支持层级结构、面包屑导航、双向链接
 - ✅ **自动文件扫描**，引用文件自动在文件页面展示
 - ✅ **新闻时间轴**，支持多种事件类型和论文状态
+- ✅ **内容加密**（🆕），密码保护私密内容，安全存储在公开仓库
 
 ### 🎨 丰富的展示功能
 
@@ -95,6 +96,7 @@ npm run deploy
 ## 📚 文档
 
 - [USER_GUIDE.md](./USER_GUIDE.md) - 详细使用文档
+- [ENCRYPTION.md](./ENCRYPTION.md) - 内容加密功能使用指南 🆕
 - [INIT_GUIDE.md](./INIT_GUIDE.md) - `ppage init` 命令使用指南
 - [UPDATE_GUIDE.md](./UPDATE_GUIDE.md) - 如何安全地更新 fork 的代码
 - [LINT.md](./LINT.md) - 代码质量工具使用指南

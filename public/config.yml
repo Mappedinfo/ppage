@@ -155,6 +155,24 @@ deploy:
   customDomain: ""  # 自定义域名，例如: "example.com" 或 "www.example.com"
                      # 留空则不生成 CNAME 文件
 
+# 内容加密配置
+# 用于保护私密内容，需要密码才能查看
+encryption:
+  # 是否启用加密功能（开发环境示例已启用）
+  enabled: true
+  
+  # 受保护的文件夹列表（相对于项目根目录）
+  # 这些文件夹中的 Markdown 文件将被加密
+  protectedFolders:
+    - "content/protected"  # 示例：私密内容文件夹
+    # - "content/private"  # 可以添加多个文件夹
+  
+  # 加密内容的特殊处理
+  # excludeFromGraph: 加密内容不参与文档关系图谱
+  # excludeFromSearch: 加密内容不参与搜索索引
+  excludeFromGraph: true
+  excludeFromSearch: true
+
 # Google Analytics 配置
 # 用于网站访问数据统计和分析
 analytics:

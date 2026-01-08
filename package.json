@@ -19,6 +19,7 @@
     "preview": "vite preview --port 4173",
     "init": "node scripts/init.js",
     "update": "node scripts/update.js",
+    "encrypt": "node scripts/encrypt.js",
     "deploy": "./scripts/deploy.sh",
     "prepare": "husky"
   },
