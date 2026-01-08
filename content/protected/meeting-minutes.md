@@ -5,12 +5,93 @@ description: '团队内部会议记录'
 tags:
   - '会议'
   - '内部'
-encrypted: true
-encryptedAt: '2026-01-08T11:43:11.696Z'
 ---
 
-<!-- ENCRYPTED_CONTENT -->
+# 内部会议纪要
 
-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
+## 会议信息
 
-<!-- /ENCRYPTED_CONTENT -->
+- **日期**: 2025年1月8日
+- **时间**: 14:00 - 16:00
+- **参会人员**: [保密]
+- **会议类型**: 项目评审
+
+## 议程
+
+### 1. 项目进展汇报
+
+✅ **已完成**:
+
+- 加密功能实现
+- 前端界面优化
+- 文档编写完成
+
+🔄 **进行中**:
+
+- 性能优化
+- 测试用例编写
+
+📋 **待开始**:
+
+- 用户反馈收集
+- 功能迭代规划
+
+### 2. 技术讨论
+
+#### 加密方案选择
+
+讨论了多种加密方案：
+
+| 方案        | 优点               | 缺点           | 决策      |
+| ----------- | ------------------ | -------------- | --------- |
+| AES-256-GCM | 安全性高，标准算法 | 计算开销       | ✅ 采用   |
+| ChaCha20    | 性能好             | 浏览器支持有限 | ❌ 不采用 |
+| RSA         | 非对称加密         | 不适合大数据   | ❌ 不采用 |
+
+#### 用户体验优化
+
+讨论了以下改进点：
+
+1. **密码输入界面**
+   - 设计更美观的对话框
+   - 添加密码强度提示
+   - 支持记住密码功能
+
+2. **性能优化**
+   - 使用 Web Worker 解密
+   - 缓存解密结果
+   - 懒加载加密内容
+
+3. **错误处理**
+   - 友好的错误提示
+   - 重试机制
+   - 日志记录
+
+### 3. 决策事项
+
+**决策1**: 采用 AES-256-GCM 加密算法  
+**理由**: 安全性高，浏览器支持良好
+
+**决策2**: 密码使用会话级缓存  
+**理由**: 平衡安全性和用户体验
+
+**决策3**: 加密内容不参与搜索和图谱  
+**理由**: 保护隐私，避免信息泄露
+
+## 行动项
+
+- [ ] @张三: 完成性能测试（截止：1月10日）
+- [ ] @李四: 编写用户文档（截止：1月12日）
+- [ ] @王五: 收集用户反馈（截止：1月15日）
+
+## 下次会议
+
+- **时间**: 2025年1月15日 14:00
+- **议题**: 功能迭代规划
+
+---
+
+**保密级别**: 内部使用  
+**分发范围**: 项目组成员
+
+**备注**: 本会议纪要包含敏感信息，请勿外传。

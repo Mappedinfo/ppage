@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "predev": "node scripts/encrypt.js || true",
-    "dev": "vite",
+    "dev": "node scripts/dev-with-cleanup.js",
+    "decrypt": "node scripts/decrypt.js",
     "prebuild": "node scripts/encrypt.js || true",
     "build": "vite build",
     "prebuild:ssg": "node scripts/encrypt.js || true",

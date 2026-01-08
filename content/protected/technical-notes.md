@@ -7,12 +7,105 @@ tags:
   - '研究'
   - '保密'
 category: '技术文档'
-encrypted: true
-encryptedAt: '2026-01-08T11:43:11.717Z'
 ---
 
-<!-- ENCRYPTED_CONTENT -->
+# 技术笔记（保密）
 
-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
+## 项目架构设计
 
-<!-- /ENCRYPTED_CONTENT -->
+### 核心思路
+
+这个项目采用了一些独特的设计思路：
+
+```mermaid
+graph TD
+    A[用户访问] --> B{内容类型}
+    B -->|公开内容| C[直接显示]
+    B -->|加密内容| D[密码验证]
+    D -->|密码正确| E[解密并显示]
+    D -->|密码错误| F[提示重试]
+```
+
+### 关键技术点
+
+#### 1. 加密算法
+
+- **算法**: AES-256-GCM
+- **密钥派生**: PBKDF2 (100,000次迭代)
+- **随机因子**: 每次加密使用新的盐值和IV
+
+```javascript
+// 示例代码（仅供参考）
+const encrypted = encryptContent(content, password)
+const decrypted = decryptContent(encrypted, password)
+```
+
+#### 2. 前端解密
+
+使用 Web Crypto API 实现浏览器端解密：
+
+```javascript
+// 浏览器环境解密
+const key = await deriveKey(password, salt)
+const decrypted = await crypto.subtle.decrypt(
+  { name: 'AES-GCM', iv: iv },
+  key,
+  encryptedData
+)
+```
+
+#### 3. 安全考虑
+
+- ✅ 密码不存储在代码中
+- ✅ 加密文件可以安全提交到Git
+- ✅ 即使仓库公开，内容也无法被解密
+- ✅ 密码只在会话期间缓存
+
+## 实现难点
+
+### 难点1: 浏览器兼容性
+
+Web Crypto API 需要 HTTPS 环境或 localhost。
+
+**解决方案**:
+
+- 开发环境使用 localhost
+- 生产环境强制 HTTPS
+
+### 难点2: 性能优化
+
+解密操作需要一定的计算时间。
+
+**优化措施**:
+
+- 使用 SessionStorage 缓存密码
+- 异步解密，显示加载状态
+- 优化 PBKDF2 迭代次数
+
+### 难点3: 用户体验
+
+如何让密码输入体验更好？
+
+**改进点**:
+
+- 美观的模态对话框
+- 密码显示/隐藏切换
+- 清晰的错误提示
+- 记住密码（会话级别）
+
+## 未来改进方向
+
+1. **多密码支持**: 不同文件夹使用不同密码
+2. **密码提示**: 提供密码提示功能
+3. **密码强度检查**: 建议用户使用强密码
+4. **批量操作**: 支持批量加密/解密
+
+## 内部资料
+
+以下是一些敏感的技术资料和配置信息...
+
+（此处省略具体内容）
+
+---
+
+**注意**: 本文档包含敏感技术信息，请勿分享给未授权人员。

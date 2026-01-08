@@ -5,12 +5,38 @@ description: '我的私密日记'
 tags:
   - '日记'
   - '个人'
-encrypted: true
-encryptedAt: '2026-01-08T11:43:11.709Z'
 ---
 
-<!-- ENCRYPTED_CONTENT -->
+# 个人日记
 
-4hKR3faRFRfdMsKFuW4CvpTe3EwyC/IQkqi5wWeZcvD0KV6izrUOLpXOsfjR9HbuQsZridDJSjmsVdeGGHb/dbANsyFNhqSKWj6XUWIH/M+vL0hpd9BQ4aVMay9FcbeMi0VCR+C8cTwo3uVQBpYpPJoxOKac4842E1MpaQRlutfVZf1CeAoufJOgbzuptDo5GsyzTKenHbMkJm5E1YtNLoqDsk2y+mN75ZHiXLnSprtecfHjciCeTrOBvkp6uSDuvSGEmm2JO/kN5fIACxb1flPobKvtKvjsxsNrcabILIBG+WiguKSlT4nYK4YHSC4r7ojpQZ8Ygb2tLz2c7lLkgf4Itmfa0MmurhqvmMT4EO159Cs+UwYpmhire2v9i3onBhLIMpQkaTFJYO/ktEfOvZbNvLpVjY90bcYPUuK/LZxm+nUnr0LpRDmWAMA+hRUe7Mk3fg532e/jQvZc/VPKYS8cONtghDH27xbmGCaLu4L56Znhkk/bi0I/viMmRA441Qyok3kygo8TVWvO4jXIEtIQFIdTZn/RzhZl4Ex30jbGaAVULkMtx4Ga7P7EwEJlaoQStOlLuoEo1IN0YRKmFTjs+A1B8ivxDjByoWQNx2UocscYQeCDBrns1b/Cjep86e/TauVg/sZORd0NasK4dxEmwHHgH96BMP3MppyvmLHDsbfG6MmlXR9mNyUwEATwo0I157CNQok5DoC0yDdI7vY5oKuU891pmLd1elC5Mlz1hLU63uQwJWmypygO/tEn2n9KJhoMOpDq/1p2Dsrdtm+SThw7oaE2l22bntgLnJgsUcrLg58FQQ9A0MFj/CQbaHbb/4h/plui7JyO5LYeW2PlKdzSdJN6xraxiASYdV5VaSgyuMa/w/0bBueUx79A76qXYPPUbHqe0OWolUEfBZrtqoEPX0ukdEAuslfLTmwf1Mi2I7Cz4Uy2t+P4S2Ias3tgodZqU0HKSPyGPxM9yzqeSCLIVX/ly6ZoK6hynYY3bMk5AnylM5L8snxdZ33fJXs9F3xmY0jELulrz9NqXD5hiiWWXaMQ6+n/bTSIetJoJC27xb5YGMVTNheFA7JF46tFpVwHux4g1URA4raYvQhb7nT/s740r1yB9dreVrwy6FquaTZ+9nqToGoqiufzm+JqmDtu4L/izrseVDNwbgPcUoSB
+## 2025-01-08
 
-<!-- /ENCRYPTED_CONTENT -->
+今天是个特别的日子，我终于完成了一个重要的项目。
+
+### 早上
+
+☕ 早上8点起床，喝了一杯咖啡，开始规划今天的工作。
+
+### 下午
+
+💻 下午专注于编码，实现了加密功能。这个功能非常重要，因为：
+
+1. 可以保护私密内容
+2. 即使代码公开也很安全
+3. 用户体验良好
+
+### 晚上
+
+🌙 晚上回顾了一天的工作，感觉很有成就感。
+
+## 私密想法
+
+这里记录一些只想自己知道的想法：
+
+- 对未来的规划
+- 个人的梦想
+- 需要保密的想法
+
+---
+
+**提示**：这是加密内容示例，只有输入正确密码才能查看。
