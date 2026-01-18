@@ -13,6 +13,7 @@ import { Posts } from './pages/Posts'
 import { Pages } from './pages/Pages'
 import { Files } from './pages/Files'
 import { News } from './pages/News'
+import { Links } from './pages/Links'
 import { NotFound } from './pages/NotFound'
 import { DynamicDocumentPage } from './pages/DynamicDocumentPage'
 import { generateFolderConfigs } from './utils/folderScanner'
@@ -50,6 +51,8 @@ function DocumentTitleManager({ folderConfigs }) {
       pageTitle = t('pages.files')
     } else if (pathname === 'news') {
       pageTitle = t('pages.news')
+    } else if (pathname === 'links') {
+      pageTitle = t('pages.links')
     } else {
       // 检查是否是动态生成的文档集合页面
       const folderConfig = folderConfigs.find(cfg => cfg.name === pathname)
@@ -129,6 +132,7 @@ function AppContent() {
               <Route path="pages" element={<Pages />} />
               <Route path="files" element={<Files />} />
               <Route path="news" element={<News />} />
+              <Route path="links" element={<Links />} />
 
               {/* 动态生成的路由 - 始终渲染，即使 loading */}
               {folderConfigs.map(config => (

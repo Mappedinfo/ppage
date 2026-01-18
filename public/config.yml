@@ -68,6 +68,9 @@ navigation:
   - name: "动态"
     path: "/news"
     showInMobile: false  # 放入汉堡菜单
+  - name: "友情链接"
+    path: "/links"
+    showInMobile: false  # 放入汉堡菜单
 
 # 主题配置
 theme:
@@ -145,6 +148,23 @@ projects:
     tags:
       - "JavaScript"
       - "Web"
+
+# 友情链接配置
+# 展示其他网站、朋友博客、合作伙伴等
+links:
+  - name: "示例博客"
+    description: "这是一个示例友情链接描述"
+    url: "https://example.com"
+    avatar: "/assets/images/link-avatar.jpg"  # 可选：链接站点的头像或 logo
+    tags:
+      - "博客"
+      - "技术"
+  - name: "GitHub"
+    description: "世界上最大的代码托管平台"
+    url: "https://github.com"
+    tags:
+      - "开发"
+      - "开源"
 
 # 部署配置
 # 重要：请修改为你自己的仓库地址！

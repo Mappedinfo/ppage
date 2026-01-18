@@ -22,6 +22,7 @@ export const en = {
     docs: 'Docs',
     files: 'Files',
     news: 'News',
+    links: 'Links',
     tutorials: 'Tutorials',
     development: 'Development',
   },
@@ -177,5 +178,13 @@ export const en = {
       'Sorry, the page you are looking for does not exist or has been removed.',
     backHome: 'Back to Home',
     goBack: 'Go Back',
+  },
+
+  // Links page
+  links: {
+    title: 'Friend Links',
+    empty: 'No links yet',
+    emptyHint: 'Add links in the links section of config.yml',
+    visitSite: 'Visit Site →',
   },
 }

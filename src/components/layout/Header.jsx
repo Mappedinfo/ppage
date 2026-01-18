@@ -22,6 +22,7 @@ function getNavigationLabel(path, t) {
     '/pages': 'pages.docs',
     '/files': 'pages.files',
     '/news': 'pages.news',
+    '/links': 'pages.links',
     '/tutorials': 'pages.tutorials',
     '/development': 'pages.development',
   }

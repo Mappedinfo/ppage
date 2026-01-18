@@ -22,6 +22,7 @@ export const zh = {
     docs: '文档',
     files: '文件',
     news: '动态',
+    links: '友情链接',
     tutorials: '教程中心',
     development: '开发指南',
   },
@@ -173,5 +174,13 @@ export const zh = {
     description: '抱歉，您访问的页面不存在或已被移除。',
     backHome: '返回首页',
     goBack: '返回上一页',
+  },
+
+  // 友情链接页面
+  links: {
+    title: '友情链接',
+    empty: '暂无友情链接',
+    emptyHint: '在 config.yml 的 links 配置中添加友情链接',
+    visitSite: '访问网站 →',
   },
 }
