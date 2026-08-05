@@ -216,6 +216,46 @@ npm run preview
 
 更多部署细节请查看 [用户使用指南的部署章节](./content/tutorials/deployment/user-guide.md)。
 
+## 🌐 多站点管理（站点 profile）
+
+如果你同时维护多个站点（比如一个公开 demo + 一个个人主页），不必为每个站点克隆一份完整产品代码。
+把**站点内容**（config + content + assets）独立成一个「内容仓」，挂载到产品的 `sites/<名字>/` 下，
+通过环境变量 `PPAGE_SITE` 切换即可。`sites/` 已被 `.gitignore` 忽略，不会污染产品仓。
+
+### 站点内容仓的结构
+
+```
+sites/shiqi/                # 你的内容仓（独立 git 仓库）
+├── config.yml              # 站点配置（个人信息、导航、项目、deploy 目标等）
+├── content/                # Markdown 内容
+├── assets/                 # 站点资源 → 部署到 /assets/
+└── public/                 # 根级静态文件 → 部署到根路径（如 favicon）
+```
+
+### 一次性挂载
+
+```bash
+# 在产品仓内，把你的内容仓克隆进 sites/<名字>/
+git clone https://github.com/<you>/<site-content>.git sites/shiqi
+
+# 选定该 profile（写到 .env.local 一劳永逸）
+echo 'PPAGE_SITE=shiqi' >> .env.local
+```
+
+### 开发与部署
+
+```bash
+PPAGE_SITE=shiqi npm run dev      # 实时预览该站点内容
+PPAGE_SITE=shiqi npm run deploy   # 构建 + 推送到该站点 config.yml 里的 deploy.repository（gh-pages）
+```
+
+启用后，`content / config.yml / assets / public` 一律从 `sites/shiqi/` 读取（开发时由 Vite 中间件伺服，
+构建时覆盖写入 `dist/`）；`deploy.sh` 也从该 profile 的 `config.yml` 读取部署目标。
+**不设置 `PPAGE_SITE` 时**，一切回退到仓库内默认内容（产品自身的公开 demo），行为完全不变。
+
+> 内容仓可以独立 `git pull/push` 同步内容；个人内容集中在一个文件夹，不再需要第二份完整产品克隆。
+> 内容仓自身的部署说明见其 README。
+
 ## 🔄 Fork 后如何更新？
 
 当你 fork 了本仓库并自定义了内容后，可以安全地获取上游更新：
@@ -287,6 +327,7 @@ ppage/
 │   ├── i18n/           # 国际化
 │   └── themes/         # 主题样式
 └── scripts/            # 工具脚本
+    ├── lib/site.js     # 站点 profile 解析器（PPAGE_SITE）
     ├── deploy.sh       # 部署脚本
     ├── init.js         # 初始化脚本
     └── update.js       # 更新脚本
