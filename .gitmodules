@@ -1,0 +1,3 @@
+[submodule "utils/ddl-calendar"]
+	path = utils/ddl-calendar
+	url = https://github.com/Mappedinfo/ddl-calendar.git

@@ -13,23 +13,37 @@
 #   - 一键自动化部署
 
 set -e
+# 加载 .env.local（若存在），使 PPAGE_SITE 等变量对部署生效
+if [ -f ".env.local" ]; then
+  set -a
+  . ./.env.local
+  set +a
+fi
+
+# 选择配置文件：PPAGE_SITE 启用时从 sites/<name>/ 读，否则用默认 public/config.yml
+if [ -n "$PPAGE_SITE" ]; then
+  CONFIG_FILE="sites/$PPAGE_SITE/config.yml"
+  echo "🌐 站点 profile: $PPAGE_SITE"
+else
+  CONFIG_FILE="public/config.yml"
+fi
 
 echo "🚀 PPage 部署工具 - 开始部署..."
 echo ""
 
-# 0. 从 public/config.yml 读取配置
-echo "🔍 读取配置文件..."
+# 0. 从配置文件读取部署信息
+echo "🔍 读取配置文件: $CONFIG_FILE"
 
-if [ ! -f "public/config.yml" ]; then
-  echo "❌ 错误: 找不到 public/config.yml 文件"
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "❌ 错误: 找不到 $CONFIG_FILE"
   echo "请在项目根目录执行此脚本"
   exit 1
 fi
 
 # 使用 grep 和 sed 提取仓库地址
-REPOSITORY=$(grep -A 2 '^deploy:' public/config.yml | grep 'repository:' | sed 's/.*repository:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
-BRANCH=$(grep -A 2 '^deploy:' public/config.yml | grep 'branch:' | sed 's/.*branch:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
-CUSTOM_DOMAIN=$(grep -A 5 '^deploy:' public/config.yml | grep 'customDomain:' | awk -F: '{print $2}' | sed 's/[" ]//g' | cut -d'#' -f1 | tr -d '\r')
+REPOSITORY=$(grep -A 2 '^deploy:' "$CONFIG_FILE" | grep 'repository:' | sed 's/.*repository:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
+BRANCH=$(grep -A 2 '^deploy:' "$CONFIG_FILE" | grep 'branch:' | sed 's/.*branch:[[:space:]]*["\x27]\{0,1\}\([^"\x27]*\)["\x27]\{0,1\}.*/\1/' | tr -d '\r')
+CUSTOM_DOMAIN=$(grep -A 5 '^deploy:' "$CONFIG_FILE" | grep 'customDomain:' | awk -F: '{print $2}' | sed 's/[" ]//g' | cut -d'#' -f1 | tr -d '\r')
 
 # 如果没有读取到，使用默认值
 if [ -z "$REPOSITORY" ] || [ "$REPOSITORY" = "https://github.com/yourusername/ppage" ]; then

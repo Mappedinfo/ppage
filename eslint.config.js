@@ -6,7 +6,12 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 export default [
   // 忽略的文件和目录
   {
-    ignores: ['dist/**', 'node_modules/**', '*.config.js'],
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      'utils/ddl-calendar/**',
+      '*.config.js',
+    ],
   },
   // JavaScript 和 JSX 文件配置
   {

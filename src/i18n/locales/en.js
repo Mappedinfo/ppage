@@ -32,6 +32,7 @@ export const en = {
     welcome: 'Welcome',
     projectsSection: 'Projects',
     viewProject: 'View Project →',
+    viewAllProjects: 'View All Projects',
   },
 
   // About page

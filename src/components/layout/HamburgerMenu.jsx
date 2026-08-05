@@ -1,6 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { getAssetPath } from '../../utils/pathUtils'
 import styles from './HamburgerMenu.module.css'
+
+function getReloadDocumentHref(path) {
+  if (/^[a-z][a-z0-9+.-]*:/i.test(path)) {
+    return path
+  }
+
+  return getAssetPath(path)
+}
 
 /**
  * 汉堡菜单组件
@@ -86,16 +95,27 @@ export function HamburgerMenu({ items = [], onItemClick }) {
       {/* 下拉菜单 */}
       {isOpen && (
         <div className={styles.dropdownMenu}>
-          {items.map(item => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={styles.menuItem}
-              onClick={() => handleItemClick(item)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {items.map(item =>
+            item.reloadDocument ? (
+              <a
+                key={item.path}
+                href={getReloadDocumentHref(item.path)}
+                className={styles.menuItem}
+                onClick={() => handleItemClick(item)}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={styles.menuItem}
+                onClick={() => handleItemClick(item)}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </div>
       )}
     </div>

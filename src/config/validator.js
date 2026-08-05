@@ -3,6 +3,9 @@
  * 验证配置对象的结构和必填字段
  */
 
+const SUPPORTED_LANGUAGES = ['zh', 'en']
+const NAVIGATION_PLACEMENTS = ['primary', 'menu', 'hidden']
+
 /**
  * 验证配置对象
  * @param {object} config - 配置对象
@@ -37,6 +40,20 @@ export function validateConfig(config) {
       if (!item.name || !item.path) {
         errors.push(`navigation[${index}] 必须包含 name 和 path 字段`)
       }
+      if (
+        item.placement !== undefined &&
+        !NAVIGATION_PLACEMENTS.includes(item.placement)
+      ) {
+        errors.push(
+          `navigation[${index}].placement 必须是 primary、menu 或 hidden`
+        )
+      }
+      if (
+        item.reloadDocument !== undefined &&
+        typeof item.reloadDocument !== 'boolean'
+      ) {
+        errors.push(`navigation[${index}].reloadDocument 必须是布尔值`)
+      }
     })
   }
 
@@ -51,6 +68,44 @@ export function validateConfig(config) {
       errors.push('theme.available 必须是一个数组')
     } else if (!config.theme.available.includes(config.theme.default)) {
       errors.push('theme.default 必须在 theme.available 列表中')
+    }
+  }
+
+  // 验证 language 配置
+  if (config.language) {
+    if (
+      config.language.default !== undefined &&
+      !SUPPORTED_LANGUAGES.includes(config.language.default)
+    ) {
+      errors.push('language.default 必须是 zh 或 en')
+    }
+  }
+
+  // 验证 features 配置
+  if (config.features) {
+    const ddlCalendar = config.features.ddlCalendar
+
+    if (ddlCalendar) {
+      if (
+        ddlCalendar.enabled !== undefined &&
+        typeof ddlCalendar.enabled !== 'boolean'
+      ) {
+        errors.push('features.ddlCalendar.enabled 必须是布尔值')
+      }
+
+      if (
+        ddlCalendar.path !== undefined &&
+        typeof ddlCalendar.path !== 'string'
+      ) {
+        errors.push('features.ddlCalendar.path 必须是字符串')
+      }
+
+      if (
+        ddlCalendar.data !== undefined &&
+        typeof ddlCalendar.data !== 'string'
+      ) {
+        errors.push('features.ddlCalendar.data 必须是字符串')
+      }
     }
   }
 
@@ -72,11 +127,28 @@ export function validateConfig(config) {
     })
   }
 
+  // 验证 collections 配置
+  if (config.collections && typeof config.collections === 'object') {
+    Object.entries(config.collections).forEach(([key, item]) => {
+      if (
+        item.placement !== undefined &&
+        !NAVIGATION_PLACEMENTS.includes(item.placement)
+      ) {
+        errors.push(
+          `collections.${key}.placement 必须是 primary、menu 或 hidden`
+        )
+      }
+    })
+  }
+
   // 验证 projects 配置
   if (config.projects && Array.isArray(config.projects)) {
     config.projects.forEach((item, index) => {
       if (!item.name) {
         errors.push(`projects[${index}] 必须包含 name 字段`)
+      }
+      if (item.featured !== undefined && typeof item.featured !== 'boolean') {
+        errors.push(`projects[${index}].featured 必须是布尔值`)
       }
     })
   }
@@ -138,10 +210,23 @@ export function mergeConfig(userConfig, defaultConfig) {
     social: userConfig.social || defaultConfig.social,
     navigation: userConfig.navigation || defaultConfig.navigation,
     theme: { ...defaultConfig.theme, ...userConfig.theme },
+    language: { ...defaultConfig.language, ...userConfig.language },
+    features: {
+      ...defaultConfig.features,
+      ...userConfig.features,
+      ddlCalendar: {
+        ...defaultConfig.features?.ddlCalendar,
+        ...userConfig.features?.ddlCalendar,
+      },
+    },
     content: { ...defaultConfig.content, ...userConfig.content },
+    collections: userConfig.collections || defaultConfig.collections || {},
     files: userConfig.files || defaultConfig.files,
     projects: userConfig.projects || defaultConfig.projects,
+    links: userConfig.links || defaultConfig.links || [],
     deploy: userConfig.deploy || defaultConfig.deploy || {},
+    encryption: userConfig.encryption || defaultConfig.encryption || {},
+    news: userConfig.news || defaultConfig.news || [],
     analytics: userConfig.analytics || defaultConfig.analytics || {},
   }
 }

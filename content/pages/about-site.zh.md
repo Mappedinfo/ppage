@@ -26,7 +26,7 @@ category: 关于
 
 ## 技术栈
 
-- **前端框架**: React 18
+- **前端框架**: React 19
 - **构建工具**: Vite
 - **Markdown 渲染**: markdown-it
 - **路由**: React Router

@@ -4,15 +4,17 @@ import { ThemeSwitcher } from '../theme/ThemeSwitcher'
 import { LanguageSwitcher } from '../theme/LanguageSwitcher'
 import { HamburgerMenu } from './HamburgerMenu'
 import { useI18n } from '../../i18n/I18nContext'
+import { getAssetPath } from '../../utils/pathUtils'
 import styles from './Header.module.css'
 
 /**
  * 根据路径获取导航项的国际化文本
- * @param {string} path - 路由路径
+ * @param {object} item - 导航项
  * @param {Function} t - i18n 翻译函数
  * @returns {string} 翻译后的文本
  */
-function getNavigationLabel(path, t) {
+function getNavigationLabel(item, t) {
+  const path = item.path
   // 路径到 i18n key 的映射
   const pathToI18nKey = {
     '/': 'pages.home',
@@ -27,7 +29,28 @@ function getNavigationLabel(path, t) {
     '/development': 'pages.development',
   }
 
-  return t(pathToI18nKey[path]) || path
+  if (!pathToI18nKey[path]) {
+    return item.name || path
+  }
+
+  const translated = t(pathToI18nKey[path])
+  return translated === pathToI18nKey[path] ? item.name || path : translated
+}
+
+function getNavigationPlacement(item) {
+  if (['primary', 'menu', 'hidden'].includes(item.placement)) {
+    return item.placement
+  }
+
+  return item.showInMobile === false ? 'menu' : 'primary'
+}
+
+function getReloadDocumentHref(path) {
+  if (/^[a-z][a-z0-9+.-]*:/i.test(path)) {
+    return path
+  }
+
+  return getAssetPath(path)
 }
 
 /**
@@ -57,29 +80,56 @@ export function Header({ folderConfigs = [] }) {
           name: translatedTitle === i18nKey ? config.title : translatedTitle,
           path: `/${config.name}`,
           isDynamic: true,
+          placement: config.placement,
           showInMobile: config.showInMobile ?? false, // 使用 config 中的配置
           order: config.order ?? 999, // 使用 folderConfig 中的 order
         }
       }),
-  ].sort((a, b) => {
-    // 按 order 字段升序排序
-    const orderDiff = (a.order ?? 999) - (b.order ?? 999)
-    if (orderDiff !== 0) return orderDiff
-    // order 相同时保持相对位置稳定
-    return 0
-  })
+  ]
+    .map(item => ({
+      ...item,
+      placement: getNavigationPlacement(item),
+    }))
+    .filter(item => item.placement !== 'hidden')
+    .sort((a, b) => {
+      // 按 order 字段升序排序
+      const orderDiff = (a.order ?? 999) - (b.order ?? 999)
+      if (orderDiff !== 0) return orderDiff
+      // order 相同时保持相对位置稳定
+      return 0
+    })
 
-  // 分离移动端显示和汉堡菜单中的导航项
-  const mobileVisibleNav = allNavigation.filter(
-    item => item.showInMobile !== false
-  )
-  const hamburgerNav = allNavigation.filter(item => item.showInMobile === false)
+  const primaryNav = allNavigation.filter(item => item.placement === 'primary')
+  const menuNav = allNavigation.filter(item => item.placement === 'menu')
 
   // 为汉堡菜单准备数据
-  const hamburgerItems = hamburgerNav.map(item => ({
+  const hamburgerItems = menuNav.map(item => ({
     path: item.path,
-    label: item.isDynamic ? item.name : getNavigationLabel(item.path, t),
+    label: item.isDynamic ? item.name : getNavigationLabel(item, t),
+    reloadDocument: item.reloadDocument,
   }))
+
+  const renderNavigationItem = item => {
+    const label = item.isDynamic ? item.name : getNavigationLabel(item, t)
+
+    if (item.reloadDocument) {
+      return (
+        <a
+          key={item.path}
+          href={getReloadDocumentHref(item.path)}
+          className={styles.navLink}
+        >
+          {label}
+        </a>
+      )
+    }
+
+    return (
+      <Link key={item.path} to={item.path} className={styles.navLink}>
+        {label}
+      </Link>
+    )
+  }
 
   return (
     <header className={styles.header}>
@@ -88,26 +138,16 @@ export function Header({ folderConfigs = [] }) {
           {siteConfig?.title || t('pages.home')}
         </Link>
 
-        {/* 桌面端导航 - 显示所有导航项 */}
-        <nav className={styles.nav}>
-          {allNavigation.map(item => (
-            <Link key={item.path} to={item.path} className={styles.navLink}>
-              {item.isDynamic ? item.name : getNavigationLabel(item.path, t)}
-            </Link>
-          ))}
-        </nav>
+        {/* 主导航 - 仅展示 placement=primary 的项 */}
+        <nav className={styles.nav}>{primaryNav.map(renderNavigationItem)}</nav>
 
-        {/* 移动端导航 - 只显示配置为 showInMobile 的项 */}
+        {/* 移动端主导航 - 与桌面端保持同一组 primary 项 */}
         <nav className={styles.mobileNav}>
-          {mobileVisibleNav.map(item => (
-            <Link key={item.path} to={item.path} className={styles.navLink}>
-              {item.isDynamic ? item.name : getNavigationLabel(item.path, t)}
-            </Link>
-          ))}
+          {primaryNav.map(renderNavigationItem)}
         </nav>
 
         <div className={styles.actions}>
-          {/* 汉堡菜单 - 仅在移动端显示 */}
+          {/* 菜单 - 展示 placement=menu 的项 */}
           <HamburgerMenu items={hamburgerItems} />
           <LanguageSwitcher />
           <ThemeSwitcher />

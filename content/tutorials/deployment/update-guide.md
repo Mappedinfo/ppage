@@ -58,6 +58,7 @@ npm run update
 ```
 
 这个命令会自动：
+
 1. ✅ 检查 Git 状态
 2. ✅ 配置上游仓库（如果未配置）
 3. ✅ 配置 Git 合并策略
@@ -214,6 +215,7 @@ git remote -v
 ```
 
 你应该看到：
+
 ```
 origin    https://github.com/yourusername/ppage.git (fetch)
 origin    https://github.com/yourusername/ppage.git (push)
@@ -247,7 +249,8 @@ A: 如果使用 `npm run update`，你的配置会被自动保护和恢复。如
 
 ### Q: 更新时出现冲突怎么办？
 
-A: 
+A:
+
 1. 使用 `npm run update` 时，你的用户文件会被自动恢复
 2. 只需要解决代码文件的冲突
 3. 运行 `git status` 查看冲突文件
@@ -264,7 +267,7 @@ A: 是的，对 `src/` 目录的修改可能会被覆盖或产生冲突。建议
 
 ### Q: 如何查看上游有哪些更新？
 
-A: 
+A:
 
 ```bash
 # 获取上游信息
@@ -294,7 +297,7 @@ git commit -m "Update specific file from upstream"
 
 ### Q: 更新失败了怎么办？
 
-A: 
+A:
 
 1. 如果使用了 `npm run update`，备份文件会被保留
 2. 查看错误信息，确定失败原因
@@ -322,6 +325,7 @@ git log HEAD..upstream/main --oneline
 ### 3. 文档化修改
 
 如果你修改了源代码，建议：
+
 - 在项目中创建 `CUSTOMIZATIONS.md` 记录修改
 - 使用 git commit 详细描述修改原因
 - 考虑向上游提交 PR
@@ -344,8 +348,8 @@ git merge test-update
 
 ## 📚 相关文档
 
-- [INIT_GUIDE.md](./INIT_GUIDE.md) - 初始化指南
-- [USER_GUIDE.md](./USER_GUIDE.md) - 使用指南
+- [初始化指南](../basic/init-guide.md) - 初始化指南
+- [用户使用指南](./user-guide.md) - 使用指南
 - [config.example.yml](./config.example.yml) - 配置文件示例
 
 ## 💡 获取帮助

@@ -10,6 +10,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import readline from 'readline'
 import { encryptContent, generateEncryptedMetadata } from './crypto.js'
+import { getContentDir, getConfigPath } from './lib/site.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -52,7 +53,7 @@ function loadEnvFile() {
  * @returns {Object} 加密配置
  */
 function loadEncryptionConfig() {
-  const configPath = path.join(rootDir, 'public', 'config.yml')
+  const configPath = getConfigPath()
 
   if (!fs.existsSync(configPath)) {
     log('警告: 配置文件不存在，使用默认设置', 'yellow')
@@ -291,7 +292,10 @@ async function main() {
   // 扫描所有需要加密的文件
   let allFiles = []
   for (const folder of config.protectedFolders) {
-    const folderPath = path.join(rootDir, folder)
+    const folderPath =
+      folder.replace(/^content\//, '') === folder
+        ? path.join(rootDir, folder)
+        : path.join(getContentDir(), folder.replace(/^content\//, ''))
     const files = scanMarkdownFiles(folderPath)
     allFiles = allFiles.concat(files)
   }

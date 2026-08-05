@@ -32,6 +32,7 @@ export const zh = {
     welcome: '欢迎',
     projectsSection: '项目',
     viewProject: '查看项目 →',
+    viewAllProjects: '查看全部项目',
   },
 
   // 关于页面

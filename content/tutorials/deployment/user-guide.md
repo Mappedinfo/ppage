@@ -46,16 +46,16 @@ npm install
 ```yaml
 # 站点基本信息
 site:
-  title: "你的名字"
-  description: "你的个人主页"
-  author: "你的名字"
+  title: '你的名字'
+  description: '你的个人主页'
+  author: '你的名字'
 
 # 个人资料
 profile:
-  name: "你的名字"
-  avatar: "/assets/images/avatar.jpg"
-  bio: "一句话介绍自己"
-  email: "your.email@example.com"
+  name: '你的名字'
+  avatar: '/assets/images/avatar.jpg'
+  bio: '一句话介绍自己'
+  email: 'your.email@example.com'
 
 # 更多配置见 public/config.yml 文件...
 ```
@@ -117,68 +117,68 @@ ppage/
 
 ```yaml
 site:
-  title: "站点标题"
-  description: "站点描述"
-  author: "作者名称"
-  baseUrl: "/"  # 部署路径，如 GitHub Pages 用 /repo-name/
+  title: '站点标题'
+  description: '站点描述'
+  author: '作者名称'
+  baseUrl: '/' # 部署路径，如 GitHub Pages 用 /repo-name/
 ```
 
 ### 个人资料
 
 ```yaml
 profile:
-  name: "你的名字"
-  avatar: "/assets/images/avatar.jpg"
-  bio: "个人简介"
-  email: "邮箱地址"
-  location: "所在地"
+  name: '你的名字'
+  avatar: '/assets/images/avatar.jpg'
+  bio: '个人简介'
+  email: '邮箱地址'
+  location: '所在地'
 ```
 
 ### 导航菜单
 
 ```yaml
 navigation:
-  - name: "首页"
-    path: "/"
-  - name: "关于"
-    path: "/about"
-  - name: "项目"
-    path: "/projects"
+  - name: '首页'
+    path: '/'
+  - name: '关于'
+    path: '/about'
+  - name: '项目'
+    path: '/projects'
 ```
 
 ### 主题配置
 
 ```yaml
 theme:
-  default: "light"       # 默认主题
-  available:             # 可用主题列表
-    - "light"
-    - "dark"
-    - "academic"
+  default: 'light' # 默认主题
+  available: # 可用主题列表
+    - 'light'
+    - 'dark'
+    - 'academic'
 ```
 
 ### 项目列表
 
 ```yaml
 projects:
-  - name: "项目名称"
-    description: "项目描述"
-    url: "项目链接"
+  - name: '项目名称'
+    description: '项目描述'
+    url: '项目链接'
     tags:
-      - "React"
-      - "Vite"
+      - 'React'
+      - 'Vite'
 ```
 
 ### 社交链接
 
 ```yaml
 social:
-  - name: "GitHub"
-    icon: "github"
-    url: "https://github.com/yourusername"
-  - name: "Email"
-    icon: "email"
-    url: "mailto:your.email@example.com"
+  - name: 'GitHub'
+    icon: 'github'
+    url: 'https://github.com/yourusername'
+  - name: 'Email'
+    icon: 'email'
+    url: 'mailto:your.email@example.com'
 ```
 
 ## 🎨 主题定制
@@ -206,10 +206,10 @@ social:
 
 ```yaml
 files:
-  - title: "我的简历"
-    description: "PDF 格式简历"
-    type: "pdf"
-    path: "/assets/files/resume.pdf"
+  - title: '我的简历'
+    description: 'PDF 格式简历'
+    type: 'pdf'
+    path: '/assets/files/resume.pdf'
     preview: true
 ```
 
@@ -236,6 +236,7 @@ deploy:
 ```
 
 **注意**：`deploy.sh` 脚本会自动执行以下步骤：
+
 1. 🧹 清理旧的 `dist` 目录
 2. 📦 构建项目（使用正确的 base 路径）
 3. 📤 部署到 GitHub Pages
@@ -256,6 +257,7 @@ deploy:
 ```
 
 **关于 CNAME 文件**：
+
 - 如果配置了 `customDomain`，脚本会自动生成 `CNAME` 文件
 - 每次部署都会保留并更新 CNAME 文件
 - 无需手动管理 CNAME 文件
@@ -319,7 +321,7 @@ npm run preview
 
 ### 项目技术栈
 
-- **前端框架**: React 18
+- **前端框架**: React 19
 - **构建工具**: Vite
 - **路由**: React Router
 - **Markdown**: markdown-it

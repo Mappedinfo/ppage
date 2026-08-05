@@ -1,6 +1,6 @@
 .hamburgerContainer {
   position: relative;
-  display: none;
+  display: block;
 }
 
 .hamburgerButton {
@@ -95,7 +95,6 @@
   background-color: var(--bg-tertiary);
 }
 
-/* 移动端显示汉堡菜单 */
 @media (max-width: 768px) {
   .hamburgerContainer {
     display: block;

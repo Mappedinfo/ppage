@@ -227,33 +227,41 @@ social:
 # ========================================
 # 导航菜单配置
 # ========================================
-# showInMobile: 控制在移动端是否默认显示 (false 则放入汉堡菜单)
+# placement: 控制导航显示位置，primary 显示在主导航，menu 放入菜单，hidden 隐藏
+# showInMobile: 旧配置，未设置 placement 时仍会兼容；false 会被视为 menu
 # order: 控制导航顺序，数值越小越靠前，默认按配置顺序（order 值从 999 开始）
 navigation:
   - name: "首页"
     path: "/"
+    placement: "primary"
     order: 1
   - name: "关于"
     path: "/about"
+    placement: "primary"
     order: 2
   - name: "项目"
     path: "/projects"
+    placement: "menu"
   - name: "博客"
     path: "/posts"
+    placement: "menu"
   - name: "文件"
     path: "/files"
+    placement: "menu"
   - name: "动态"
     path: "/news"
+    placement: "menu"
 
 # ========================================
 # 主题配置
 # ========================================
 theme:
-  default: "light"  # 可选: light, dark, academic
+  default: "light"  # 可选: light, dark, academic, glass
   available:
     - "light"
     - "dark"
     - "academic"
+    - "glass"
 
 # ========================================
 # 语言配置
@@ -289,6 +297,7 @@ projects:
   - name: "【请填写】项目名称"
     description: "【请填写】项目描述"
     url: "【请填写】https://github.com/yourusername/project"
+    featured: true
     tags:
       - "【请填写】标签1"
       - "【请填写】标签2"

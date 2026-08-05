@@ -27,7 +27,7 @@ PPage 是一个现代化的个人主页生成系统。
 
 ## 技术栈
 
-- React 18
+- React 19
 - Vite
 - markdown-it
 - js-yaml

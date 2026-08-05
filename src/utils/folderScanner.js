@@ -128,6 +128,7 @@ export async function loadFolderIndex(folderName) {
       layout: 'sidebar',
       icon: null,
       order: null,
+      placement: null,
     }
 
     // 解析 front matter 字段
@@ -166,6 +167,9 @@ export async function loadFolderIndex(folderName) {
           break
         case 'order':
           config.order = parseInt(value, 10)
+          break
+        case 'placement':
+          config.placement = value
           break
       }
     })
@@ -223,6 +227,7 @@ export async function generateFolderConfigs(siteConfig = {}) {
       hasIndex: !!indexConfig,
       // 从 config.yml 添加的配置
       showInNavigation: collectionConfig.showInNavigation ?? true,
+      placement: collectionConfig.placement ?? indexConfig?.placement,
       showInMobile: collectionConfig.showInMobile ?? false,
     }
 

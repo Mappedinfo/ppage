@@ -65,6 +65,16 @@ function getDefaultConfig() {
       default: 'light',
       available: ['light', 'dark'],
     },
+    language: {
+      default: 'zh',
+    },
+    features: {
+      ddlCalendar: {
+        enabled: false,
+        path: '/ddl-calendar/',
+        data: '/ddl-calendar/deadlines.yaml',
+      },
+    },
     content: {
       postsPath: '/content/posts',
       pagesPath: '/content/pages',

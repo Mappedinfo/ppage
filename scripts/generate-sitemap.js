@@ -10,17 +10,18 @@ import { dirname, join, relative } from 'path'
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs'
 import yaml from 'js-yaml'
 
+import { getContentDir, getConfigPath } from './lib/site.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
-const contentDir = join(rootDir, 'content')
+const contentDir = getContentDir()
 const distDir = join(rootDir, 'dist')
 
 /**
  * 加载站点配置
  */
 function loadConfig() {
-  const configPath = join(rootDir, 'public', 'config.yml')
+  const configPath = getConfigPath()
   try {
     const configContent = readFileSync(configPath, 'utf-8')
     return yaml.load(configContent)

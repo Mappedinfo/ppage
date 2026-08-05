@@ -95,10 +95,10 @@ npm run deploy
 
 ## 📚 文档
 
-- [USER_GUIDE.md](./USER_GUIDE.md) - 详细使用文档
+- [用户使用指南](./content/tutorials/deployment/user-guide.md) - 详细使用文档
 - [ENCRYPTION.md](./ENCRYPTION.md) - 内容加密功能使用指南 🆕
-- [INIT_GUIDE.md](./INIT_GUIDE.md) - `ppage init` 命令使用指南
-- [UPDATE_GUIDE.md](./UPDATE_GUIDE.md) - 如何安全地更新 fork 的代码
+- [初始化指南](./content/tutorials/basic/init-guide.md) - `ppage init` 命令使用指南
+- [更新指南](./content/tutorials/deployment/update-guide.md) - 如何安全地更新 fork 的代码
 - [LINT.md](./LINT.md) - 代码质量工具使用指南
 
 ## 💡 主要功能
@@ -214,7 +214,7 @@ npm run preview
 - ✅ 社交分享预览：完美支持
 - ✅ 用户体验：显著提升
 
-更多部署细节请查看 [USER_GUIDE.md 的部署指南](./USER_GUIDE.md#-部署指南)。
+更多部署细节请查看 [用户使用指南的部署章节](./content/tutorials/deployment/user-guide.md)。
 
 ## 🔄 Fork 后如何更新？
 
@@ -232,12 +232,12 @@ npm run update
 - `public/assets/` - 你的资源文件
 - `scripts/deploy.sh` - 你的部署脚本
 
-详细更新流程请查看 [UPDATE_GUIDE.md](./UPDATE_GUIDE.md)。
+详细更新流程请查看 [更新指南](./content/tutorials/deployment/update-guide.md)。
 
 ## 🔧 技术栈
 
-- **前端框架**：React 18 + Vite
-- **路由**：React Router 6
+- **前端框架**：React 19 + Vite
+- **路由**：React Router 7
 - **Markdown 渲染**：markdown-it
 - **SSG 预渲染**：构建时静态 HTML 生成 + React Hydration
 - **配置解析**：js-yaml

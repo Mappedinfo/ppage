@@ -26,7 +26,7 @@ This site is built with **PPage**, a pure frontend personal homepage generation 
 
 ## Tech Stack
 
-- **Frontend Framework**: React 18
+- **Frontend Framework**: React 19
 - **Build Tool**: Vite
 - **Markdown Rendering**: markdown-it
 - **Routing**: React Router

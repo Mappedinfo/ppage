@@ -25,11 +25,12 @@ import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTaskLists from 'markdown-it-task-lists'
 import hljs from 'highlight.js'
 import yaml from 'js-yaml'
+import { getContentDir } from './lib/site.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
-const contentDir = join(rootDir, 'content')
+const contentDir = getContentDir()
 const distDir = join(rootDir, 'dist')
 
 /**

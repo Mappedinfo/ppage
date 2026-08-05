@@ -90,14 +90,14 @@ content/
 ```yaml
 # 站点基本信息
 site:
-  title: "【请填写】你的网站标题"
-  description: "【请填写】网站描述"
-  author: "【请填写】你的名字"
+  title: '【请填写】你的网站标题'
+  description: '【请填写】网站描述'
+  author: '【请填写】你的名字'
 
 # 个人信息
 profile:
-  name: "【请填写】你的名字"
-  email: "【请填写】your.email@example.com"
+  name: '【请填写】你的名字'
+  email: '【请填写】your.email@example.com'
   # ...
 ```
 
@@ -150,6 +150,7 @@ cp _template/public-config.yml public/config.yml
 ### Q: 可以重复运行 init 命令吗？
 
 A: 可以，但要注意：
+
 - 再次运行会覆盖当前的 `content/` 和配置文件
 - 建议在运行前备份你已编辑的内容
 - `_template/` 目录会被更新为当前内容的备份
@@ -160,12 +161,12 @@ A: 在 `content/posts/` 目录下创建新的 Markdown 文件：
 
 ```markdown
 ---
-title: "文章标题"
-date: "2025-12-31"
-description: "文章描述"
+title: '文章标题'
+date: '2025-12-31'
+description: '文章描述'
 tags:
-  - "标签1"
-  - "标签2"
+  - '标签1'
+  - '标签2'
 ---
 
 # 文章内容
@@ -175,14 +176,15 @@ tags:
 
 ### Q: 如何添加文件下载链接？
 
-A: 
+A:
+
 1. 将文件放在 `content/files/` 目录下（如 `content/files/pdfs/my-paper.pdf`）
 2. 在 Markdown 中引用：`[下载论文](/content/files/pdfs/my-paper.pdf)`
 3. 系统会自动扫描并在文件页面展示
 
 ## 下一步
 
-- 📖 查看 [USER_GUIDE.md](./USER_GUIDE.md) 了解详细使用说明
+- 📖 查看 [用户使用指南](../deployment/user-guide.md) 了解详细使用说明
 - 🎨 编辑 `public/config.yml` 自定义网站外观
 - ✍️ 开始在 `content/posts/` 目录下创作你的第一篇文章
 - 🚀 准备好后运行 `npm run build` 构建生产版本
@@ -190,7 +192,8 @@ A:
 ## 技术支持
 
 如果遇到问题，请：
-1. 查看 [USER_GUIDE.md](./USER_GUIDE.md)
+
+1. 查看 [用户使用指南](../deployment/user-guide.md)
 2. 参考 `_template/` 目录中的示例
 3. 在 GitHub 上提交 Issue
 

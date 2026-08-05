@@ -19,6 +19,13 @@ import { DynamicDocumentPage } from './pages/DynamicDocumentPage'
 import { generateFolderConfigs } from './utils/folderScanner'
 import { getRouterBasename } from './utils/pathUtils'
 
+function normalizeNavigationPath(path) {
+  if (!path) return '/'
+
+  const withLeadingSlash = path.startsWith('/') ? path : `/${path}`
+  return withLeadingSlash === '/' ? '/' : withLeadingSlash.replace(/\/+$/, '')
+}
+
 /**
  * 页面标题管理组件
  * 监听路由变化，动态更新页面标题为：主标题 - 当前页面
@@ -32,6 +39,7 @@ function DocumentTitleManager({ folderConfigs }) {
   useEffect(() => {
     // 获取当前路径（去除开头的 /）
     const pathname = location.pathname.replace(/^\/*/, '')
+    const normalizedPath = normalizeNavigationPath(location.pathname)
 
     // 根据路径确定页面标题
     let pageTitle = ''
@@ -54,13 +62,24 @@ function DocumentTitleManager({ folderConfigs }) {
     } else if (pathname === 'links') {
       pageTitle = t('pages.links')
     } else {
+      const navigationItem = config?.navigation?.find(
+        item => normalizeNavigationPath(item.path) === normalizedPath
+      )
+
+      if (navigationItem?.name) {
+        pageTitle = navigationItem.name
+        document.title = `${siteTitle} - ${pageTitle}`
+        return
+      }
+
       // 检查是否是动态生成的文档集合页面
-      const folderConfig = folderConfigs.find(cfg => cfg.name === pathname)
+      const folderName = pathname.replace(/\/+$/, '')
+      const folderConfig = folderConfigs.find(cfg => cfg.name === folderName)
       if (folderConfig) {
-        pageTitle = folderConfig.title || pathname
+        pageTitle = folderConfig.title || folderName
       } else {
         // 未知页面，使用路径作为标题
-        pageTitle = pathname
+        pageTitle = folderName || pathname
       }
     }
 
@@ -70,7 +89,7 @@ function DocumentTitleManager({ folderConfigs }) {
     } else {
       document.title = siteTitle
     }
-  }, [location.pathname, siteTitle, folderConfigs, t])
+  }, [location.pathname, siteTitle, folderConfigs, config, t])
 
   return null // 这是一个纯逻辑组件，不渲染任何内容
 }
