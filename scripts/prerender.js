@@ -25,7 +25,7 @@ import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTaskLists from 'markdown-it-task-lists'
 import hljs from 'highlight.js'
 import yaml from 'js-yaml'
-import { getContentDir } from './lib/site.js'
+import { getContentDir, getConfigPath, resolveSiteUrl } from './lib/site.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -166,7 +166,7 @@ function scanMarkdownFiles(dir) {
  * 生成 HTML 模板
  */
 function generateHTML({ title, description, content, metadata, path, config }) {
-  const baseUrl = config?.site?.url || ''
+  const baseUrl = resolveSiteUrl(config) || ''
   const siteTitle = config?.site?.title || 'PPage'
   const author = config?.profile?.name || metadata?.author || ''
   const keywords = metadata?.tags?.join(', ') || metadata?.keywords || ''
@@ -268,7 +268,8 @@ function generateHTML({ title, description, content, metadata, path, config }) {
  * 加载站点配置
  */
 function loadConfig() {
-  const configPath = join(rootDir, 'public', 'config.yml')
+  // 使用站点 profile（PPAGE_SITE）对应的配置，与 Vite 构建、sitemap 保持一致
+  const configPath = getConfigPath()
   if (existsSync(configPath)) {
     try {
       const configContent = readFileSync(configPath, 'utf-8')
