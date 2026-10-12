@@ -67,34 +67,32 @@
     }
   </style>
   <script>
-    // GitHub Pages SPA 路由解决方案
-    // 简化版：直接将当前路径存储后重定向到首页
-    (function() {
+    // GitHub Pages 对未知路径返回本页（HTTP 404）。
+    // 页面路由：把完整路径存入 sessionStorage 后跳回站点根目录；
+    // 应用启动时（src/main.jsx）读取并恢复地址，由 React Router 渲染原页面。
+    // 静态文件（.md/.pdf/图片等）：不跳转，直接提示文件不存在。
+    (function () {
       var path = window.location.pathname;
       var search = window.location.search;
       var hash = window.location.hash;
-      
-      // 如果是静态资源（如 .md, .pdf 等），不进行重定向
-      if (path.match(/\.(md|pdf|jpg|jpeg|png|gif|svg|css|js|ico|json|xml|txt)$/i)) {
+      var fullPath = path + search + hash;
+
+      if (/\.(md|pdf|jpg|jpeg|png|gif|svg|css|js|ico|json|xml|txt|ya?ml)$/i.test(path)) {
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelector('.loader').style.display = 'none';
+          document.querySelector('h1').textContent = '文件不存在';
+          document.querySelector('p').textContent = '请求的文件不存在，请检查链接。';
+          document.getElementById('redirect-path').textContent = fullPath;
+        });
         return;
       }
-      
-      // 显示正在跳转的路径
-      var fullPath = path + search + hash;
-      document.addEventListener('DOMContentLoaded', function() {
-        var pathElement = document.getElementById('redirect-path');
-        if (pathElement) {
-          pathElement.textContent = fullPath;
-        }
-      });
-      
-      // 将完整路径保存到 sessionStorage
-      sessionStorage.setItem('redirectPath', fullPath);
-      
-      // 延迟重定向，让用户看到提示信息
-      setTimeout(function() {
-        window.location.replace('/');
-      }, 500);
+
+      try {
+        sessionStorage.setItem('redirectPath', fullPath);
+      } catch (e) {
+        // 无法写入存储（部分隐私模式）时仍回到首页，只是不会恢复原路径
+      }
+      window.location.replace('/');
     })();
   </script>
 </head>

@@ -172,11 +172,12 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       ppageSitePlugin(),
       react(),
-      // 复制 content 目录到构建输出
+      // 复制当前站点 profile 的 content 目录到构建输出（未启用 profile 时即产品根目录 content/）
+      // 注意：必须使用 profile 目录，否则产品自带的 demo 文件会随构建一起发布
       viteStaticCopy({
         targets: [
           {
-            src: 'content',
+            src: path.relative(rootDir, getContentDir()) || 'content',
             dest: ''
           }
         ]
@@ -242,6 +243,8 @@ export default defineConfig(({ command, mode }) => {
               execSync('node scripts/prerender.js', { stdio: 'inherit' });
               // 生成 sitemap 和 robots.txt
               execSync('node scripts/generate-sitemap.js', { stdio: 'inherit' });
+              // 为导航路由生成 200 响应的壳文件（GitHub Pages 无服务端重写）
+              execSync('node scripts/generate-route-shells.js', { stdio: 'inherit' });
               console.log('✨ SSG 预渲染完成！\n');
             } catch (error) {
               console.error('❌ SSG 预渲染失败:', error.message);

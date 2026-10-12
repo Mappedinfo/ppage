@@ -2,6 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { restoreRedirectPath } from './utils/spaRedirect'
+
+// 恢复 404.html 暂存的深链路径（GitHub Pages 没有服务端重写）
+restoreRedirectPath(window.sessionStorage, window.history, window.location)
 
 // 注销所有 Service Worker（清理遗留的 SW）
 if ('serviceWorker' in navigator) {

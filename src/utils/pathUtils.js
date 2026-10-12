@@ -4,6 +4,14 @@
  */
 
 /**
+ * 页面加载时的 pathname（模块求值时记录，早于 main.jsx 中的深链恢复）。
+ * 404 深链恢复会改写地址栏；若之后仍从当前地址推断 base，多级路径会得到错误的
+ * 部署前缀，导致 config.yml 等资源 404。因此 base 推断必须以加载时的地址为准。
+ */
+const LOAD_TIME_PATHNAME =
+  typeof window !== 'undefined' ? window.location.pathname : '/'
+
+/**
  * 获取当前应用的基础路径
  * 通过检测 script 标签的 src 属性来推断部署路径
  *
@@ -24,7 +32,7 @@ export function getBasePath() {
   // 因为 Vite 构建时使用了相对路径，script src 会是 './assets/index-xxx.js'
   // 我们需要从当前 URL 和 HTML 位置计算 base
 
-  const pathname = window.location.pathname
+  const pathname = LOAD_TIME_PATHNAME
 
   console.log('[pathUtils] Detecting base path...')
   console.log('[pathUtils] Current pathname:', pathname)
