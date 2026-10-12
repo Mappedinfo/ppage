@@ -57,6 +57,15 @@ if [ -z "$BRANCH" ]; then
   BRANCH="gh-pages"
 fi
 
+# 未选择站点 profile 时，CONFIG_FILE 指向产品自带的 demo 配置（public/config.yml），
+# 其部署仓库是产品仓库本身。为防止误把 demo 覆盖到线上站点，默认拒绝部署。
+if [ -z "$PPAGE_SITE" ] && [ "$PPAGE_DEPLOY_DEMO" != "1" ]; then
+  echo "❌ 未设置 PPAGE_SITE，本次会把产品自带的 demo 配置部署到: $REPOSITORY"
+  echo "   请在 .env.local 中写入 PPAGE_SITE=<站点名>（例如 PPAGE_SITE=shiqi）。"
+  echo "   确需部署 demo 时，设置 PPAGE_DEPLOY_DEMO=1 后重试。"
+  exit 1
+fi
+
 echo "✅ 仓库地址: $REPOSITORY"
 echo "✅ 部署分支: $BRANCH"
 
