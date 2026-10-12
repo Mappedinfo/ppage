@@ -83,3 +83,33 @@ export function getSitePublicDir() {
   const site = getSiteDir()
   return site ? path.join(site, 'public') : null
 }
+
+/**
+ * 解析站点的绝对地址（sitemap、robots、canonical 等需要绝对 URL 的场景）。
+ * 优先级：site.url > https://<deploy.customDomain> > GitHub Pages 默认地址。
+ * 无法确定时返回 null，由调用方决定降级方式，而不是回退到占位域名。
+ *
+ * @param {object|null} config - 已解析的 config.yml
+ * @returns {string|null} 不带末尾斜杠的绝对地址
+ */
+export function resolveSiteUrl(config) {
+  const explicit =
+    typeof config?.site?.url === 'string' ? config.site.url.trim() : ''
+  if (explicit) return explicit.replace(/\/+$/, '')
+
+  const domain =
+    typeof config?.deploy?.customDomain === 'string'
+      ? config.deploy.customDomain.trim()
+      : ''
+  if (domain)
+    return `https://${domain.replace(/^https?:\/\//, '').replace(/\/+$/, '')}`
+
+  const repo =
+    typeof config?.deploy?.repository === 'string'
+      ? config.deploy.repository.trim()
+      : ''
+  const match = repo.match(/github\.com[:/]([^/]+)\/([^/]+?)(?:\.git)?\/?$/)
+  if (match) return `https://${match[1]}.github.io/${match[2]}`
+
+  return null
+}

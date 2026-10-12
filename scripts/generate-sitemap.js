@@ -10,7 +10,7 @@ import { dirname, join, relative } from 'path'
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs'
 import yaml from 'js-yaml'
 
-import { getContentDir, getConfigPath } from './lib/site.js'
+import { getContentDir, getConfigPath, resolveSiteUrl } from './lib/site.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
@@ -103,11 +103,29 @@ function calculatePriority(path, metadata) {
   return '0.7'
 }
 
+/** 私密内容目录：不得出现在 sitemap 与 robots 中 */
+const PRIVATE_FOLDERS = ['protected']
+
+function isPrivatePath(relativePath) {
+  return PRIVATE_FOLDERS.includes(relativePath.split(/[\\/]/)[0])
+}
+
+/** 导航中的顶层页面名（与导航保持一致，如 about、links） */
+function mainPageSegments(config) {
+  const segments = []
+  for (const item of config?.navigation || []) {
+    const raw =
+      typeof item?.path === 'string' ? item.path.replace(/^\/+|\/+$/g, '') : ''
+    if (!raw || raw.includes('/')) continue
+    segments.push(raw)
+  }
+  return segments
+}
+
 /**
  * 生成 sitemap.xml
  */
-function generateSitemap(config) {
-  const baseUrl = config?.site?.url || 'https://example.com'
+function generateSitemap(config, baseUrl) {
   const markdownFiles = scanMarkdownFiles(contentDir)
 
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -127,8 +145,8 @@ function generateSitemap(config) {
   </url>
 `
 
-  // 添加主要页面
-  const mainPages = ['about', 'posts', 'pages', 'projects', 'files', 'news']
+  // 添加主要页面（与导航一致）
+  const mainPages = mainPageSegments(config)
   for (const page of mainPages) {
     sitemap += `  <url>
     <loc>${baseUrl}/${page}</loc>
@@ -142,6 +160,7 @@ function generateSitemap(config) {
   // 添加所有 Markdown 页面
   for (const filePath of markdownFiles) {
     const relativePath = relative(contentDir, filePath)
+    if (isPrivatePath(relativePath)) continue
     const urlPath = '/content/' + relativePath.replace('.md', '')
     const lastmod = getLastModified(filePath)
 
@@ -167,22 +186,26 @@ function generateSitemap(config) {
 }
 
 /**
- * 生成 robots.txt
+ * 生成 robots.txt。无法确定绝对地址时省略 Sitemap 行，不写入占位域名。
  */
-function generateRobotsTxt(config) {
-  const baseUrl = config?.site?.url || 'https://example.com'
-
-  return `# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: ${baseUrl}/sitemap.xml
-
-# 禁止爬取的路径
-Disallow: /assets/
-Disallow: /*.json$
-`
+function generateRobotsTxt(baseUrl) {
+  const lines = [
+    '# https://www.robotstxt.org/robotstxt.html',
+    'User-agent: *',
+    'Allow: /',
+    '',
+  ]
+  if (baseUrl) {
+    lines.push('# Sitemap', `Sitemap: ${baseUrl}/sitemap.xml`, '')
+  }
+  lines.push(
+    '# 禁止爬取的路径',
+    'Disallow: /assets/',
+    'Disallow: /*.json$',
+    'Disallow: /content/protected/',
+    ''
+  )
+  return lines.join('\n')
 }
 
 /**
@@ -193,15 +216,22 @@ function main() {
 
   // 加载配置
   const config = loadConfig()
+  const baseUrl = resolveSiteUrl(config)
 
-  // 生成 sitemap.xml
-  const sitemap = generateSitemap(config)
-  const sitemapPath = join(distDir, 'sitemap.xml')
-  writeFileSync(sitemapPath, sitemap, 'utf-8')
-  console.log('✅ sitemap.xml 已生成')
+  // 生成 sitemap.xml（sitemap 必须是绝对 URL；无法确定时跳过，而不是写入占位域名）
+  if (baseUrl) {
+    const sitemap = generateSitemap(config, baseUrl)
+    const sitemapPath = join(distDir, 'sitemap.xml')
+    writeFileSync(sitemapPath, sitemap, 'utf-8')
+    console.log(`✅ sitemap.xml 已生成（${baseUrl}）`)
+  } else {
+    console.warn(
+      '⚠️  无法确定站点绝对地址（site.url / deploy.customDomain / deploy.repository），跳过 sitemap.xml'
+    )
+  }
 
   // 生成 robots.txt
-  const robotsTxt = generateRobotsTxt(config)
+  const robotsTxt = generateRobotsTxt(baseUrl)
   const robotsPath = join(distDir, 'robots.txt')
   writeFileSync(robotsPath, robotsTxt, 'utf-8')
   console.log('✅ robots.txt 已生成')
