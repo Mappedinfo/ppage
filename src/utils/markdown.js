@@ -1,7 +1,65 @@
 import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTaskLists from 'markdown-it-task-lists'
-import hljs from 'highlight.js'
+import hljs from 'highlight.js/lib/core'
+import bash from 'highlight.js/lib/languages/bash'
+import c from 'highlight.js/lib/languages/c'
+import cpp from 'highlight.js/lib/languages/cpp'
+import csharp from 'highlight.js/lib/languages/csharp'
+import css from 'highlight.js/lib/languages/css'
+import diff from 'highlight.js/lib/languages/diff'
+import dockerfile from 'highlight.js/lib/languages/dockerfile'
+import go from 'highlight.js/lib/languages/go'
+import ini from 'highlight.js/lib/languages/ini'
+import java from 'highlight.js/lib/languages/java'
+import javascript from 'highlight.js/lib/languages/javascript'
+import json from 'highlight.js/lib/languages/json'
+import kotlin from 'highlight.js/lib/languages/kotlin'
+import markdown from 'highlight.js/lib/languages/markdown'
+import nginx from 'highlight.js/lib/languages/nginx'
+import php from 'highlight.js/lib/languages/php'
+import python from 'highlight.js/lib/languages/python'
+import r from 'highlight.js/lib/languages/r'
+import ruby from 'highlight.js/lib/languages/ruby'
+import rust from 'highlight.js/lib/languages/rust'
+import sql from 'highlight.js/lib/languages/sql'
+import swift from 'highlight.js/lib/languages/swift'
+import typescript from 'highlight.js/lib/languages/typescript'
+import xml from 'highlight.js/lib/languages/xml'
+import yaml from 'highlight.js/lib/languages/yaml'
+
+// 按需注册语言，替代全量 highlight.js（未注册的语言自动回退为默认转义）。
+// 站点内容实际使用：jsx/bash/yaml/javascript/markdown/json/css/python。
+const LANGUAGES = {
+  bash,
+  c,
+  cpp,
+  csharp,
+  css,
+  diff,
+  dockerfile,
+  go,
+  ini,
+  java,
+  javascript, // 含 js/jsx/mjs/cjs 别名
+  json,
+  kotlin,
+  markdown, // 含 md 别名
+  nginx,
+  php,
+  python, // 含 py 别名
+  r,
+  ruby,
+  rust,
+  sql,
+  swift,
+  typescript, // 含 ts 别名
+  xml, // 含 html/svg 别名
+  yaml, // 含 yml 别名
+}
+for (const [name, language] of Object.entries(LANGUAGES)) {
+  hljs.registerLanguage(name, language)
+}
 
 /**
  * 创建配置好的 Markdown-it 实例
