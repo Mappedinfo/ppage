@@ -180,6 +180,7 @@ function generateHTML({ title, description, content, metadata, path, config }) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${config ? `<script>window.__PPAGE_CONFIG__ = ${JSON.stringify(config).replace(/</g, '\\u003c')};</script>` : ''}
   
   <!-- 基础 SEO -->
   <title>${fullTitle}</title>

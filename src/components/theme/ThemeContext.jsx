@@ -12,7 +12,13 @@ const ThemeContext = createContext(null)
 function getInitialTheme(themeConfig) {
   if (!themeConfig) return null
 
-  const savedTheme = localStorage.getItem('ppage-theme')
+  // SSR（预渲染）或隐私模式下没有 localStorage
+  let savedTheme = null
+  try {
+    savedTheme = localStorage.getItem('ppage-theme')
+  } catch (error) {
+    savedTheme = null
+  }
   const initialTheme = savedTheme || themeConfig.default
 
   return themeConfig.available.includes(initialTheme)

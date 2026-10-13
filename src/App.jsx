@@ -94,7 +94,7 @@ function DocumentTitleManager({ folderConfigs }) {
   return null // 这是一个纯逻辑组件，不渲染任何内容
 }
 
-function AppContent() {
+function AppContent({ RouterComponent = BrowserRouter, routerProps }) {
   const { config } = useConfig() // 获取完整的配置对象
   const [folderConfigs, setFolderConfigs] = useState([])
   const [loading, setLoading] = useState(true)
@@ -136,7 +136,7 @@ function AppContent() {
         <FaviconManager />
 
         {/* Google Analytics */}
-        <BrowserRouter basename={basename}>
+        <RouterComponent basename={basename} {...(routerProps || {})}>
           <GoogleAnalytics />
 
           {/* 页面标题管理 */}
@@ -166,16 +166,23 @@ function AppContent() {
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </RouterComponent>
       </ThemeProvider>
     </I18nProvider>
   )
 }
 
-function App() {
+/**
+ * 应用入口。
+ * @param {object} props
+ * @param {React.ComponentType} props.RouterComponent - 路由组件，默认 BrowserRouter；SSR 预渲染时传 MemoryRouter
+ * @param {object} props.routerProps - 传给路由组件的额外属性
+ * @param {object} props.initialConfig - SSR 预渲染时注入的站点配置
+ */
+function App({ RouterComponent, routerProps, initialConfig }) {
   return (
-    <ConfigProvider>
-      <AppContent />
+    <ConfigProvider initialConfig={initialConfig}>
+      <AppContent RouterComponent={RouterComponent} routerProps={routerProps} />
     </ConfigProvider>
   )
 }

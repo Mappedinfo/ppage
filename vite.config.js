@@ -4,6 +4,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { execSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
+import yaml from 'js-yaml'
 // config.yml / content / assets / public(根级文件)，build 时覆盖写入 dist。未启用时全部 no-op。
 import { getSiteDir, getSiteName, getContentDir, getConfigPath, getAssetsDir, getSitePublicDir, copyDir } from './scripts/lib/site.js'
 const rootDir = process.cwd()
@@ -27,6 +28,36 @@ function getContentType(filePath) {
 function isInside(parentDir, targetPath) {
   const relative = path.relative(parentDir, targetPath)
   return Boolean(relative) && !relative.startsWith('..') && !path.isAbsolute(relative)
+}
+
+/**
+ * 把站点配置内联进 index.html（window.__PPAGE_CONFIG__），
+ * 应用启动时同步可用，省掉 "HTML -> JS -> config.yml" 的一环运行时瀑布。
+ */
+function ppageInlineConfigPlugin() {
+  return {
+    name: 'ppage-inline-config',
+    transformIndexHtml(html) {
+      try {
+        const config = yaml.load(fs.readFileSync(getConfigPath(), 'utf-8'))
+        // 转义 < 防止内容中出现 </script> 提前闭合标签
+        const json = JSON.stringify(config).replace(/</g, '\\u003c')
+        return {
+          html,
+          tags: [
+            {
+              tag: 'script',
+              children: `window.__PPAGE_CONFIG__ = ${json};`,
+              injectTo: 'head',
+            },
+          ],
+        }
+      } catch (error) {
+        console.warn('[ppage-inline-config] 配置内联失败，回退为运行时加载:', error.message)
+        return html
+      }
+    },
+  }
 }
 
 function ensureDdlCalendarDist() {
@@ -115,7 +146,7 @@ function serveDdlCalendarDevRoute(req, res, next) {
 
 // 站点 profile 覆盖插件：PPAGE_SITE 启用时，dev 从 sites/<name>/ 伺服
 // config.yml / content / assets，build 时覆盖写入 dist。未启用时全部 no-op。
-function ppageSitePlugin() {
+function ppageSitePlugin(isSsrBuild) {
   const siteDir = getSiteDir()
   return {
     name: 'ppage-site-override',
@@ -146,8 +177,8 @@ function ppageSitePlugin() {
       })
     },
     closeBundle() {
-      // closeBundle 仅在 build 时触发
-      if (!siteDir) return
+      // closeBundle 仅在 build 时触发；SSR 入口构建不需要重复写入 dist
+      if (!siteDir || isSsrBuild) return
       console.log(`\n🌐 写入站点 profile "${getSiteName()}" 到 dist...`)
       const dist = path.join(rootDir, 'dist')
       if (fs.existsSync(getConfigPath())) fs.copyFileSync(getConfigPath(), path.join(dist, 'config.yml'))
@@ -159,7 +190,7 @@ function ppageSitePlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command, mode, isSsrBuild }) => {
   // 使用相对路径，自动适配任何部署路径
   // './' 表示相对于当前 HTML 文件的路径
   // 优点：
@@ -170,7 +201,8 @@ export default defineConfig(({ command, mode }) => {
   
   return {
     plugins: [
-      ppageSitePlugin(),
+      ppageInlineConfigPlugin(),
+      ppageSitePlugin(isSsrBuild),
       react(),
       // 复制当前站点 profile 的 content 目录到构建输出（未启用 profile 时即产品根目录 content/）
       // 注意：必须使用 profile 目录，否则产品自带的 demo 文件会随构建一起发布
@@ -236,7 +268,7 @@ export default defineConfig(({ command, mode }) => {
       {
         name: 'ssg-prerender',
         closeBundle() {
-          if (command === 'build') {
+          if (command === 'build' && !isSsrBuild) {
             console.log('\n🚀 开始执行 SSG 预渲染...');
             try {
               // 执行预渲染脚本
@@ -244,7 +276,7 @@ export default defineConfig(({ command, mode }) => {
               // 生成 sitemap 和 robots.txt
               execSync('node scripts/generate-sitemap.js', { stdio: 'inherit' });
               // 为导航路由生成 200 响应的壳文件（GitHub Pages 无服务端重写）
-              execSync('node scripts/generate-route-shells.js', { stdio: 'inherit' });
+              execSync('node scripts/prerender-routes.js', { stdio: 'inherit' });
               console.log('✨ SSG 预渲染完成！\n');
             } catch (error) {
               console.error('❌ SSG 预渲染失败:', error.message);

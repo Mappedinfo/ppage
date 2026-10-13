@@ -29,7 +29,10 @@ export function I18nProvider({ children }) {
   // 初始化语言：优先从 localStorage 读取，其次使用配置默认语言
   const [language, setLanguage] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY)
+      const saved =
+        typeof localStorage !== 'undefined'
+          ? localStorage.getItem(STORAGE_KEY)
+          : null
       return saved && SUPPORTED_LANGUAGES.includes(saved)
         ? saved
         : configuredDefaultLanguage

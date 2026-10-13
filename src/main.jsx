@@ -4,8 +4,13 @@ import './index.css'
 import App from './App.jsx'
 import { restoreRedirectPath } from './utils/spaRedirect'
 
-// 恢复 404.html 暂存的深链路径（GitHub Pages 没有服务端重写）
-restoreRedirectPath(window.sessionStorage, window.history, window.location)
+// 恢复 404.html 暂存的深链路径（GitHub Pages 没有服务端重写）。
+// 返回 true 表示地址已改写：此时预渲染 DOM 属于旧地址，改用 createRoot 全量渲染。
+const restored = restoreRedirectPath(
+  window.sessionStorage,
+  window.history,
+  window.location
+)
 
 // 注销所有 Service Worker（清理遗留的 SW）
 if ('serviceWorker' in navigator) {
@@ -20,6 +25,7 @@ if ('serviceWorker' in navigator) {
 // 检测是否是 SSG 预渲染页面
 const rootElement = document.getElementById('root')
 const isPrerendered =
+  !restored &&
   rootElement &&
   rootElement.hasChildNodes() &&
   document.querySelector('meta[name="prerender"]')

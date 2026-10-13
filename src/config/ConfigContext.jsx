@@ -6,14 +6,36 @@ import { ensureValidConfig } from './validator'
 const ConfigContext = createContext(null)
 
 /**
+ * 启动配置：SSR 传入的 initialConfig，或构建时内联的 window.__PPAGE_CONFIG__。
+ * 任一可用时即可同步渲染首屏，省掉 "HTML -> JS -> config.yml" 的运行时瀑布。
+ */
+function getBootstrapConfig(initialConfig) {
+  const source =
+    initialConfig ??
+    (typeof window !== 'undefined' ? window.__PPAGE_CONFIG__ : null)
+  if (!source) return null
+  try {
+    return ensureValidConfig(source)
+  } catch (err) {
+    console.error('内联配置验证失败，回退为运行时加载:', err)
+    return null
+  }
+}
+
+/**
  * 配置提供者组件
  */
-export function ConfigProvider({ children }) {
-  const [config, setConfig] = useState(null)
-  const [loading, setLoading] = useState(true)
+export function ConfigProvider({ children, initialConfig }) {
+  const [bootstrap] = useState(() => getBootstrapConfig(initialConfig))
+  const [config, setConfig] = useState(bootstrap)
+  const [loading, setLoading] = useState(!bootstrap)
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (config) {
+      // 已有内联/SSR 配置，无需运行时加载
+      return
+    }
     async function fetchConfig() {
       try {
         setLoading(true)

@@ -21,11 +21,12 @@ export function GoogleAnalytics() {
   const measurementId = analyticsConfig.googleAnalytics
   const enableInDev = analyticsConfig.enableInDev || false
 
-  // 检测是否为开发环境
+  // 检测是否为开发环境（SSR 预渲染时没有 window）
   const isDevelopment =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.hostname === ''
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === '')
 
   // 初始化 Google Analytics
   useEffect(() => {
